@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import Hero from '@/components/landing/Hero';
 import Footer from '@/components/landing/Footer';
+import Card from '@/components/ui/Card';
 import StatsSection from '@/components/landing/StatsSection';
 import CourseCard from '@/components/shared/CourseCard';
 
@@ -52,8 +53,15 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-500">
             {filteredCourses.length > 0 ? (
-              filteredCourses.map((course) => (
-                <CourseCard key={course.id} {...course} />
+              filteredCourses.map((course, index) => (
+                index === 0 ? (
+                  <Card key={course.id} className="p-4">
+                    <h3 className="text-lg font-bold">تجربة الكارد الجديد</h3>
+                    <p className="text-gray-600">هذا كارد مخصص من نظام التصميم</p>
+                  </Card>
+                ) : (
+                  <CourseCard key={course.id} {...course} />
+                )
               ))
             ) : (
               <div className="col-span-full text-center py-10">
