@@ -194,7 +194,7 @@ function SidebarItem({ icon, label, active = false, isDarkMode }: { icon: React.
 
 function StatCard({ icon, value, label, isDarkMode }: { icon: React.ReactNode; value: string; label: string; isDarkMode: boolean }) {
   return (
-    <div className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'} px-6 py-4 rounded-2xl border flex items-center gap-4 shadow-sm min-w-[140px]`}>
+    <div className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'} px-6 py-4 rounded-2xl border flex items-center gap-4 shadow-sm min-w-35`}>
       <div className={`p-2 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>{icon}</div>
       <div>
         <div className={`text-xl font-black ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>{value}</div>

@@ -82,7 +82,7 @@ export default function CoursePlayer() {
             <TabButton active={activeTab === 'resources'} onClick={() => setActiveTab('resources')} label="المصادر" />
           </div>
 
-          <div className="bg-white p-6 rounded-3xl border border-gray-100 min-h-[200px]">
+          <div className="bg-white p-6 rounded-3xl border border-gray-100 min-h-50">
             {activeTab === 'overview' && (
               <div className="space-y-4">
                 <p className="text-gray-600 leading-relaxed font-bold">في هذا الدرس، سنتعلم كيفية تحويل VS Code إلى بيئة تطوير احترافية تدعم Next.js 15 و Tailwind CSS v4 بشكل كامل.</p>
