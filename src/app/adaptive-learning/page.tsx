@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Brain, Target, Zap, TrendingUp, Award, BookOpen, Clock, BarChart3, Lightbulb, CheckCircle, AlertCircle, Star, Users, Calendar, Activity, Settings, RefreshCw, Play, Pause, SkipForward, Volume2 } from 'lucide-react';
+import { Brain, Target, Zap, TrendingUp, Award, BookOpen, Clock, BarChart3, Lightbulb, CheckCircle, AlertCircle, Star, Users, Calendar, Activity, Settings, RefreshCw, Play, Pause, SkipForward, Volume2, ArrowLeft, Home, Search, Bell, MessageSquare, TrendingUp as TrendUpIcon, BarChart3 as BarChartIcon } from 'lucide-react';
+import Link from 'next/link';
 
 interface AdaptiveLearningProfile {
   userId: string;
@@ -364,6 +365,74 @@ export default function AdaptiveLearningPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4 space-x-reverse">
+              <Link 
+                href="/"
+                className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors"
+              >
+                <Home size={18} />
+                <span className="text-sm font-medium">الرئيسية</span>
+              </Link>
+              
+              <div className="w-px h-4 bg-gray-300"></div>
+              
+              <div className="flex items-center gap-3">
+                <Link 
+                  href="/playlist"
+                  className="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors text-sm"
+                  title="قائمة التشغيل"
+                >
+                  <Play size={16} />
+                  <span>قائمة التشغيل</span>
+                </Link>
+
+                <Link 
+                  href="/notifications"
+                  className="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors text-sm"
+                  title="الإشعارات"
+                >
+                  <Bell size={16} />
+                  <span>الإشعارات</span>
+                </Link>
+
+                <Link 
+                  href="/forums"
+                  className="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors text-sm"
+                  title="المنتديات"
+                >
+                  <MessageSquare size={16} />
+                  <span>المنتديات</span>
+                </Link>
+
+                <Link 
+                  href="/progress"
+                  className="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors text-sm"
+                  title="التقدم"
+                >
+                  <TrendUpIcon size={16} />
+                  <span>التقدم</span>
+                </Link>
+
+                <Link 
+                  href="/leaderboard"
+                  className="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors text-sm"
+                  title="المتصدرين"
+                >
+                  <BarChartIcon size={16} />
+                  <span>المتصدرين</span>
+                </Link>
+
+                <Link 
+                  href="/search"
+                  className="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors text-sm"
+                  title="البحث"
+                >
+                  <Search size={16} />
+                  <span>بحث</span>
+                </Link>
+              </div>
+              
+              <div className="w-px h-4 bg-gray-300"></div>
+              
               <h1 className="text-xl font-bold flex items-center space-x-2 space-x-reverse">
                 <Brain className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 <span>التعلم التكيفي الذكي</span>

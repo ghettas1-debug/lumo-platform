@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Search, LayoutDashboard, Menu, X, ShoppingCart, User, BookOpen, GraduationCap, Award, HelpCircle, DollarSign } from 'lucide-react';
+import { Search, LayoutDashboard, Menu, X, ShoppingCart, User, BookOpen, GraduationCap, Award, HelpCircle, DollarSign, Play, Bell, MessageSquare, TrendingUp, BarChart3, Brain, Settings } from 'lucide-react';
 import { useState } from 'react';
 import ThemeToggle from '../../components/ThemeToggle';
 import LanguageSelector from '../../components/LanguageSelector';
@@ -38,34 +38,95 @@ export default function Navbar() {
         </div>
 
         {/* القسم الأيسر: الروابط - للشاشات الكبيرة */}
-        <div className="hidden md:flex items-center gap-6">
-          <Link 
-            href="/courses" 
-            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
-          >
-            <BookOpen size={18} />
-            <span>الدورات</span>
-          </Link>
+        <div className="hidden lg:flex items-center gap-4">
+          {/* الميزات التعليمية */}
+          <div className="flex items-center gap-2 border-l border-gray-300 pl-4">
+            <Link 
+              href="/playlist" 
+              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+              title="قائمة التشغيل"
+            >
+              <Play size={18} />
+              <span>قائمة التشغيل</span>
+            </Link>
 
-          <Link 
-            href="/instructors" 
-            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
-          >
-            <GraduationCap size={18} />
-            <span>المدربون</span>
-          </Link>
+            <Link 
+              href="/adaptive-learning" 
+              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+              title="التعلم التكيفي"
+            >
+              <Brain size={18} />
+              <span>التعلم التكيفي</span>
+            </Link>
 
-          <Link 
-            href="/pricing" 
-            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
-          >
-            <DollarSign size={18} />
-            <span>الأسعار</span>
-          </Link>
+            <Link 
+              href="/reviews" 
+              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+              title="المراجعات والتقييمات"
+            >
+              <Award size={18} />
+              <span>التقييمات</span>
+            </Link>
+          </div>
 
-          <ThemeToggle />
-          <LanguageSelector />
+          {/* الميزات التفاعلية */}
+          <div className="flex items-center gap-2 border-l border-gray-300 pl-4">
+            <Link 
+              href="/notifications" 
+              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+              title="الإشعارات والتذكيرات"
+            >
+              <Bell size={18} />
+              <span>الإشعارات</span>
+            </Link>
 
+            <Link 
+              href="/forums" 
+              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+              title="منتديات النقاش"
+            >
+              <MessageSquare size={18} />
+              <span>المنتديات</span>
+            </Link>
+          </div>
+
+          {/* الميزات التحليلية */}
+          <div className="flex items-center gap-2 border-l border-gray-300 pl-4">
+            <Link 
+              href="/progress" 
+              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+              title="مشاركة التقدم"
+            >
+              <TrendingUp size={18} />
+              <span>التقدم</span>
+            </Link>
+
+            <Link 
+              href="/leaderboard" 
+              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+              title="لوحة المتصدرين"
+            >
+              <BarChart3 size={18} />
+              <span>المتصدرين</span>
+            </Link>
+          </div>
+
+          {/* الإعدادات والأدوات */}
+          <div className="flex items-center gap-2 border-l border-gray-300 pl-4">
+            <ThemeToggle />
+            <LanguageSelector />
+
+            <Link 
+              href="/search" 
+              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+              title="البحث المتقدم"
+            >
+              <Search size={18} />
+              <span>بحث</span>
+            </Link>
+          </div>
+
+          {/* الروابط الأصلية */}
           <Link 
             href="/dashboard" 
             className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
@@ -131,19 +192,58 @@ export default function Navbar() {
             </Link>
           </div>
           
-          <Link href="/courses" className="text-gray-600 font-medium py-2 flex items-center gap-2">
-            <BookOpen size={18} />
-            الدورات
-          </Link>
+          {/* الميزات التعليمية */}
+          <div className="space-y-2">
+            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">الميزات التعليمية</h3>
+            <Link href="/playlist" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <Play size={18} />
+              قائمة التشغيل
+            </Link>
+            
+            <Link href="/adaptive-learning" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <Brain size={18} />
+              التعلم التكيفي
+            </Link>
+            
+            <Link href="/reviews" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <Award size={18} />
+              التقييمات
+            </Link>
+          </div>
           
-          <Link href="/instructors" className="text-gray-600 font-medium py-2 flex items-center gap-2">
-            <GraduationCap size={18} />
-            المدربون
-          </Link>
+          {/* الميزات التفاعلية */}
+          <div className="space-y-2">
+            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">الميزات التفاعلية</h3>
+            <Link href="/notifications" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <Bell size={18} />
+              الإشعارات
+            </Link>
+            
+            <Link href="/forums" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <MessageSquare size={18} />
+              المنتديات
+            </Link>
+          </div>
           
-          <Link href="/pricing" className="text-gray-600 font-medium py-2 flex items-center gap-2">
-            <DollarSign size={18} />
-            الأسعار
+          {/* الميزات التحليلية */}
+          <div className="space-y-2">
+            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">الميزات التحليلية</h3>
+            <Link href="/progress" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <TrendingUp size={18} />
+              التقدم
+            </Link>
+            
+            <Link href="/leaderboard" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <BarChart3 size={18} />
+              المتصدرين
+            </Link>
+          </div>
+          
+          <hr />
+          
+          <Link href="/dashboard" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+            <LayoutDashboard size={18} />
+            لوحة التحكم
           </Link>
           
           <Link href="/cart" className="text-gray-600 font-medium py-2 flex items-center gap-2">
@@ -151,30 +251,25 @@ export default function Navbar() {
             السلة
           </Link>
           
-          <Link href="/dashboard" className="text-gray-600 font-medium py-2 flex items-center gap-2">
-            <LayoutDashboard size={18} />
-            لوحة التحكم
-          </Link>
-          
           <Link href="/profile" className="text-gray-600 font-medium py-2 flex items-center gap-2">
             <User size={18} />
             حسابي
           </Link>
           
-          <Link href="/certificates" className="text-gray-600 font-medium py-2 flex items-center gap-2">
-            <Award size={18} />
-            شهاداتي
-          </Link>
-          
-          <Link href="/faq" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+          <Link href="/help" className="text-gray-600 font-medium py-2 flex items-center gap-2">
             <HelpCircle size={18} />
             المساعدة
           </Link>
           
           <hr />
           
+          <div className="flex items-center justify-between py-2">
+            <ThemeToggle />
+            <LanguageSelector />
+          </div>
+          
           <Link href="/login" className="w-full text-center py-2 text-gray-600 font-medium inline-block">دخول</Link>
-          <Link href="/pricing" className="w-full bg-blue-600 text-white text-center py-3 rounded-xl font-bold inline-block">انضم مجاناً</Link>
+          <Link href="/signup" className="w-full bg-blue-600 text-white text-center py-3 rounded-xl font-bold inline-block">انضم مجاناً</Link>
         </div>
       )}
     </nav>
