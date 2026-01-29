@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Search, LayoutDashboard, Menu, X, ShoppingCart, User, BookOpen, GraduationCap, Award, HelpCircle, DollarSign, Play, Bell, MessageSquare, TrendingUp, BarChart3, Brain, Settings } from 'lucide-react';
+import { Search, LayoutDashboard, Menu, X, ShoppingCart, User, BookOpen, GraduationCap, Award, HelpCircle, DollarSign, Play, Bell, MessageSquare, TrendingUp, BarChart3, Brain, Settings, Users, Target, Smartphone, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import ThemeToggle from '../../components/ThemeToggle';
 import LanguageSelector from '../../components/LanguageSelector';
@@ -22,7 +22,7 @@ export default function Navbar() {
           </Link>
 
           {/* شريط البحث - يختفي في الجوال */}
-          <div className="hidden lg:flex relative w-full max-w-md">
+          <div className="hidden lg:flex relative w-full max-w-sm">
             <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-gray-400">
               <Search size={18} />
             </div>
@@ -38,29 +38,40 @@ export default function Navbar() {
         </div>
 
         {/* القسم الأيسر: الروابط - للشاشات الكبيرة */}
-        <div className="hidden lg:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-3">
           {/* الروابط الأساسية فقط */}
           <Link 
             href="/dashboard" 
             className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+            title="لوحة التحكم"
           >
             <LayoutDashboard size={18} />
-            <span>لوحة التحكم</span>
+            <span className="hidden xl:inline">لوحة التحكم</span>
           </Link>
 
           <Link 
             href="/courses" 
             className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+            title="الدورات"
           >
             <BookOpen size={18} />
-            <span>الدورات</span>
+            <span className="hidden xl:inline">الدورات</span>
+          </Link>
+
+          <Link 
+            href="/platform-guide" 
+            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+            title="دليل المنصة"
+          >
+            <Sparkles size={18} />
+            <span className="hidden xl:inline">دليل المنصة</span>
           </Link>
 
           {/* قائمة الميزات المنسدلة */}
           <div className="relative group">
-            <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm">
+            <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm" title="الميزات">
               <Settings size={18} />
-              <span>الميزات</span>
+              <span className="hidden xl:inline">الميزات</span>
             </button>
             
             {/* القائمة المنسدلة */}
@@ -91,6 +102,13 @@ export default function Navbar() {
                       <Award size={16} />
                       <span>التقييمات</span>
                     </Link>
+                    <Link 
+                      href="/learning-path" 
+                      className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 px-3 rounded hover:bg-blue-50"
+                    >
+                      <Target size={16} />
+                      <span>مسار التعلم</span>
+                    </Link>
                   </div>
                 </div>
 
@@ -112,11 +130,18 @@ export default function Navbar() {
                       <MessageSquare size={16} />
                       <span>المنتديات</span>
                     </Link>
+                    <Link 
+                      href="/course-community" 
+                      className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 px-3 rounded hover:bg-blue-50"
+                    >
+                      <Users size={16} />
+                      <span>مجتمع الدورة</span>
+                    </Link>
                   </div>
                 </div>
 
                 {/* الميزات التحليلية */}
-                <div>
+                <div className="mb-4">
                   <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">الميزات التحليلية</h4>
                   <div className="space-y-1">
                     <Link 
@@ -135,49 +160,94 @@ export default function Navbar() {
                     </Link>
                   </div>
                 </div>
+
+                {/* ميزات المنصة العالمية */}
+                <div>
+                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">ميزات المنصة العالمية</h4>
+                  <div className="space-y-1">
+                    <Link 
+                      href="/trust" 
+                      className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 px-3 rounded hover:bg-blue-50"
+                    >
+                      <Award size={16} />
+                      <span>عناصر الثقة</span>
+                    </Link>
+                    <Link 
+                      href="/content-management" 
+                      className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 px-3 rounded hover:bg-blue-50"
+                    >
+                      <Settings size={16} />
+                      <span>إدارة المحتوى</span>
+                    </Link>
+                    <Link 
+                      href="/design-system" 
+                      className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 px-3 rounded hover:bg-blue-50"
+                    >
+                      <LayoutDashboard size={16} />
+                      <span>نظام التصميم</span>
+                    </Link>
+                    <Link 
+                      href="/mobile-experience" 
+                      className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 px-3 rounded hover:bg-blue-50"
+                    >
+                      <Smartphone size={16} />
+                      <span>تجربة الجوال</span>
+                    </Link>
+                    <Link 
+                      href="/polish" 
+                      className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 px-3 rounded hover:bg-blue-50"
+                    >
+                      <Sparkles size={16} />
+                      <span>تفاصيل دقيقة</span>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* الأدوات */}
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <LanguageSelector />
           </div>
 
           {/* الروابط المهمة */}
           <Link 
             href="/search" 
             className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+            title="بحث"
           >
             <Search size={18} />
-            <span>بحث</span>
+            <span className="hidden xl:inline">بحث</span>
           </Link>
 
-          <Link 
-            href="/cart" 
-            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm relative"
-          >
-            <ShoppingCart size={18} />
-            <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-            <span>السلة</span>
-          </Link>
+          {/* قائمة الحساب */}
+          <div className="relative group">
+            <button className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm" title="الحساب">
+              <User size={18} />
+              <span className="hidden xl:inline">الحساب</span>
+            </button>
+            <div className="absolute top-full right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="p-2 space-y-1">
+                <Link href="/profile" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 text-sm py-2 px-3 rounded hover:bg-blue-50">
+                  <User size={16} /> الحساب
+                </Link>
+                <Link href="/student" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 text-sm py-2 px-3 rounded hover:bg-blue-50">
+                  <Users size={16} /> لوحة الطالب
+                </Link>
+                <Link href="/instructor-dashboard" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 text-sm py-2 px-3 rounded hover:bg-blue-50">
+                  <GraduationCap size={16} /> لوحة المدرس
+                </Link>
+                <Link href="/cart" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 text-sm py-2 px-3 rounded hover:bg-blue-50">
+                  <ShoppingCart size={16} /> السلة
+                </Link>
+                <Link href="/help" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 text-sm py-2 px-3 rounded hover:bg-blue-50">
+                  <HelpCircle size={16} /> المساعدة
+                </Link>
+              </div>
+            </div>
+          </div>
 
-          <Link 
-            href="/profile" 
-            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
-          >
-            <User size={18} />
-            <span>الحساب</span>
-          </Link>
-
-          <Link 
-            href="/help" 
-            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
-          >
-            <HelpCircle size={18} />
-            <span>المساعدة</span>
-          </Link>
+          {/* الأدوات */}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <LanguageSelector />
+          </div>
 
           <Link 
             href="/signup"
@@ -239,6 +309,10 @@ export default function Navbar() {
               <Award size={18} />
               التقييمات
             </Link>
+            <Link href="/learning-path" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <Target size={18} />
+              مسار التعلم
+            </Link>
           </div>
           
           <div className="space-y-2">
@@ -251,6 +325,10 @@ export default function Navbar() {
             <Link href="/forums" className="text-gray-600 font-medium py-2 flex items-center gap-2">
               <MessageSquare size={18} />
               المنتديات
+            </Link>
+            <Link href="/course-community" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <Users size={18} />
+              مجتمع الدورة
             </Link>
           </div>
           
@@ -266,23 +344,56 @@ export default function Navbar() {
               المتصدرين
             </Link>
           </div>
+
+          <div className="space-y-2">
+            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">ميزات المنصة العالمية</h3>
+            <Link href="/trust" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <Award size={18} />
+              عناصر الثقة
+            </Link>
+            <Link href="/content-management" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <Settings size={18} />
+              إدارة المحتوى
+            </Link>
+            <Link href="/design-system" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <LayoutDashboard size={18} />
+              نظام التصميم
+            </Link>
+            <Link href="/mobile-experience" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <Smartphone size={18} />
+              تجربة الجوال
+            </Link>
+            <Link href="/polish" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <Sparkles size={18} />
+              تفاصيل دقيقة
+            </Link>
+          </div>
           
           <hr />
           
-          <Link href="/cart" className="text-gray-600 font-medium py-2 flex items-center gap-2">
-            <ShoppingCart size={18} />
-            السلة
-          </Link>
-          
-          <Link href="/profile" className="text-gray-600 font-medium py-2 flex items-center gap-2">
-            <User size={18} />
-            حسابي
-          </Link>
-          
-          <Link href="/help" className="text-gray-600 font-medium py-2 flex items-center gap-2">
-            <HelpCircle size={18} />
-            المساعدة
-          </Link>
+          <div className="space-y-2">
+            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">الحساب</h3>
+            <Link href="/student" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <Users size={18} />
+              لوحة الطالب
+            </Link>
+            <Link href="/instructor-dashboard" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <GraduationCap size={18} />
+              لوحة المدرس
+            </Link>
+            <Link href="/profile" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <User size={18} />
+              الحساب
+            </Link>
+            <Link href="/cart" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <ShoppingCart size={18} />
+              السلة
+            </Link>
+            <Link href="/help" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <HelpCircle size={18} />
+              المساعدة
+            </Link>
+          </div>
           
           <hr />
           

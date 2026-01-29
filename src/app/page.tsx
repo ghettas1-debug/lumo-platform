@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import React, { useState } from 'react';
-import { ArrowRight, Play, Brain, Bell, MessageSquare, TrendingUp, BarChart3, Award, Search } from 'lucide-react';
+import { ArrowRight, Play, Brain, Bell, MessageSquare, TrendingUp, BarChart3, Award, Search, Target, Users, Settings, Sparkles, Smartphone, BookOpen, PlayCircle } from 'lucide-react';
 import Hero from '@/components/landing/Hero';
 import Footer from '@/components/landing/Footer';
 import Card from '@/components/ui/Card';
@@ -80,6 +80,65 @@ export default function Home() {
     }
   ];
 
+  const platformFeatures = [
+    {
+      icon: BookOpen,
+      title: 'صفحة الدورة الاحترافية',
+      description: 'منهج، تقييمات، نتائج، ومدرب في صفحة واحدة.',
+      href: '/courses/1',
+      color: 'from-blue-500 to-indigo-600'
+    },
+    {
+      icon: Target,
+      title: 'مسار التعلم',
+      description: 'رحلة تعليمية واضحة مع تقدم بصري.',
+      href: '/learning-path',
+      color: 'from-green-500 to-teal-600'
+    },
+    {
+      icon: Users,
+      title: 'لوحة الطالب والمدرس',
+      description: 'إدارة الدورات، الشهادات، والتحليلات.',
+      href: '/student',
+      color: 'from-purple-500 to-pink-600'
+    },
+    {
+      icon: PlayCircle,
+      title: 'مشغل التعلم التفاعلي',
+      description: 'Notes + Resume + Bookmark + Transcript.',
+      href: '/course-player',
+      color: 'from-slate-600 to-gray-800'
+    },
+    {
+      icon: Award,
+      title: 'عناصر الثقة',
+      description: 'شعارات شركاء، أرقام إنجازات، وقصص نجاح.',
+      href: '/trust',
+      color: 'from-amber-500 to-yellow-600'
+    },
+    {
+      icon: Settings,
+      title: 'إدارة المحتوى',
+      description: 'تنظيم الدروس، الموارد، والنشر.',
+      href: '/content-management',
+      color: 'from-orange-500 to-red-600'
+    },
+    {
+      icon: Smartphone,
+      title: 'تجربة الجوال',
+      description: 'واجهة مهيأة بالكامل للجوال.',
+      href: '/mobile-experience',
+      color: 'from-sky-500 to-blue-600'
+    },
+    {
+      icon: Sparkles,
+      title: 'تفاصيل دقيقة',
+      description: 'Skeletons + Animations + Typography.',
+      href: '/polish',
+      color: 'from-fuchsia-500 to-purple-600'
+    }
+  ];
+
   // منطق التصفية الذكية
   const filteredCourses = activeTab === 'الكل' 
     ? courses 
@@ -119,6 +178,53 @@ export default function Home() {
                     </p>
                     <div className="flex items-center gap-2 text-blue-600 font-medium text-sm group-hover:gap-3 transition-all">
                       <span>استكشف الآن</span>
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* قسم ميزات المنصة العالمية */}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-12">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-3">ميزات المنصة العالمية</h2>
+              <p className="text-gray-500 text-lg max-w-3xl font-bold">واجهات احترافية وتجارب تعلم متقدمة مثل المنصات العالمية.</p>
+            </div>
+            <Link
+              href="/platform-guide"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gray-900 text-white font-bold hover:scale-105 transition-all"
+            >
+              دليل المنصة <ArrowRight size={18} />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {platformFeatures.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <Link
+                  key={index}
+                  href={feature.href}
+                  className="group block"
+                >
+                  <Card className="p-6 h-full hover:shadow-2xl transition-all duration-300 border-0 hover:scale-105 cursor-pointer bg-white">
+                    <div className={`w-16 h-16 bg-linear-to-r ${feature.color} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                      {feature.description}
+                    </p>
+                    <div className="flex items-center gap-2 text-blue-600 font-medium text-sm group-hover:gap-3 transition-all">
+                      <span>افتح الميزة</span>
                       <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                     </div>
                   </Card>
