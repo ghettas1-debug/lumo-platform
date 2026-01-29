@@ -1,12 +1,14 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from 'react';
 import { 
   BookOpen, Award, PlayCircle, LayoutDashboard, 
-  Calendar, TrendingUp, Star, Flame, Target, 
-  BookMarked, Users, MessageSquare, DollarSign, Zap, Sun, Moon, Globe, GraduationCap
+  Calendar, TrendingUp, Star, Flame, 
+  Users, MessageSquare, DollarSign, Zap, Sun, Moon, Globe, GraduationCap
 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import Image from 'next/image';
+import ProgressTracker from '@/components/progress/ProgressTracker';
 
 // --- Types ---
 interface Course { id: number; title: string; instructor: string; progress: number; totalLessons: number; completedLessons: number; image: string; category: string; }
@@ -15,146 +17,159 @@ interface Grade { name: string; grade: number; }
 
 // --- Data ---
 const ENROLLED_COURSES: Course[] = [
-  { id: 1, title: "تطوير تطبيقات الويب باستخدام Next.js 15", instructor: "د. أسامة مبرمج", progress: 85, totalLessons: 24, completedLessons: 20, image: "https://images.unsplash.com", category: "برمجة" },
-  { id: 2, title: "تصميم تجربة المستخدم UX المتقدمة", instructor: "أ. ليلى مصمم", progress: 45, totalLessons: 12, completedLessons: 5, image: "https://images.unsplash.com", category: "تصميم" }
+  { id: 1, title: "تطوير تطبيقات الويب باستخدام Next.js 15", instructor: "د. أسامة مبرمج", progress: 85, totalLessons: 24, completedLessons: 20, image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6", category: "برمجة" },
+  { id: 2, title: "تصميم تجربة المستخدم UX المتقدمة", instructor: "أ. ليلى مصمم", progress: 45, totalLessons: 12, completedLessons: 5, image: "https://images.unsplash.com/photo-1559028006-448665bd7c7f", category: "تصميم" },
+  { id: 3, title: "تحليل البيانات مع Python", instructor: "د. محمد محلل", progress: 92, totalLessons: 30, completedLessons: 28, image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71", category: "تحليل" },
+  { id: 4, title: "الأمن السيبراني للمبتدئين", instructor: "أحمد أمن", progress: 30, totalLessons: 18, completedLessons: 5, image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3", category: "أمن" }
 ];
 
 const RECOMMENDATIONS: Recommendation[] = [
-  { id: 1, title: "أساسيات الذكاء الاصطناعي", rating: 4.9, students: "15k", price: "مجاني" },
-  { id: 2, title: "إدارة المشاريع الرشيقة Agile", rating: 4.7, students: "8k", price: "مدفوع" }
+  { id: 1, title: "تطوير تطبيقات الموبايل مع React Native", rating: 4.8, students: "2,341", price: "299 ريال" },
+  { id: 2, title: "الذكاء الاصطناعي وتعلم الآلة", rating: 4.9, students: "5,123", price: "499 ريال" },
+  { id: 3, title: "إدارة المشاريع الاحترافية", rating: 4.7, students: "1,876", price: "199 ريال" }
 ];
 
 const GRADE_DATA: Grade[] = [
-  { name: 'الأسبوع 1', grade: 75 },
-  { name: 'الأسبوع 2', grade: 80 },
-  { name: 'الأسبوع 3', grade: 92 },
-  { name: 'الأسبوع 4', grade: 88 },
+  { name: "اختبار 1", grade: 85 },
+  { name: "اختبار 2", grade: 92 },
+  { name: "اختبار 3", grade: 78 },
+  { name: "اختبار 4", grade: 95 },
+  { name: "اختبار 5", grade: 88 }
 ];
 
 export default function Dashboard() {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [language, setLanguage] = useState('ar');
-  const [isInstructor, setIsInstructor] = useState(false); // ميزة التبديل للمدرس
+  const [language, setLanguage] = useState<'ar' | 'en'>('ar');
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-[#f8f9fa] text-gray-900'} flex flex-col lg:flex-row rtl text-right font-sans`}>
-      
-      {/* 1. Sidebar */}
-      <aside className={`hidden lg:flex w-72 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-l flex-col sticky top-20 h-[calc(100vh-80px)] p-6`}>
-        <div className="space-y-8">
-          <section>
-            <h3 className="text-xs font-bold text-gray-500 uppercase mb-4 px-4 tracking-widest">القائمة الرئيسية</h3>
-            <nav className="space-y-2">
-              <SidebarItem icon={<LayoutDashboard size={20}/>} label="لوحة التحكم" active isDarkMode={isDarkMode} />
-              <SidebarItem icon={<BookOpen size={20}/>} label="مساراتي" isDarkMode={isDarkMode} />
-              <SidebarItem icon={<Calendar size={20}/>} label="الجدول الدراسي" isDarkMode={isDarkMode} />
-              <SidebarItem icon={<Users size={20}/>} label="لوحة المتصدرين" isDarkMode={isDarkMode} />
-            </nav>
-          </section>
-
-          <section className={`pt-6 ${isDarkMode ? 'border-gray-700' : 'border-gray-100'} border-t`}>
-            <h3 className="text-xs font-bold text-gray-500 uppercase mb-4 px-4 tracking-widest">شخصي</h3>
-            <nav className="space-y-2">
-              <SidebarItem icon={<Award size={20}/>} label="الشهادات" isDarkMode={isDarkMode} />
-              <SidebarItem icon={<DollarSign size={20}/>} label="الفواتير والمدفوعات" isDarkMode={isDarkMode} />
-            </nav>
-          </section>
-        </div>
+    <>
+      <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`}>
         
-        {/* ميزة التبديل لمقدمي الكورسات */}
-        <div className={`mt-auto p-4 rounded-xl ${isDarkMode ? 'bg-gray-700' : 'bg-blue-50'} flex items-center justify-between`}>
-           <div className='flex items-center gap-3'>
-             <GraduationCap className={isDarkMode ? 'text-blue-400' : 'text-blue-600'}/>
-             <span className='text-sm font-bold'>{isInstructor ? 'وضع الطالب' : 'وضع المدرس'}</span>
-           </div>
-           <button onClick={() => setIsInstructor(!isInstructor)} className='text-xs text-blue-500 hover:underline'>
-             تبديل
-           </button>
-        </div>
-      </aside>
-
-      {/* 2. Main Content */}
-      <main className="flex-1 p-6 md:p-10">
-        
-        {/* Header & Settings Row */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
-          <h1 className="text-3xl font-black italic">أهلاً بك يا بطل! 👋</h1>
-          
-          <div className="flex gap-4 items-center">
-            {/* Dark Mode Switch */}
-            <button onClick={() => setIsDarkMode(!isDarkMode)} className={`p-2 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-white'} shadow-md`}>
-              {isDarkMode ? <Sun size={20} className="text-yellow-400"/> : <Moon size={20} className="text-gray-600"/>}
-            </button>
+        {/* Sidebar */}
+        <aside className={`fixed top-0 right-0 h-full w-64 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-l shadow-xl z-40 transition-all duration-300`}>
+          <div className="p-6">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center font-black text-lg">L</div>
+              <span className="font-black text-xl">LUMO</span>
+            </div>
             
-            {/* Language Switch */}
-             <button onClick={() => setLanguage(language === 'ar' ? 'en' : 'ar')} className={`p-2 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-white'} shadow-md flex items-center gap-2`}>
-              <Globe size={16} />
-              <span className='text-xs font-bold'>{language === 'ar' ? 'English' : 'عربي'}</span>
-            </button>
-            
-             <StatCard icon={<Flame className="text-orange-500"/>} value="5" label="أيام متتالية" isDarkMode={isDarkMode} />
+            <nav className="space-y-2">
+              <SidebarItem icon={<LayoutDashboard size={20} />} label="لوحة التحكم" active isDarkMode={isDarkMode} />
+              <SidebarItem icon={<BookOpen size={20} />} label="دوراتي" isDarkMode={isDarkMode} />
+              <SidebarItem icon={<Calendar size={20} />} label="الجدول" isDarkMode={isDarkMode} />
+              <SidebarItem icon={<Award size={20} />} label="الإنجازات" isDarkMode={isDarkMode} />
+              <SidebarItem icon={<Users size={20} />} label="المجتمع" isDarkMode={isDarkMode} />
+              <SidebarItem icon={<MessageSquare size={20} />} label="الرسائل" isDarkMode={isDarkMode} />
+              <SidebarItem icon={<DollarSign size={20} />} label="الاشتراك" isDarkMode={isDarkMode} />
+            </nav>
           </div>
-        </div>
+        </aside>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
-          
-          {/* Courses & Recommendations */}
-          <div className="xl:col-span-2 space-y-10">
-            <section>
-              <h2 className="text-2xl font-black mb-6">كورساتك الحالية</h2>
-              <div className="grid grid-cols-1 gap-6">
-                {ENROLLED_COURSES.map(course => (
-                  <CourseCardWide key={course.id} course={course} isDarkMode={isDarkMode} />
-                ))}
+        {/* Main Content */}
+        <div className="mr-64">
+          <main className="p-8">
+            
+            {/* Header & Settings Row */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
+              <h1 className="text-3xl font-black italic">أهلاً بك يا بطل! 👋</h1>
+              
+              <div className="flex gap-4 items-center">
+                {/* Dark Mode Switch */}
+                <button onClick={() => setIsDarkMode(!isDarkMode)} className={`p-2 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-white'} shadow-md`}>
+                  {isDarkMode ? <Sun size={20} className="text-yellow-400"/> : <Moon size={20} className="text-gray-600"/>}
+                </button>
+                
+                {/* Language Switch */}
+                 <button onClick={() => setLanguage(language === 'ar' ? 'en' : 'ar')} className={`p-2 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-white'} shadow-md flex items-center gap-2`}>
+                  <Globe size={16} />
+                  <span className='text-xs font-bold'>{language === 'ar' ? 'English' : 'عربي'}</span>
+                </button>
+                
+                 <StatCard icon={<Flame className="text-orange-500"/>} value="5" label="أيام متتالية" isDarkMode={isDarkMode} />
               </div>
-            </section>
+            </div>
 
-            {/* الإقتراحات (AI Powered) */}
-            <section>
-              <h2 className="text-2xl font-black mb-6 flex items-center gap-3">
-                <Zap className='text-blue-500'/> مقترح لك (بواسطة LUMO AI)
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {RECOMMENDATIONS.map(rec => (
-                  <div key={rec.id} className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'} p-5 rounded-2xl border flex justify-between items-center hover:shadow-lg transition-all group cursor-pointer`}>
-                    <div>
-                      <h4 className="font-bold mb-1 group-hover:text-blue-500 transition-colors">{rec.title}</h4>
-                      <div className="flex items-center gap-3 text-xs font-bold">
-                        <span className="flex items-center gap-1 text-yellow-500"><Star size={14} fill="currentColor"/> {rec.rating}</span>
-                        <span>{rec.students} طالب</span>
-                      </div>
-                    </div>
-                    <button className="text-blue-500 font-black text-sm">{rec.price}</button>
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
+              
+              {/* Courses & Recommendations */}
+              <div className="xl:col-span-2 space-y-10">
+                <section>
+                  <h2 className="text-2xl font-black mb-6">كورساتك الحالية</h2>
+                  <div className="grid grid-cols-1 gap-6">
+                    {ENROLLED_COURSES.map(course => (
+                      <CourseCardWide key={course.id} course={course} isDarkMode={isDarkMode} />
+                    ))}
                   </div>
-                ))}
+                </section>
+
+                <section>
+                  <h2 className="text-2xl font-black mb-6">موصى به لك</h2>
+                  <div className="grid grid-cols-1 gap-4">
+                    {RECOMMENDATIONS.map(rec => (
+                      <div key={rec.id} className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'} p-5 rounded-2xl border flex justify-between items-center hover:shadow-lg transition-all group cursor-pointer`}>
+                        <div>
+                          <h4 className="font-bold mb-1 group-hover:text-blue-500 transition-colors">{rec.title}</h4>
+                          <div className="flex items-center gap-3 text-xs font-bold">
+                            <span className="flex items-center gap-1 text-yellow-500"><Star size={14} fill="currentColor"/> {rec.rating}</span>
+                            <span>{rec.students} طالب</span>
+                          </div>
+                        </div>
+                        <button className="text-blue-500 font-black text-sm">{rec.price}</button>
+                      </div>
+                    ))}
+                  </div>
+                </section>
               </div>
-            </section>
-          </div>
 
-          {/* Activity Section */}
-          <div className="space-y-10">
-             {/* المواعيد النهائية القادمة */}
-             <section className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'} p-6 rounded-3xl border shadow-sm`}>
-              <h3 className="font-black mb-4 flex items-center gap-2">
-                <Calendar className="text-blue-500" /> المواعيد النهائية القادمة
-              </h3>
-              <ul className='space-y-3'>
-                <li className='flex justify-between items-center text-sm'>
-                  <span>تسليم مشروع البرمجة</span>
-                  <span className='text-red-500 font-bold'>غداً، 5 مساءً</span>
-                </li>
-                 <li className='flex justify-between items-center text-sm'>
-                  <span>اختبار منتصف الكورس UI/UX</span>
-                  <span className='text-orange-500 font-bold'>بعد يومين</span>
-                </li>
-              </ul>
-             </section>
+              {/* Activity Section */}
+              <div className="space-y-10">
+                 {/* المواعيد النهائية القادمة */}
+                 <section className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'} p-6 rounded-3xl border shadow-sm`}>
+                  <h3 className="font-black mb-4 flex items-center gap-2">
+                    <Calendar className="text-blue-500" /> المواعيد النهائية القادمة
+                  </h3>
+                  <ul className='space-y-3'>
+                    <li className='flex justify-between items-center text-sm'>
+                      <span>تسليم مشروع البرمجة</span>
+                      <span className='text-red-500 font-bold'>غداً، 5 مساءً</span>
+                    </li>
+                     <li className='flex justify-between items-center text-sm'>
+                      <span>اختبار منتصف الكورس UI/UX</span>
+                      <span className='text-yellow-500 font-bold'>بعد 3 أيام</span>
+                    </li>
+                    <li className='flex justify-between items-center text-sm'>
+                      <span>محاضرة مباشرة: تحليل البيانات</span>
+                      <span className='text-green-500 font-bold'>السبت، 2 ظهراً</span>
+                    </li>
+                  </ul>
+                 </section>
 
-             {/* سجل الدرجات (Grades Overview) */}
-             <section className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'} p-6 rounded-3xl border shadow-sm`}>
-              <h3 className="font-black mb-4 flex items-center gap-2">
-                <TrendingUp className="text-blue-500" /> سجل الدرجات الأخير
-              </h3>
+                 {/* إحصائيات الأداء */}
+                 <section className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'} p-6 rounded-3xl border shadow-sm`}>
+                  <h3 className="font-black mb-4 flex items-center gap-2">
+                    <TrendingUp className="text-green-500" /> أداء الأسبوع
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">ساعات الدراسة</span>
+                      <span className="font-bold text-green-500">12.5h</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">دروس مكتملة</span>
+                      <span className="font-bold text-blue-500">8</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">متوسط التقييم</span>
+                      <span className="font-bold text-yellow-500">87%</span>
+                    </div>
+                  </div>
+                 </section>
+
+                 {/* الرسم البياني للدرجات */}
+                 <section className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'} p-6 rounded-3xl border shadow-sm`}>
+                  <h3 className="font-black mb-4 flex items-center gap-2">
+                    <Award className="text-purple-500" /> تقدم الدرجات
+                  </h3>
                <div style={{ width: '100%', height: 200 }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={GRADE_DATA} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
@@ -166,18 +181,31 @@ export default function Dashboard() {
                   </LineChart>
                 </ResponsiveContainer>
               </div>
-             </section>
+                 </section>
 
-          </div>
+              </div>
 
+            </div>
+            
+            {/* مساعد LUMO الذكي (Chatbot Placeholder) */}
+            <div className="fixed bottom-6 left-6 bg-blue-600 p-4 rounded-full shadow-2xl cursor-pointer hover:bg-blue-700 transition-all">
+              <MessageSquare className="text-white w-8 h-8" />
+            </div>
+          </main>
         </div>
         
-        {/* مساعد LUMO الذكي (Chatbot Placeholder) */}
-        <div className="fixed bottom-6 left-6 bg-blue-600 p-4 rounded-full shadow-2xl cursor-pointer hover:bg-blue-700 transition-all">
-          <MessageSquare className="text-white w-8 h-8" />
-        </div>
-      </main>
-    </div>
+        {/* Progress Section */}
+        <section className="mt-12 p-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">التقدم والإنجازات</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              تتبع رحلتك التعليمية واحتفل بإنجازاتك
+            </p>
+          </div>
+          <ProgressTracker />
+        </section>
+      </div>
+    </>
   );
 }
 
@@ -194,7 +222,7 @@ function SidebarItem({ icon, label, active = false, isDarkMode }: { icon: React.
 
 function StatCard({ icon, value, label, isDarkMode }: { icon: React.ReactNode; value: string; label: string; isDarkMode: boolean }) {
   return (
-    <div className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'} px-6 py-4 rounded-2xl border flex items-center gap-4 shadow-sm min-w-35`}>
+    <div className={`flex items-center gap-4 p-4 rounded-2xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-md`}>
       <div className={`p-2 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>{icon}</div>
       <div>
         <div className={`text-xl font-black ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>{value}</div>
@@ -208,7 +236,7 @@ function CourseCardWide({ course, isDarkMode }: { course: Course; isDarkMode: bo
   return (
     <div className={`${isDarkMode ? 'bg-gray-800 border-gray-700 hover:border-r-blue-500' : 'bg-white border-gray-100 hover:border-r-blue-600'} p-5 rounded-3xl border flex flex-col md:flex-row gap-6 hover:shadow-2xl transition-all group border-r-4 border-r-transparent`}>
       <div className="w-full md:w-48 h-32 rounded-2xl overflow-hidden relative shrink-0">
-        <img src={course.image} alt={course.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+        <Image src={course.image} alt={course.title} width={192} height={128} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
         <div className="absolute inset-0 bg-blue-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
           <PlayCircle className="text-white w-10 h-10" />
         </div>

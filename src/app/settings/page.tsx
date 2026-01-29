@@ -327,7 +327,7 @@ export default function SettingsPage() {
                         </div>
                         <span className="text-3xl font-black text-green-600">مجاني</span>
                       </div>
-                      <Button variant="primary" className="mt-4">ترقية لى الخطة المميزة</Button>
+                      <Button variant="primary" className="mt-4">ترقية إلى الخطة المميزة</Button>
                     </div>
                   </div>
 
@@ -344,7 +344,7 @@ export default function SettingsPage() {
                         </div>
                         <Button variant="outline" size="sm">حذف</Button>
                       </div>
-                      <Button variant="outline">+ ضافة طريقة دفع جديدة</Button>
+                      <Button variant="outline">+ إضافة طريقة دفع جديدة</Button>
                     </div>
                   </div>
                 </div>
@@ -369,7 +369,7 @@ export default function SettingsPage() {
                         </label>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span>ظهار نشاط التعلم</span>
+                        <span>إظهار نشاط التعلم</span>
                         <label className="relative inline-flex items-center cursor-pointer">
                           <input type="checkbox" className="sr-only peer" defaultChecked />
                           <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
@@ -387,7 +387,7 @@ export default function SettingsPage() {
 
                   <div className="border-t pt-6">
                     <h3 className="text-lg font-bold text-gray-800 mb-4">حذف الحساب</h3>
-                    <p className="text-gray-600 mb-4">حذف حسابك بشكل دائم وجميع بياناتك المرتبطة به. هذا الجراء لا يمكن التراجع عنه.</p>
+                    <p className="text-gray-600 mb-4">حذف حسابك بشكل دائم وجميع بياناتك المرتبطة به. هذا الإجراء لا يمكن التراجع عنه.</p>
                     <Button variant="outline" className="text-red-600 border-red-300 hover:bg-red-50">
                       حذف حسابي
                     </Button>
@@ -397,7 +397,7 @@ export default function SettingsPage() {
             )}
 
             <div className="flex justify-end gap-4 mt-8">
-              <Button variant="outline">لغاء</Button>
+              <Button variant="outline">إلغاء</Button>
               <Button variant="primary" onClick={handleSave}>حفظ التغييرات</Button>
             </div>
           </div>
