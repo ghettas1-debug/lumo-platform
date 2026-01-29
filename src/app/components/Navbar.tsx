@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { Search, LayoutDashboard, Menu, X, ShoppingCart, User, BookOpen, GraduationCap, Award, HelpCircle, DollarSign } from 'lucide-react';
 import { useState } from 'react';
+import ThemeToggle from '../../components/ThemeToggle';
+import LanguageSelector from '../../components/LanguageSelector';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -61,13 +63,8 @@ export default function Navbar() {
             <span>الأسعار</span>
           </Link>
 
-          <Link 
-            href="/cart" 
-            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm relative"
-          >
-            <ShoppingCart size={18} />
-            <span>السلة</span>
-          </Link>
+          <ThemeToggle />
+          <LanguageSelector />
 
           <Link 
             href="/dashboard" 
@@ -77,25 +74,33 @@ export default function Navbar() {
             <span>لوحة التحكم</span>
           </Link>
 
-          <div className="flex items-center gap-3">
-            <Link 
-              href="/profile" 
-              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
-            >
-              <User size={18} />
-              <span>حسابي</span>
-            </Link>
-
-            <Link 
-              href="/login" 
-              className="text-gray-600 hover:text-blue-600 font-medium text-sm transition-colors"
-            >
-              دخول
-            </Link>
-          </div>
+          <Link 
+            href="/cart" 
+            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm relative"
+          >
+            <ShoppingCart size={18} />
+            <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            <span>السلة</span>
+          </Link>
 
           <Link 
-            href="/pricing" 
+            href="/profile" 
+            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+          >
+            <User size={18} />
+            <span>الحساب</span>
+          </Link>
+
+          <Link 
+            href="/help" 
+            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+          >
+            <HelpCircle size={18} />
+            <span>المساعدة</span>
+          </Link>
+
+          <Link 
+            href="/signup"
             className="bg-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-blue-700 transition-all hover:shadow-lg hover:shadow-blue-200 active:scale-95"
           >
             انضم مجاناً

@@ -1,15 +1,22 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
-import { Search, Clock, Star, Users, BookOpen, Filter, Award } from 'lucide-react';
+import { Search, Clock, Star, Users, BookOpen, Filter, Award, TrendingUp, Calendar, Download, Heart, Share2, Eye, ChevronDown, X, Grid, List, Sparkles, Target, Zap } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 
 export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [results, setResults] = useState<Array<{id: number, title: string, description: string, instructor: string, rating: number, students: number, price: number, image: string, category: string, level: string, duration: number, certificate: boolean, language: string, lastUpdated: string, tags: string[]}>>([]);
+  const [results, setResults] = useState<Array<{id: number, title: string, description: string, instructor: string, rating: number, students: number, price: number, image: string, category: string, level: string, duration: number, certificate: boolean, language: string, lastUpdated: string, tags: string[], views: number, chapters: number, difficulty: string, prerequisites: string[], learningOutcomes: string[], isBookmarked: boolean, isEnrolled: boolean, progress: number}>>([]);
   const [loading, setLoading] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [savedSearches, setSavedSearches] = useState<string[]>([]);
+  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
+  const [showCourseModal, setShowCourseModal] = useState(false);
   
   // Filters state
   const [filters, setFilters] = useState({
@@ -78,7 +85,15 @@ export default function SearchPage() {
       certificate: true,
       language: 'العربية',
       lastUpdated: '2024-01-15',
-      tags: ['Python', 'برمجة', 'Web Development', 'Data Science']
+      tags: ['Python', 'برمجة', 'Web Development', 'Data Science'],
+      views: 45680,
+      chapters: 120,
+      difficulty: 'intermediate',
+      prerequisites: ['أساسيات الكمبيوتر', 'منطق البرمجة'],
+      learningOutcomes: ['إتقان بايثون', 'بناء تطبيقات ويب', 'تحليل البيانات'],
+      isBookmarked: false,
+      isEnrolled: true,
+      progress: 65
     },
     {
       id: 2,
@@ -95,7 +110,15 @@ export default function SearchPage() {
       certificate: true,
       language: 'العربية',
       lastUpdated: '2024-01-10',
-      tags: ['React', 'Next.js', 'JavaScript', 'Frontend']
+      tags: ['React', 'Next.js', 'JavaScript', 'Frontend'],
+      views: 32150,
+      chapters: 95,
+      difficulty: 'advanced',
+      prerequisites: ['JavaScript', 'HTML/CSS', 'React Basics'],
+      learningOutcomes: ['تطوير تطبيقات React', 'Next.js المتقدم', 'SSR/SSG'],
+      isBookmarked: true,
+      isEnrolled: false,
+      progress: 0
     },
     {
       id: 3,
@@ -112,7 +135,15 @@ export default function SearchPage() {
       certificate: true,
       language: 'العربية',
       lastUpdated: '2024-01-08',
-      tags: ['Figma', 'UI Design', 'UX Design', 'Prototyping']
+      tags: ['Figma', 'UI Design', 'UX Design', 'Prototyping'],
+      views: 28900,
+      chapters: 80,
+      difficulty: 'intermediate',
+      prerequisites: ['أساسيات التصميم', 'فهم المستخدم'],
+      learningOutcomes: ['تصميم واجهات احترافية', 'نمذجة تفاعلية', 'تصميم متجاوب'],
+      isBookmarked: false,
+      isEnrolled: false,
+      progress: 0
     },
     {
       id: 4,
@@ -129,7 +160,15 @@ export default function SearchPage() {
       certificate: false,
       language: 'العربية',
       lastUpdated: '2024-01-12',
-      tags: ['Python', 'Data Analysis', 'Pandas', 'Statistics']
+      tags: ['Python', 'Data Analysis', 'Pandas', 'Statistics'],
+      views: 56780,
+      chapters: 60,
+      difficulty: 'beginner',
+      prerequisites: ['Python أساسيات', 'رياضيات أساسية'],
+      learningOutcomes: ['تحليل البيانات', 'استخدام Pandas', 'تصور البيانات'],
+      isBookmarked: true,
+      isEnrolled: true,
+      progress: 30
     }
   ];
 
@@ -180,6 +219,71 @@ export default function SearchPage() {
     setResults(filteredResults);
     setLoading(false);
   }, [searchQuery, filters]);
+
+  useEffect(() => {
+    // Load saved searches from localStorage
+    const saved = localStorage.getItem('savedSearches');
+    if (saved) {
+      setSavedSearches(JSON.parse(saved));
+    }
+
+    // Load recent searches from localStorage
+    const recent = localStorage.getItem('recentSearches');
+    if (recent) {
+      setRecentSearches(JSON.parse(recent));
+    }
+
+    // Generate suggestions based on popular courses
+    const allTags = mockResults.flatMap(course => course.tags);
+    const uniqueSuggestions = [...new Set(allTags)].slice(0, 8);
+    setSuggestions(uniqueSuggestions);
+  }, []);
+
+  useEffect(() => {
+    // Save recent searches to localStorage
+    if (recentSearches.length > 0) {
+      localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+    }
+  }, [recentSearches]);
+
+  const addToRecentSearches = (query: string) => {
+    if (query && !recentSearches.includes(query)) {
+      const updated = [query, ...recentSearches.slice(0, 4)];
+      setRecentSearches(updated);
+    }
+  };
+
+  const saveSearch = (query: string) => {
+    if (query && !savedSearches.includes(query)) {
+      const updated = [...savedSearches, query];
+      setSavedSearches(updated);
+      localStorage.setItem('savedSearches', JSON.stringify(updated));
+    }
+  };
+
+  const removeSavedSearch = (query: string) => {
+    const updated = savedSearches.filter(s => s !== query);
+    setSavedSearches(updated);
+    localStorage.setItem('savedSearches', JSON.stringify(updated));
+  };
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    addToRecentSearches(query);
+    setShowSuggestions(false);
+    performSearch();
+  };
+
+  const toggleBookmark = (courseId: number) => {
+    setResults(results.map(course => 
+      course.id === courseId ? { ...course, isBookmarked: !course.isBookmarked } : course
+    ));
+  };
+
+  const openCourseModal = (course: any) => {
+    setSelectedCourse(course);
+    setShowCourseModal(true);
+  };
 
   useEffect(() => {
     if (searchQuery || filters.category !== 'all' || filters.level !== 'all') {
