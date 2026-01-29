@@ -463,16 +463,16 @@ export default function PlaylistPage() {
   const currentVideo = currentPlaylist?.videos[currentVideoIndex] || videos[0];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-8">
+    <div className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100 py-8">
       <div className="container mx-auto px-4 max-w-7xl">
         
         {/* Header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center gap-2 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+            <div className="w-12 h-12 bg-linear-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
               <Play className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               قائمة التشغيل
             </h1>
           </div>
@@ -484,7 +484,7 @@ export default function PlaylistPage() {
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
           <Card className="p-6 text-center hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-blue-300">
-            <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
+            <div className="w-14 h-14 bg-linear-to-br from-blue-100 to-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
               <List className="w-7 h-7" />
             </div>
             <div className="text-3xl font-bold text-gray-900 mb-2">{playlists.length}</div>
@@ -493,7 +493,7 @@ export default function PlaylistPage() {
           </Card>
 
           <Card className="p-6 text-center hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-green-300">
-            <div className="w-14 h-14 bg-gradient-to-br from-green-100 to-green-50 text-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
+            <div className="w-14 h-14 bg-linear-to-br from-green-100 to-green-50 text-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
               <CheckCircle className="w-7 h-7" />
             </div>
             <div className="text-3xl font-bold text-gray-900 mb-2">{getCompletedVideos()}</div>
@@ -502,7 +502,7 @@ export default function PlaylistPage() {
           </Card>
 
           <Card className="p-6 text-center hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-yellow-300">
-            <div className="w-14 h-14 bg-gradient-to-br from-yellow-100 to-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
+            <div className="w-14 h-14 bg-linear-to-br from-yellow-100 to-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
               <Bookmark className="w-7 h-7" />
             </div>
             <div className="text-3xl font-bold text-gray-900 mb-2">{getBookmarkedVideos()}</div>
@@ -511,7 +511,7 @@ export default function PlaylistPage() {
           </Card>
 
           <Card className="p-6 text-center hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-purple-300">
-            <div className="w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
+            <div className="w-14 h-14 bg-linear-to-br from-purple-100 to-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
               <Clock className="w-7 h-7" />
             </div>
             <div className="text-3xl font-bold text-gray-900 mb-2">{Math.round(getTotalWatchTime() / 3600)}</div>
@@ -528,16 +528,16 @@ export default function PlaylistPage() {
             <Card className="overflow-hidden border border-gray-200 shadow-xl">
               {/* Video Player */}
               <div className="relative">
-                <div className="aspect-video bg-gradient-to-br from-gray-900 to-black">
+                <div className="aspect-video bg-linear-to-br from-gray-900 to-black">
                   <div className="w-full h-full flex flex-col items-center justify-center relative">
                     {/* Video Thumbnail */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
                     
                     {/* Play Button Overlay */}
                     <div className="relative z-10 text-center">
                       <button
                         onClick={handlePlayPause}
-                        className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-2xl hover:scale-105 transition-transform duration-300 group"
+                        className="w-20 h-20 bg-linear-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-2xl hover:scale-105 transition-transform duration-300 group"
                       >
                         {isPlaying ? (
                           <Pause className="w-8 h-8 text-white" />
@@ -582,7 +582,7 @@ export default function PlaylistPage() {
                   </div>
                   <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div 
-                      className="h-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300"
+                      className="h-full bg-linear-to-r from-blue-500 to-purple-600 transition-all duration-300"
                       style={{ width: `${getVideoProgress(currentVideo?.id)}%` }}
                     ></div>
                   </div>
@@ -609,7 +609,7 @@ export default function PlaylistPage() {
                       onClick={handlePlayPause}
                       variant="primary"
                       size="lg"
-                      className="px-8 gap-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+                      className="px-8 gap-2 bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
                     >
                       {isPlaying ? (
                         <>
@@ -696,9 +696,9 @@ export default function PlaylistPage() {
                         step="0.1"
                         value={volume}
                         onChange={(e) => setVolume(parseFloat(e.target.value))}
-                        className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gradient-to-r [&::-webkit-slider-thumb]:from-blue-500 [&::-webkit-slider-thumb]:to-purple-600"
+                        className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-linear-to-r [&::-webkit-slider-thumb]:from-blue-500 [&::-webkit-slider-thumb]:to-purple-600"
                       />
-                      <span className="text-sm text-gray-600 min-w-[40px]">
+                      <span className="text-sm text-gray-600 min-w-10">
                         {Math.round(volume * 100)}%
                       </span>
                     </div>
@@ -759,7 +759,7 @@ export default function PlaylistPage() {
                       {currentVideo?.tags?.map((tag, index) => (
                         <span
                           key={index}
-                          className="px-3 py-1.5 bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 rounded-full text-sm font-medium border border-blue-100 hover:border-blue-300 transition-colors cursor-pointer"
+                          className="px-3 py-1.5 bg-linear-to-r from-blue-50 to-purple-50 text-blue-700 rounded-full text-sm font-medium border border-blue-100 hover:border-blue-300 transition-colors cursor-pointer"
                         >
                           #{tag}
                         </span>
@@ -805,7 +805,7 @@ export default function PlaylistPage() {
               <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                    <div className="w-12 h-12 bg-linear-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
                       <List className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -821,7 +821,7 @@ export default function PlaylistPage() {
                     onClick={handleCreatePlaylist}
                     variant="primary"
                     size="sm"
-                    className="gap-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+                    className="gap-2 bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
                   >
                     <Plus className="w-4 h-4" />
                     جديد
@@ -829,7 +829,7 @@ export default function PlaylistPage() {
                 </div>
 
                 {/* Playlist Info */}
-                <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100">
+                <div className="mb-6 p-4 bg-linear-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100">
                   <p className="text-gray-700 text-sm mb-3">
                     {currentPlaylist?.description}
                   </p>
@@ -888,7 +888,7 @@ export default function PlaylistPage() {
                 </div>
 
                 {/* Playlists List */}
-                <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
+                <div className="space-y-3 max-h-100 overflow-y-auto pr-2">
                   {filteredPlaylists.map((playlist) => (
                     <div
                       key={playlist.id}
@@ -898,14 +898,14 @@ export default function PlaylistPage() {
                       }}
                       className={`p-4 rounded-xl cursor-pointer transition-all duration-300 border ${
                         currentPlaylist?.id === playlist.id
-                          ? 'border-blue-300 bg-gradient-to-r from-blue-50 to-blue-25 shadow-md'
+                          ? 'border-blue-300 bg-linear-to-r from-blue-50 to-blue-25 shadow-md'
                           : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                           currentPlaylist?.id === playlist.id
-                            ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
+                            ? 'bg-linear-to-r from-blue-500 to-purple-600 text-white'
                             : 'bg-gray-100 text-gray-600'
                         }`}>
                           <List className="w-5 h-5" />
@@ -974,14 +974,14 @@ export default function PlaylistPage() {
                       onClick={() => handleVideoSelect(video)}
                       className={`group cursor-pointer rounded-xl border p-4 transition-all duration-300 hover:shadow-lg ${
                         currentVideo?.id === video.id
-                          ? 'border-blue-500 bg-gradient-to-r from-blue-50 to-blue-25'
+                          ? 'border-blue-500 bg-linear-to-r from-blue-50 to-blue-25'
                           : 'border-gray-200 hover:border-blue-300'
                       }`}
                     >
                       <div className="flex gap-3">
-                        <div className="relative flex-shrink-0">
-                          <div className="w-16 h-16 bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg overflow-hidden">
-                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-300 to-gray-400">
+                        <div className="relative shrink-0">
+                          <div className="w-16 h-16 bg-linear-to-br from-gray-200 to-gray-300 rounded-lg overflow-hidden">
+                            <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-gray-300 to-gray-400">
                               <Play className="w-6 h-6 text-white" />
                             </div>
                           </div>
@@ -1034,7 +1034,7 @@ export default function PlaylistPage() {
                           {/* Progress Bar */}
                           <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden mt-2">
                             <div 
-                              className="h-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300"
+                              className="h-full bg-linear-to-r from-blue-500 to-purple-600 transition-all duration-300"
                               style={{ width: `${video.progress}%` }}
                             ></div>
                           </div>
