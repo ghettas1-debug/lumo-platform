@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { PlayCircle, Clock, Users, Star, BookOpen, Award, Download, Share2 } from 'lucide-react';
 import { useParams } from 'next/navigation';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
 
 // بيانات وهمية للكورس
 const courseData = {
