@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import { 
-  ArrowRight, Play, Brain, Bell, MessageSquare, TrendingUp, BarChart3, Award, Search, Target, Users, Settings, Sparkles, Smartphone, BookOpen, PlayCircle, Lock, Globe, Zap, Shield, CreditCard, FileText, Building2, Code, Activity, Crown, ChevronRight, Newspaper, Briefcase, Handshake, DollarSign, Monitor, Download
+  ArrowRight, Play, Brain, Bell, MessageSquare, TrendingUp, BarChart3, Award, Search, Target, Users, Settings, Sparkles, Smartphone, BookOpen, PlayCircle, Lock, Globe, Zap, Shield, CreditCard, FileText, Building2, Code, Activity, Crown, ChevronRight, Newspaper, Briefcase, Handshake, DollarSign, Monitor, Download, Eye, EyeOff, Key, Puzzle, Webhook, Accessibility, Clock, Database, Award as AwardIcon, Target as TargetIcon, Users as UsersIcon, Settings as SettingsIcon, Sparkles as SparklesIcon, Smartphone as SmartphoneIcon, BookOpen as BookOpenIcon, PlayCircle as PlayCircleIcon, Lock as LockIcon, Globe as GlobeIcon, Zap as ZapIcon, Shield as ShieldIcon, CreditCard as CreditCardIcon, FileText as FileTextIcon, Building2 as Building2Icon, Code as CodeIcon, Activity as ActivityIcon, Crown as CrownIcon, ChevronRight as ChevronRightIcon, Newspaper as NewspaperIcon, Briefcase as BriefcaseIcon, Handshake as HandshakeIcon, DollarSign as DollarSignIcon, Monitor as MonitorIcon, Download as DownloadIcon, Eye as EyeIcon, EyeOff as EyeOffIcon, Key as KeyIcon, Puzzle as PuzzleIcon, Webhook as WebhookIcon, Accessibility as AccessibilityIcon, Clock as ClockIcon, Database as DatabaseIcon
 } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 import Hero from '@/components/landing/Hero';
 import Footer from '@/components/landing/Footer';
 import { Card } from '@/components/ui/Card';
@@ -204,7 +205,7 @@ export default function Home() {
       icon: Code,
       title: 'للمطورين',
       description: 'API و SDKs ووثائق شاملة',
-      href: '/developers',
+      href: '/api-docs',
       color: 'from-purple-500 to-pink-600'
     },
     {
@@ -379,6 +380,126 @@ export default function Home() {
       description: 'معلومات ضريبية وإدارة الضرائب',
       href: '/tax',
       color: 'from-red-500 to-pink-600'
+    },
+    {
+      icon: Shield,
+      title: 'سجل التدقيق',
+      description: 'مراقبة جميع الأنشطة في النظام',
+      href: '/audit-log',
+      color: 'from-red-600 to-pink-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Key,
+      title: 'المصادقة الثنائية',
+      description: 'حماية إضافية لحسابك',
+      href: '/2fa',
+      color: 'from-indigo-600 to-purple-600',
+      badge: 'جديد'
+    },
+    {
+      icon: BarChart3,
+      title: 'التقارير',
+      description: 'تقارير متقدمة للمشرفين',
+      href: '/admin/reports',
+      color: 'from-blue-600 to-indigo-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Crown,
+      title: 'الصلاحيات',
+      description: 'إدارة صلاحيات المستخدمين',
+      href: '/admin/roles',
+      color: 'from-yellow-600 to-orange-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Shield,
+      title: 'الامتثال لـ GDPR',
+      description: 'الامتثال للائحة حماية البيانات',
+      href: '/gdpr',
+      color: 'from-green-600 to-teal-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Database,
+      title: 'حماية البيانات',
+      description: 'إدارة حماية البيانات والامتثال',
+      href: '/data-protection',
+      color: 'from-purple-600 to-pink-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Puzzle,
+      title: 'التكاملات',
+      description: 'ربط Lumo مع تطبيقاتك المفضلة',
+      href: '/integrations',
+      color: 'from-orange-600 to-red-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Webhook,
+      title: 'Webhooks',
+      description: 'تكاملات الأحداث الخارجية',
+      href: '/webhooks',
+      color: 'from-cyan-600 to-blue-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Award,
+      title: 'مركز الشهادات',
+      description: 'احصل على شهادات معتمدة',
+      href: '/certification-center',
+      color: 'from-yellow-600 to-amber-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Monitor,
+      title: 'الاختبارات المراقبة',
+      description: 'اختبارات معتمدة مع مراقبة مباشرة',
+      href: '/proctored-exams',
+      color: 'from-red-600 to-pink-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Target,
+      title: 'تقييم المهارات',
+      description: 'اكتشف مهاراتك وقوّها',
+      href: '/skill-assessment',
+      color: 'from-blue-600 to-indigo-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Briefcase,
+      title: 'معرض الأعمال',
+      description: 'استعرض مشاريعي وخبراتي',
+      href: '/portfolio',
+      color: 'from-purple-600 to-pink-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Accessibility,
+      title: 'إمكانية الوصول',
+      description: 'جعل المنصة متاحة للجميع',
+      href: '/accessibility',
+      color: 'from-green-600 to-teal-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Clock,
+      title: 'إدارة الجلسات',
+      description: 'مراقبة وإدارة جلسات المستخدمين',
+      href: '/sessions',
+      color: 'from-orange-600 to-red-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Smartphone,
+      title: 'إدارة الأجهزة',
+      description: 'مراقبة وإدارة الأجهزة المتصلة',
+      href: '/devices',
+      color: 'from-indigo-600 to-purple-600',
+      badge: 'جديد'
     }
   ];
 
@@ -394,6 +515,38 @@ export default function Home() {
 
       {/* قسم الميزات الرئيسية */}
       <section className="py-16 md:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-linear-to-r from-blue-600 to-purple-600 rounded-full">
+                <Globe className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-4xl font-bold text-gray-900">Lumo</h1>
+                <p className="text-xl text-gray-600 mt-2">منصة تعليمية عالمية متكاملة</p>
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full">مجاني</span>
+                  <span className="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">100+ دورة</span>
+                  <span className="px-3 py-1 bg-purple-100 text-purple-800 text-sm font-medium rounded-full">50K+ طالب</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button variant="outline" className="bg-white/80 backdrop-blur-sm">
+                  <Search className="w-5 h-5 ml-2" />
+                  بحث
+                </Button>
+                <Button variant="primary" className="bg-linear-to-r from-blue-600 to-purple-700 text-white border-0 hover:from-blue-700 hover:to-purple-800">
+                  ابدأ الآن
+                </Button>
+                <Button variant="outline" className="bg-white/80 backdrop-blur-sm">
+                  <Globe className="w-5 h-5 ml-2" />
+                  EN
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">ميزات Lumo التعليمية</h2>
