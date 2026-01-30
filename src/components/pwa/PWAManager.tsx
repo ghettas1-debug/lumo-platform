@@ -76,6 +76,8 @@ export function PWAManager() {
 
   // Check online status
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
@@ -92,6 +94,8 @@ export function PWAManager() {
 
   // PWA Install Prompt
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const handleBeforeInstallPrompt = (e: any) => {
       e.preventDefault();
       setInstallPrompt(e);
@@ -211,6 +215,8 @@ export function PWAManager() {
   };
 
   const handleClearCache = async () => {
+    if (typeof window === 'undefined') return;
+    
     try {
       const caches = await window.caches.keys();
       await Promise.all(caches.map(cache => window.caches.delete(cache)));
@@ -221,6 +227,8 @@ export function PWAManager() {
   };
 
   const getDeviceType = () => {
+    if (typeof window === 'undefined') return 'desktop';
+    
     const width = window.innerWidth;
     if (width <= 768) return 'mobile';
     if (width <= 1024) return 'tablet';
@@ -577,6 +585,8 @@ export function OfflineBanner() {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const handleOnline = () => {
       setIsOnline(true);
       setShowBanner(true);

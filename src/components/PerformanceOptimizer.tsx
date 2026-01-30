@@ -151,7 +151,7 @@ export default function PerformanceOptimizer() {
     const paint = performance.getEntriesByType('paint');
 
     const newMetrics: PerformanceMetrics = {
-      loadTime: navigation.loadEventEnd - navigation.navigationStart,
+      loadTime: navigation.loadEventEnd - navigation.fetchStart,
       firstContentfulPaint: paint.find(p => p.name === 'first-contentful-paint')?.startTime || 0,
       largestContentfulPaint: paint.find(p => p.name === 'largest-contentful-paint')?.startTime || 0,
       cumulativeLayoutShift: 0.1, // Would need to calculate from CLS entries
@@ -292,7 +292,7 @@ export default function PerformanceOptimizer() {
     return `${(ms / 1000).toFixed(2)}s`;
   };
 
-  const performanceScore = getPerformanceScore();
+  const performanceScore = getPerformanceScore;
   const performanceGrade = getPerformanceGrade(performanceScore);
 
   if (!metrics) {

@@ -1,284 +1,329 @@
 "use client";
 
 import { useState } from 'react';
-import { Search, Filter, Grid, List, ShoppingCart, Star, Clock, Users, BookOpen, Award } from 'lucide-react';
-import Link from 'next/link';
+import { Search, Filter, Clock, Star, Users, BookOpen, Play, Award, TrendingUp, Calendar, DollarSign, BarChart3 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-
-const categories = [
-  '????', '???????', '???????', '????????', '?????? ?????????', 
-  '???????', '??????? ??????', '???????'
-];
-
-const difficultyLevels = ['???? ?????????', '?????', '?????', '?????'];
-
-const coursesData = [
-  { id: 1, title: '?????? Python 2026', category: '???????', instructor: '???? ?????', rating: 4.9, students: 12500, duration: '18 ????', price: 0, featured: true },
-  { id: 2, title: 'Next.js ???????', category: '???????', instructor: '???? ???', rating: 4.8, students: 8900, duration: '24 ????', price: 49.99, featured: true },
-  { id: 3, title: '????? UI/UX ???????', category: '???????', instructor: '???? ????', rating: 4.7, students: 7600, duration: '30 ????', price: 39.99, featured: false },
-  { id: 4, title: 'React ?? ????? ????????', category: '???????', instructor: '???? ????', rating: 4.9, students: 14200, duration: '36 ????', price: 0, featured: true },
-  { id: 5, title: '????? ???????? ?? Python', category: '????????', instructor: '???? ????', rating: 4.6, students: 5400, duration: '28 ????', price: 59.99, featured: false },
-  { id: 6, title: '?????? ????????? ????????', category: '?????? ?????????', instructor: '???? ???????', rating: 4.8, students: 3200, duration: '40 ????', price: 79.99, featured: true },
-  { id: 7, title: '??????? ?????? ???????', category: '???????', instructor: '??? ??????', rating: 4.5, students: 8900, duration: '22 ????', price: 29.99, featured: false },
-  { id: 8, title: '????? ???????? ???????', category: '??????? ??????', instructor: '??? ??????', rating: 4.7, students: 4500, duration: '20 ????', price: 44.99, featured: false },
-];
+import Link from 'next/link';
 
 export default function CoursesPage() {
-  const [selectedCategory, setSelectedCategory] = useState('????');
-  const [selectedLevel, setSelectedLevel] = useState('???? ?????????');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [viewMode, setViewMode] = useState('grid'); // grid or list
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('الكل');
+  const [selectedLevel, setSelectedLevel] = useState('الكل');
+  const [selectedPrice, setSelectedPrice] = useState('الكل');
 
-  // ????? ???????
-  const filteredCourses = coursesData.filter(course => {
-    const matchesCategory = selectedCategory === '????' || course.category === selectedCategory;
-    const matchesSearch = course.title.includes(searchQuery) || course.instructor.includes(searchQuery);
-    return matchesCategory && matchesSearch;
+  const categories = ['الكل', 'البرمجة', 'التصميم', 'البيانات', 'الريادة', 'التسويق', 'إدارة الأعمال'];
+  const levels = ['الكل', 'مبتدئ', 'متوسط', 'متقدم'];
+  const prices = ['الكل', 'مجاني', 'مدفوع'];
+
+  const courses = [
+    {
+      id: 1,
+      title: 'احتراف Python 2026',
+      instructor: 'أحمد محمود',
+      category: 'البرمجة',
+      level: 'متوسط',
+      price: 'مجاني',
+      rating: 4.9,
+      students: 12500,
+      duration: '40 ساعة',
+      image: 'bg-gradient-to-br from-blue-500 to-blue-600',
+      description: 'تعلم Python من الصفر إلى الاحتراف مع مشاريع عملية',
+      tags: ['Python', 'برمجة', 'AI', 'Data Science'],
+      progress: 0
+    },
+    {
+      id: 2,
+      title: 'Next.js المتقدم',
+      instructor: 'سارة علي',
+      category: 'البرمجة',
+      level: 'متقدم',
+      price: 'مجاني',
+      rating: 4.8,
+      students: 8900,
+      duration: '35 ساعة',
+      image: 'bg-gradient-to-br from-purple-500 to-purple-600',
+      description: 'تطوير تطبيقات ويب حديثة باستخدام Next.js',
+      tags: ['Next.js', 'React', 'SSR', 'Static'],
+      progress: 0
+    },
+    {
+      id: 3,
+      title: 'تصميم UI/UX احترافي',
+      instructor: 'محمد سالم',
+      category: 'التصميم',
+      level: 'متوسط',
+      price: 'مجاني',
+      rating: 4.7,
+      students: 7600,
+      duration: '30 ساعة',
+      image: 'bg-gradient-to-br from-pink-500 to-pink-600',
+      description: 'تصميم واجهات مستخدم احترافية مع Figma',
+      tags: ['UI/UX', 'Figma', 'Design', 'Prototype'],
+      progress: 0
+    },
+    {
+      id: 4,
+      title: 'React من الصفر',
+      instructor: 'ليلى أحمد',
+      category: 'البرمجة',
+      level: 'مبتدئ',
+      price: 'مجاني',
+      rating: 4.9,
+      students: 14200,
+      duration: '45 ساعة',
+      image: 'bg-gradient-to-br from-green-500 to-green-600',
+      description: 'تعلم React وتطوير تطبيقات تفاعلية',
+      tags: ['React', 'JavaScript', 'Frontend', 'Web'],
+      progress: 0
+    },
+    {
+      id: 5,
+      title: 'تحليل البيانات',
+      instructor: 'خالد عبدالله',
+      category: 'البيانات',
+      level: 'متوسط',
+      price: 'مدفوع',
+      rating: 4.6,
+      students: 5400,
+      duration: '50 ساعة',
+      image: 'bg-gradient-to-br from-orange-500 to-orange-600',
+      description: 'تحليل البيانات باستخدام Python و SQL',
+      tags: ['Data Analysis', 'Python', 'SQL', 'Statistics'],
+      progress: 0
+    },
+    {
+      id: 6,
+      title: 'التسويق الرقمي',
+      instructor: 'نورا سعيد',
+      category: 'التسويق',
+      level: 'مبتدئ',
+      price: 'مجاني',
+      rating: 4.5,
+      students: 9800,
+      duration: '25 ساعة',
+      image: 'bg-gradient-to-br from-teal-500 to-teal-600',
+      description: 'استراتيجيات التسويق الرقمي الحديثة',
+      tags: ['Marketing', 'SEO', 'Social Media', 'Ads'],
+      progress: 0
+    }
+  ];
+
+  const filteredCourses = courses.filter(course => {
+    const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         course.instructor.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         course.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchesCategory = selectedCategory === 'الكل' || course.category === selectedCategory;
+    const matchesLevel = selectedLevel === 'الكل' || course.level === selectedLevel;
+    const matchesPrice = selectedPrice === 'الكل' || course.price === selectedPrice;
+    
+    return matchesSearch && matchesCategory && matchesLevel && matchesPrice;
   });
 
-  // ???? ?????? ??????? ???? ??? Hydration
-  const formatNumber = (num: number) => {
-    return new Intl.NumberFormat('en-US').format(num);
-  };
-
   return (
-    <main className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-linear-to-r from-blue-600 to-indigo-700 text-white py-20">
-        <div className="container mx-auto px-6 text-center">
-          <h1 className="text-5xl font-black mb-6">????? ???? ???????</h1>
-          <p className="text-xl opacity-90 max-w-3xl mx-auto mb-10">
-            ???? ?? ??? ???? ??????? ????????? ??????? ?? ??? ????? ?????? ??????? ?????? ?????? ???????
-          </p>
-          
-          {/* ???? ????? */}
-          <div className="max-w-3xl mx-auto bg-white rounded-2xl p-2 shadow-2xl">
-            <div className="flex items-center">
-              <div className="p-4">
-                <Search className="text-gray-400" size={24} />
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b">
+        <div className="container mx-auto px-6 py-8">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">جميع الدورات</h1>
+              <p className="text-gray-600">اكتشف أكثر من 100 دورة في مختلف المجالات</p>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                <input
+                  type="text"
+                  placeholder="ابحث عن دورة..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-64"
+                />
               </div>
-              <input
-                type="text"
-                placeholder="???? ?? ????? ????? ?? ????..."
-                className="flex-1 p-4 text-gray-900 text-lg outline-none"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <Button variant="primary" size="lg" className="rounded-xl">
-                ???
+              <Button variant="outline" className="flex items-center gap-2">
+                <Filter size={20} />
+                <span>فلترة</span>
               </Button>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* ????? ?????? */}
-      <div className="container mx-auto px-6 py-12">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* ?????? ??????? ??????? */}
-          <aside className="lg:w-1/4">
-            <Card className="sticky top-24">
-              <div className="flex items-center gap-3 mb-6">
-                <Filter size={24} />
-                <h2 className="text-2xl font-bold">????? ???????</h2>
-              </div>
-
-              {/* ????????? */}
-              <div className="mb-8">
-                <h3 className="font-bold text-gray-700 mb-4">?????????</h3>
-                <div className="space-y-2">
-                  {categories.map((cat) => (
-                    <button
-                      key={cat}
-                      onClick={() => setSelectedCategory(cat)}
-                      className={`block w-full text-right p-3 rounded-lg transition-all ${
-                        selectedCategory === cat 
-                          ? 'bg-blue-50 text-blue-600 font-bold border-2 border-blue-200' 
-                          : 'hover:bg-gray-100 text-gray-700'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* ????? ??????? */}
-              <div>
-                <h3 className="font-bold text-gray-700 mb-4">????? ???????</h3>
-                <div className="space-y-2">
-                  {difficultyLevels.map((level) => (
-                    <button
-                      key={level}
-                      onClick={() => setSelectedLevel(level)}
-                      className={`block w-full text-right p-3 rounded-lg transition-all ${
-                        selectedLevel === level 
-                          ? 'bg-blue-50 text-blue-600 font-bold border-2 border-blue-200' 
-                          : 'hover:bg-gray-100 text-gray-700'
-                      }`}
-                    >
-                      {level}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </Card>
-          </aside>
-
-          {/* ????? ??????? */}
-          <div className="lg:w-3/4">
-            {/* ???? ?????? */}
-            <div className="flex justify-between items-center mb-8">
-              <div>
-                <h2 className="text-3xl font-black text-gray-900">
-                  ???? ??????? <span className="text-blue-600">({filteredCourses.length})</span>
-                </h2>
-                <p className="text-gray-500 mt-2">??? {filteredCourses.length} ???? ?? ??? {coursesData.length}</p>
-              </div>
-              
-              <div className="flex gap-4">
-                <button 
-                  onClick={() => setViewMode('grid')}
-                  className={`p-3 rounded-lg ${viewMode === 'grid' ? 'bg-blue-100 text-blue-600' : 'bg-gray-100'}`}
-                >
-                  <Grid size={24} />
-                </button>
-                <button 
-                  onClick={() => setViewMode('list')}
-                  className={`p-3 rounded-lg ${viewMode === 'list' ? 'bg-blue-100 text-blue-600' : 'bg-gray-100'}`}
-                >
-                  <List size={24} />
-                </button>
+      {/* Filters */}
+      <div className="bg-white border-b">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex flex-wrap gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-gray-700">الفئة:</span>
+              <div className="flex gap-2">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      selectedCategory === category
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* ??? ??????? */}
-            {viewMode === 'grid' ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredCourses.map((course) => (
-                  <Link key={course.id} href={`/courses/${course.id}`}>
-                    <Card className="hover:shadow-xl transition-shadow duration-300 cursor-pointer">
-                      {course.featured && (
-                        <div className="absolute top-4 left-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                          ????
-                        </div>
-                      )}
-                      <div className="h-48 bg-linear-to-r from-blue-400 to-purple-500 rounded-xl mb-4"></div>
-                      <div className="p-4">
-                        <div className="flex justify-between items-start mb-3">
-                          <span className="px-3 py-1 bg-blue-100 text-blue-600 text-sm font-bold rounded-full">
-                            {course.category}
-                          </span>
-                          <div>
-                            {course.price === 0 ? (
-                              <span className="text-lg font-black text-green-600">?????</span>
-                            ) : (
-                              <span className="text-lg font-black text-gray-900">${course.price}</span>
-                            )}
-                          </div>
-                        </div>
-                        <h3 className="text-xl font-black text-gray-900 mb-2 line-clamp-2">{course.title}</h3>
-                        <p className="text-gray-500 mb-3">??????: {course.instructor}</p>
-                          <div className="flex items-center justify-between text-sm">
-                            <div className="flex items-center gap-1">
-                              <Star className="text-yellow-500" size={14} fill="currentColor" />
-                              <span className="font-bold">{course.rating}</span>
-                              <span className="text-gray-400">({formatNumber(course.students)})</span>
-                            </div>
-                            <span className="text-gray-500">{course.duration}</span>
-                          </div>
-                          <Button variant="primary" className="w-full mt-6">
-                            ??? ????????
-                          </Button>
-                      </div>
-                    </Card>
-                  </Link>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-gray-700">المستوى:</span>
+              <div className="flex gap-2">
+                {levels.map((level) => (
+                  <button
+                    key={level}
+                    onClick={() => setSelectedLevel(level)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      selectedLevel === level
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {level}
+                  </button>
                 ))}
               </div>
-            ) : (
-              <div className="space-y-6">
-                {filteredCourses.map((course) => (
-                  <Link key={course.id} href={`/courses/${course.id}`}>
-                    <Card className="hover:shadow-lg transition-all cursor-pointer">
-                      <div className="flex flex-col md:flex-row gap-6">
-                        <div className="md:w-1/4">
-                          <div className="h-48 bg-linear-to-r from-blue-400 to-purple-500 rounded-xl"></div>
-                        </div>
-                        <div className="md:w-3/4">
-                          <div className="flex justify-between items-start mb-4">
-                            <div>
-                              <h3 className="text-2xl font-black text-gray-900 mb-2">{course.title}</h3>
-                              <p className="text-gray-600 mb-2">{course.instructor} � {course.category}</p>
-                            </div>
-                            <div className="text-right">
-                              {course.price === 0 ? (
-                                <span className="text-2xl font-black text-green-600">?????</span>
-                              ) : (
-                                <span className="text-2xl font-black text-gray-900">${course.price}</span>
-                              )}
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-6 text-gray-600 mb-6">
-                            <div className="flex items-center gap-2">
-                              <Star className="text-yellow-500" size={16} fill="currentColor" />
-                              <span className="font-bold">{course.rating}</span>
-                              <span>({formatNumber(course.students)} ????)</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Clock size={16} />
-                              <span>{course.duration}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Users size={16} />
-                              <span>{formatNumber(course.students)} ????</span>
-                            </div>
-                            {course.featured && (
-                              <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-bold">
-                                ????
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-gray-700 mb-6 line-clamp-2">
-                            ???? ???? ?????? ??????? ?????? ????? ?? ???? ??????? ????????? ??????? ???? ???? ???? ????? ??????? ????????.
-                          </p>
-                          <div className="flex gap-4">
-                            <Button variant="primary">??? ??????</Button>
-                            <Button variant="outline">?????? ?? ????????</Button>
-                            <Button variant="outline" size="sm">
-                              <ShoppingCart size={16} className="ml-2" />
-                              ????? ?????
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            )}
+            </div>
 
-            {/* ??? ?? ???? ????? */}
-            {filteredCourses.length === 0 && (
-              <Card className="text-center py-16">
-                <div className="text-gray-400 mb-4 text-6xl">??</div>
-                <h3 className="text-xl font-bold text-gray-700 mb-2">?? ???? ??? ?????</h3>
-                <p className="text-gray-500 mb-6">??? ????? ??????? ?? ????? ?????</p>
-                <Button 
-                  variant="outline" 
-                  className="mt-6"
-                  onClick={() => {
-                    setSearchQuery('');
-                    setSelectedCategory('????');
-                  }}
-                >
-                  ????? ????? ???????
-                </Button>
-              </Card>
-            )}
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-gray-700">السعر:</span>
+              <div className="flex gap-2">
+                {prices.map((price) => (
+                  <button
+                    key={price}
+                    onClick={() => setSelectedPrice(price)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      selectedPrice === price
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {price}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </main>
+
+      {/* Courses Grid */}
+      <div className="container mx-auto px-6 py-8">
+        <div className="mb-6 flex justify-between items-center">
+          <p className="text-gray-600">
+            تم العثور على <span className="font-bold text-blue-600">{filteredCourses.length}</span> دورة
+          </p>
+          <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option>ترتيب حسب الأحدث</option>
+            <option>ترتيب حسب الأعلى تقييماً</option>
+            <option>ترتيب حسب الأكثر شهرة</option>
+            <option>ترتيب حسب الأقل سعراً</option>
+          </select>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredCourses.map((course) => (
+            <Link key={course.id} href={`/courses/${course.id}`}>
+              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group">
+                {/* Course Image */}
+                <div className={`h-48 ${course.image} relative overflow-hidden`}>
+                  <div className="absolute inset-0 bg-black bg-opacity-20" />
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 bg-white bg-opacity-90 rounded-full text-xs font-medium">
+                      {course.level}
+                    </span>
+                  </div>
+                  <div className="absolute top-4 right-4">
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      course.price === 'مجاني' 
+                        ? 'bg-green-500 text-white' 
+                        : 'bg-blue-500 text-white'
+                    }`}>
+                      {course.price}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="text-white font-bold text-lg line-clamp-2">{course.title}</h3>
+                  </div>
+                </div>
+
+                {/* Course Content */}
+                <div className="p-4">
+                  <p className="text-gray-600 text-sm mb-3 line-clamp-2">{course.description}</p>
+                  
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {course.tags.slice(0, 3).map((tag) => (
+                      <span key={tag} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Course Meta */}
+                  <div className="flex items-center justify-between text-sm text-gray-600 mb-3">
+                    <div className="flex items-center gap-1">
+                      <Star className="text-yellow-500 fill-current" size={16} />
+                      <span className="font-medium">{course.rating}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Users size={16} />
+                      <span>{course.students.toLocaleString()}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Clock size={16} />
+                      <span>{course.duration}</span>
+                    </div>
+                  </div>
+
+                  {/* Instructor */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                        <span className="text-xs font-bold text-gray-600">
+                          {course.instructor.charAt(0)}
+                        </span>
+                      </div>
+                      <span className="text-sm text-gray-700">{course.instructor}</span>
+                    </div>
+                    <Button size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Play size={16} />
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
+
+        {filteredCourses.length === 0 && (
+          <div className="text-center py-12">
+            <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+              <Search className="text-gray-400" size={32} />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">لم يتم العثور على دورات</h3>
+            <p className="text-gray-600 mb-4">جرب تغيير معايير البحث أو الفلترة</p>
+            <Button 
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedCategory('الكل');
+                setSelectedLevel('الكل');
+                setSelectedPrice('الكل');
+              }}
+            >
+              إعادة تعيين الفلاتر
+            </Button>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

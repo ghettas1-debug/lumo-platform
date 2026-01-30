@@ -72,7 +72,7 @@ export function VirtualLab({ experiment, onProgress }: VirtualLabProps) {
   const [isRecording, setIsRecording] = useState(false);
   const [notes, setNotes] = useState('');
   const [currentExperimentState, setCurrentExperimentState] = useState<LabExperiment | null>(null);
-  const timerRef = useRef<NodeJS.Timeout>();
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Default experiment if none provided
   const defaultExperiment: LabExperiment = {
@@ -219,7 +219,7 @@ export function VirtualLab({ experiment, onProgress }: VirtualLabProps) {
   const currentStepData = currentExperiment.steps[currentStep];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-6">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 to-purple-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -301,7 +301,7 @@ export function VirtualLab({ experiment, onProgress }: VirtualLabProps) {
               </div>
 
               {/* Lab Simulation Area */}
-              <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-8 min-h-96 relative overflow-hidden">
+              <div className="bg-linear-to-br from-gray-50 to-gray-100 rounded-xl p-8 min-h-96 relative overflow-hidden">
                 {/* Virtual Equipment */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="relative">

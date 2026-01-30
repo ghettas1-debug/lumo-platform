@@ -104,7 +104,7 @@ export function RealTimeCollaboration({ room, currentUser }: RealTimeCollaborati
   const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const recordingIntervalRef = useRef<NodeJS.Timeout>();
+  const recordingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Default current user if not provided
   const defaultCurrentUser: User = {
@@ -342,7 +342,7 @@ export function RealTimeCollaboration({ room, currentUser }: RealTimeCollaborati
                 }`}
               >
                 {/* Video Placeholder */}
-                <div className="aspect-video flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-800">
+                <div className="aspect-video flex items-center justify-center bg-linear-to-br from-gray-700 to-gray-800">
                   {participant.isVideoOn ? (
                     <div className="w-full h-full bg-gray-700 flex items-center justify-center">
                       <div className="text-center">

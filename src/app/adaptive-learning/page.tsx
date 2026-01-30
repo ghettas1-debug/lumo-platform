@@ -564,7 +564,7 @@ export default function AdaptiveLearningPage() {
                         <h5 className="text-sm font-medium mb-2">محتوى {profile.learningStyle}</h5>
                         <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
                           {currentLesson.content[profile.learningStyle as keyof LessonContent]?.map((item, index) => (
-                            <li key={index}>• {item}</li>
+                            <li key={index}>• {String(item)}</li>
                           ))}
                         </ul>
                       </div>

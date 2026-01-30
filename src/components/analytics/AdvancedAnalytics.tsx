@@ -17,7 +17,6 @@ import {
   Brain,
   Eye,
   MousePointer,
-  Click,
   Calendar,
   Filter,
   Download,
@@ -208,10 +207,9 @@ export function AdvancedAnalytics() {
     const interval = setInterval(() => {
       // Refresh data
       const generateMockData = async () => {
-        const mockData: AnalyticsData = {
-          // ... same mock data structure
-        };
-        setAnalyticsData(mockData);
+        if (analyticsData) {
+          setAnalyticsData(analyticsData);
+        }
       };
       generateMockData();
     }, 30000); // Refresh every 30 seconds
@@ -339,7 +337,7 @@ export function AdvancedAnalytics() {
 
           {/* Overview Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4">
+            <div className="bg-linear-to-br from-blue-50 to-blue-100 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
                 <Users size={20} className="text-blue-600" />
                 <span className="text-xs text-blue-600 font-medium">+12.5%</span>
@@ -350,7 +348,7 @@ export function AdvancedAnalytics() {
               <div className="text-sm text-blue-700">إجمالي المستخدمين</div>
             </div>
 
-            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4">
+            <div className="bg-linear-to-br from-green-50 to-green-100 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
                 <Activity size={20} className="text-green-600" />
                 <span className="text-xs text-green-600 font-medium">+8.3%</span>
@@ -361,7 +359,7 @@ export function AdvancedAnalytics() {
               <div className="text-sm text-green-700">المستخدمون النشطون</div>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4">
+            <div className="bg-linear-to-br from-purple-50 to-purple-100 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
                 <BookOpen size={20} className="text-purple-600" />
                 <span className="text-xs text-purple-600 font-medium">+5.2%</span>
@@ -372,7 +370,7 @@ export function AdvancedAnalytics() {
               <div className="text-sm text-purple-700">إجمالي الدورات</div>
             </div>
 
-            <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4">
+            <div className="bg-linear-to-br from-orange-50 to-orange-100 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
                 <Target size={20} className="text-orange-600" />
                 <span className="text-xs text-orange-600 font-medium">+3.7%</span>
@@ -383,7 +381,7 @@ export function AdvancedAnalytics() {
               <div className="text-sm text-orange-700">معدل الإنجاز</div>
             </div>
 
-            <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl p-4">
+            <div className="bg-linear-to-br from-pink-50 to-pink-100 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
                 <Clock size={20} className="text-pink-600" />
                 <span className="text-xs text-pink-600 font-medium">+15.2%</span>
@@ -394,7 +392,7 @@ export function AdvancedAnalytics() {
               <div className="text-sm text-pink-700">متوسط الجلسة</div>
             </div>
 
-            <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-4">
+            <div className="bg-linear-to-br from-indigo-50 to-indigo-100 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
                 <Timer size={20} className="text-indigo-600" />
                 <span className="text-xs text-indigo-600 font-medium">+22.8%</span>

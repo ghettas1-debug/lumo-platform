@@ -77,7 +77,7 @@ export function VoiceNavigation() {
   });
 
   const recognitionRef = useRef<any>(null);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Voice commands
   const voiceCommands: VoiceCommand[] = [
@@ -343,7 +343,7 @@ export function VoiceNavigation() {
 
   const readPageContent = () => {
     const mainContent = document.querySelector('main, .main-content, #main') || document.body;
-    const text = mainContent.innerText || mainContent.textContent || '';
+    const text = (mainContent as HTMLElement).innerText || mainContent.textContent || '';
     
     if (text.length > 0) {
       speak('سأقرأ محتوى الصفحة لك');
