@@ -10,15 +10,15 @@ import CourseCard from '@/components/shared/CourseCard';
 import Link from 'next/link';
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState('????');
+  const [activeTab, setActiveTab] = useState('الكل');
 
-  const categories = ['????', '???????', '???????', '????????', '???????'];
+  const categories = ['الكل', 'البرمجة', 'التصميم', 'البيانات', 'الريادة'];
 
   const courses = [
-    { id: 1, category: '???????', title: '?????? Python 2026', instructor: '???? ?????', rating: 4.9, students: 12500, image: 'bg-blue-500', price: '?????' },
-    { id: 2, category: '???????', title: 'Next.js ???????', instructor: '???? ???', rating: 4.8, students: 8900, image: 'bg-purple-500', price: '?????' },
-    { id: 3, category: '???????', title: '????? UI/UX ???????', instructor: '???? ????', rating: 4.7, students: 7600, image: 'bg-pink-500', price: '?????' },
-    { id: 4, category: '???????', title: 'React ?? ?????', instructor: '???? ????', rating: 4.9, students: 14200, image: 'bg-green-500', price: '?????' },
+    { id: 1, category: 'البرمجة', title: 'احتراف Python 2026', instructor: 'أحمد محمود', rating: 4.9, students: 12500, image: 'bg-blue-500', price: 'مجاني' },
+    { id: 2, category: 'البرمجة', title: 'Next.js المتقدم', instructor: 'سارة علي', rating: 4.8, students: 8900, image: 'bg-purple-500', price: 'مجاني' },
+    { id: 3, category: 'التصميم', title: 'تصميم UI/UX احترافي', instructor: 'محمد سالم', rating: 4.7, students: 7600, image: 'bg-pink-500', price: 'مجاني' },
+    { id: 4, category: 'البرمجة', title: 'React من الصفر', instructor: 'ليلى أحمد', rating: 4.9, students: 14200, image: 'bg-green-500', price: 'مجاني' },
   ];
 
   const features = [
