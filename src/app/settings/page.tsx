@@ -1,409 +1,284 @@
 "use client";
 
 import { useState } from 'react';
-import { User, Bell, Lock, Globe, CreditCard, Shield } from 'lucide-react';
+import { User, Bell, Shield, Globe, Palette, Smartphone, Lock, Mail, CreditCard, Download, HelpCircle, ChevronRight, Moon, Sun, Monitor } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@\/components\/ui\/Button';
-import Input from '@/components/ui/Input';
+import { Button } from '@/components/ui/Button';
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState('profile');
-  const [userData, setUserData] = useState({
-    name: '??? ?????',
-    email: 'ahmed@example.com',
-    phone: '+966 50 123 4567',
-    bio: '???? ??? ???? ??????? Next.js ?React',
-    language: 'ar',
-    notifications: {
-      email: true,
-      push: true,
-      weeklyDigest: false,
-      courseUpdates: true
-    }
-  });
+  const [darkMode, setDarkMode] = useState(false);
+  const [notifications, setNotifications] = useState(true);
+  const [language, setLanguage] = useState('ar');
 
   const tabs = [
-    { id: 'profile', label: '????? ??????', icon: <User size={20} /> },
-    { id: 'security', label: '?????', icon: <Lock size={20} /> },
-    { id: 'notifications', label: '????????', icon: <Bell size={20} /> },
-    { id: 'language', label: '?????', icon: <Globe size={20} /> },
-    { id: 'billing', label: '????? ???????????', icon: <CreditCard size={20} /> },
-    { id: 'privacy', label: '????????', icon: <Shield size={20} /> },
+    { id: 'profile', label: 'الملف الشخصي', icon: User },
+    { id: 'security', label: 'الأمان', icon: Shield },
+    { id: 'notifications', label: 'الإشعارات', icon: Bell },
+    { id: 'appearance', label: 'المظهر', icon: Palette },
+    { id: 'language', label: 'اللغة', icon: Globe },
+    { id: 'devices', label: 'الأجهزة', icon: Smartphone },
+    { id: 'privacy', label: 'الخصوصية', icon: Lock },
+    { id: 'billing', label: 'الفواتير', icon: CreditCard },
+    { id: 'data', label: 'البيانات', icon: Download },
+    { id: 'help', label: 'المساعدة', icon: HelpCircle }
   ];
 
-  const handleSave = () => {
-    alert('?? ??? ???????? ?????!');
+  const languages = [
+    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+    { code: 'pt', name: 'Português', flag: '🇵🇹' },
+    { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+    { code: 'zh', name: '中文', flag: '🇨🇳' },
+    { code: 'ja', name: '日本語', flag: '🇯🇵' }
+  ];
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'profile':
+        return (
+          <div className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                أ
+              </div>
+              <div>
+                <h3 className="text-xl font-bold">أحمد محمد</h3>
+                <p className="text-gray-600">ahmed.mohammed@example.com</p>
+                <Button variant="outline" className="mt-2">تغيير الصورة</Button>
+              </div>
+            </div>
+
+            <Card className="p-6">
+              <h4 className="font-bold mb-4">معلومات شخصية</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">الاسم الأول</label>
+                  <input type="text" defaultValue="أحمد" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">الاسم الأخير</label>
+                  <input type="text" defaultValue="محمد" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني</label>
+                  <input type="email" defaultValue="ahmed.mohammed@example.com" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">رقم الهاتف</label>
+                  <input type="tel" defaultValue="+966 50 123 4567" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+              </div>
+              <Button className="mt-4">حفظ التغييرات</Button>
+            </Card>
+          </div>
+        );
+
+      case 'security':
+        return (
+          <div className="space-y-6">
+            <Card className="p-6">
+              <h4 className="font-bold mb-4">تغيير كلمة المرور</h4>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">كلمة المرور الحالية</label>
+                  <input type="password" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">كلمة المرور الجديدة</label>
+                  <input type="password" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">تأكيد كلمة المرور الجديدة</label>
+                  <input type="password" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+              </div>
+              <Button className="mt-4">تحديث كلمة المرور</Button>
+            </Card>
+
+            <Card className="p-6">
+              <h4 className="font-bold mb-4">المصادقة الثنائية</h4>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-medium">تفعيل المصادقة الثنائية</p>
+                  <p className="text-sm text-gray-600">أضف طبقة أمان إضافية لحسابك</p>
+                </div>
+                <Button variant="outline">تفعيل</Button>
+              </div>
+            </Card>
+          </div>
+        );
+
+      case 'notifications':
+        return (
+          <div className="space-y-6">
+            <Card className="p-6">
+              <h4 className="font-bold mb-4">إعدادات الإشعارات</h4>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">الإشعارات البريد الإلكتروني</p>
+                    <p className="text-sm text-gray-600">تلقي تحديثات الدورات والعروض الجديدة</p>
+                  </div>
+                  <button
+                    onClick={() => setNotifications(!notifications)}
+                    className={`w-12 h-6 rounded-full transition-colors ${
+                      notifications ? 'bg-blue-600' : 'bg-gray-300'
+                    }`}
+                  >
+                    <div className={`w-5 h-5 bg-white rounded-full transition-transform ${
+                      notifications ? 'translate-x-6' : 'translate-x-0.5'
+                    }`} />
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">إشعارات المتصفح</p>
+                    <p className="text-sm text-gray-600">إشعارات فورية في المتصفح</p>
+                  </div>
+                  <button className="w-12 h-6 bg-blue-600 rounded-full">
+                    <div className="w-5 h-5 bg-white rounded-full translate-x-6" />
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">إشعارات الجوال</p>
+                    <p className="text-sm text-gray-600">إشعارات على هاتفك المحمول</p>
+                  </div>
+                  <button className="w-12 h-6 bg-gray-300 rounded-full">
+                    <div className="w-5 h-5 bg-white rounded-full translate-x-0.5" />
+                  </button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        );
+
+      case 'appearance':
+        return (
+          <div className="space-y-6">
+            <Card className="p-6">
+              <h4 className="font-bold mb-4">المظهر</h4>
+              <div className="space-y-4">
+                <div>
+                  <p className="font-medium mb-3">الوضع</p>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => setDarkMode(false)}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg border ${
+                        !darkMode ? 'border-blue-600 bg-blue-50 text-blue-600' : 'border-gray-300'
+                      }`}
+                    >
+                      <Sun size={20} />
+                      <span>وضع النهار</span>
+                    </button>
+                    <button
+                      onClick={() => setDarkMode(true)}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg border ${
+                        darkMode ? 'border-blue-600 bg-blue-50 text-blue-600' : 'border-gray-300'
+                      }`}
+                    >
+                      <Moon size={20} />
+                      <span>وضع الليل</span>
+                    </button>
+                    <button className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300">
+                      <Monitor size={20} />
+                      <span>تلقائي</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        );
+
+      case 'language':
+        return (
+          <div className="space-y-6">
+            <Card className="p-6">
+              <h4 className="font-bold mb-4">اللغة</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                    className={`flex items-center gap-3 p-3 rounded-lg border text-right ${
+                      language === lang.code ? 'border-blue-600 bg-blue-50' : 'border-gray-300'
+                    }`}
+                  >
+                    <span className="text-2xl">{lang.flag}</span>
+                    <div className="flex-1">
+                      <p className="font-medium">{lang.name}</p>
+                      <p className="text-sm text-gray-600">{lang.code}</p>
+                    </div>
+                    {language === lang.code && (
+                      <ChevronRight size={20} className="text-blue-600" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </Card>
+          </div>
+        );
+
+      default:
+        return (
+          <Card className="p-6">
+            <div className="text-center py-8">
+              <p className="text-gray-600">هذا القسم قيد التطوير</p>
+            </div>
+          </Card>
+        );
+    }
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 py-12">
-      <div className="container mx-auto px-6">
-        <div className="mb-10">
-          <h1 className="text-4xl font-black text-gray-900 mb-2">????????</h1>
-          <p className="text-gray-500">???? ????? ????????? ??? ???? LUMO</p>
-        </div>
-
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-6 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          <aside className="lg:w-1/4">
-            <Card className="sticky top-24">
+          {/* Sidebar */}
+          <div className="lg:w-1/4">
+            <Card className="p-4">
+              <h2 className="text-xl font-bold mb-4">الإعدادات</h2>
               <nav className="space-y-2">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`w-full flex items-center gap-3 p-4 rounded-lg text-right transition-all ${
-                      activeTab === tab.id
-                        ? 'bg-blue-50 text-blue-600 font-bold border-r-4 border-blue-500'
-                        : 'hover:bg-gray-100 text-gray-700'
-                    }`}
-                  >
-                    {tab.icon}
-                    <span className="flex-1">{tab.label}</span>
-                  </button>
-                ))}
+                {tabs.map((tab) => {
+                  const Icon = tab.icon;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-right transition-colors ${
+                        activeTab === tab.id
+                          ? 'bg-blue-600 text-white'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <Icon size={20} />
+                      <span>{tab.label}</span>
+                    </button>
+                  );
+                })}
               </nav>
             </Card>
-          </aside>
+          </div>
 
+          {/* Content */}
           <div className="lg:w-3/4">
-            {activeTab === 'profile' && (
-              <Card>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                  <User size={24} /> ????? ??????
-                </h2>
-                
-                <div className="space-y-6">
-                  <div className="flex items-center gap-6 mb-8">
-                    <div className="w-24 h-24 bg-linear-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white text-3xl font-bold">
-                      {userData.name.charAt(0)}
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold">???? ????? ??????</h3>
-                      <p className="text-gray-500 mb-3">JPEG, PNG ??? ??? 5 ????????</p>
-                      <Button variant="outline">????? ??????</Button>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-gray-700 font-medium mb-2">????? ??????</label>
-                      <Input
-                        value={userData.name}
-                        onChange={(e) => setUserData({...userData, name: e.target.value})}
-                        placeholder="??? ???? ??????"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-gray-700 font-medium mb-2">?????? ?????????</label>
-                      <Input
-                        type="email"
-                        value={userData.email}
-                        onChange={(e) => setUserData({...userData, email: e.target.value})}
-                        placeholder="example@email.com"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-gray-700 font-medium mb-2">??? ??????</label>
-                      <Input
-                        value={userData.phone}
-                        onChange={(e) => setUserData({...userData, phone: e.target.value})}
-                        placeholder="+966 50 123 4567"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-gray-700 font-medium mb-2">????? ???????</label>
-                      <select 
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                        value={userData.language}
-                        onChange={(e) => setUserData({...userData, language: e.target.value})}
-                      >
-                        <option value="ar">???????</option>
-                        <option value="en">English</option>
-                        <option value="fr">Fran�ais</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-gray-700 font-medium mb-2">???? ???</label>
-                    <textarea
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition min-h-30"
-                      value={userData.bio}
-                      onChange={(e) => setUserData({...userData, bio: e.target.value})}
-                      placeholder="????? ?????? ?? ????..."
-                    />
-                  </div>
-                </div>
-              </Card>
-            )}
-
-            {activeTab === 'security' && (
-              <Card>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                  <Lock size={24} /> ?????
-                </h2>
-                
-                <div className="space-y-8">
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">????? ???? ??????</h3>
-                    <div className="space-y-4">
-                      <Input type="password" placeholder="???? ?????? ???????" />
-                      <Input type="password" placeholder="???? ?????? ???????" />
-                      <Input type="password" placeholder="???? ???? ?????? ???????" />
-                      <Button variant="primary">????? ???? ??????</Button>
-                    </div>
-                  </div>
-
-                  <div className="border-t pt-6">
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">????? ??????</h3>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <div>
-                          <p className="font-medium">Windows - Chrome</p>
-                          <p className="text-sm text-gray-500">?????? ???????? � ???? ????</p>
-                        </div>
-                        <Button variant="outline" size="sm">????? ??????</Button>
-                      </div>
-                      <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <div>
-                          <p className="font-medium">iPhone 14 Pro</p>
-                          <p className="text-sm text-gray-500">??? ???????? � ??? ????: ??? 2 ???</p>
-                        </div>
-                        <Button variant="outline" size="sm">????? ??????</Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            )}
-
-            {activeTab === 'notifications' && (
-              <Card>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                  <Bell size={24} /> ????????
-                </h2>
-                
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium">???????? ??? ?????? ?????????</p>
-                      <p className="text-sm text-gray-500">???? ??????? ??? ?????? ??????</p>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input 
-                        type="checkbox" 
-                        className="sr-only peer" 
-                        checked={userData.notifications.email}
-                        onChange={(e) => setUserData({
-                          ...userData, 
-                          notifications: {...userData.notifications, email: e.target.checked}
-                        })}
-                      />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                    </label>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium">???????? ??????? (Push)</p>
-                      <p className="text-sm text-gray-500">?????? ?????? ??? ??????</p>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input 
-                        type="checkbox" 
-                        className="sr-only peer" 
-                        checked={userData.notifications.push}
-                        onChange={(e) => setUserData({
-                          ...userData, 
-                          notifications: {...userData.notifications, push: e.target.checked}
-                        })}
-                      />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                    </label>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium">?????? ????????</p>
-                      <p className="text-sm text-gray-500">???? ????? ?? ?????? ??????</p>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input 
-                        type="checkbox" 
-                        className="sr-only peer" 
-                        checked={userData.notifications.weeklyDigest}
-                        onChange={(e) => setUserData({
-                          ...userData, 
-                          notifications: {...userData.notifications, weeklyDigest: e.target.checked}
-                        })}
-                      />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                    </label>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium">??????? ????????</p>
-                      <p className="text-sm text-gray-500">?????? ?? ????? ???? ?? ???????</p>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input 
-                        type="checkbox" 
-                        className="sr-only peer" 
-                        checked={userData.notifications.courseUpdates}
-                        onChange={(e) => setUserData({
-                          ...userData, 
-                          notifications: {...userData.notifications, courseUpdates: e.target.checked}
-                        })}
-                      />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                    </label>
-                  </div>
-                </div>
-              </Card>
-            )}
-
-            {activeTab === 'language' && (
-              <Card>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                  <Globe size={24} /> ????? ???????
-                </h2>
-                
-                <div className="space-y-8">
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">??? ???????</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {[
-                        { code: 'ar', name: '???????', flag: '????' },
-                        { code: 'en', name: 'English', flag: '????' },
-                        { code: 'fr', name: 'Fran�ais', flag: '????' },
-                        { code: 'es', name: 'Espa�ol', flag: '????' },
-                        { code: 'de', name: 'Deutsch', flag: '????' },
-                        { code: 'tr', name: 'T�rk�e', flag: '????' },
-                      ].map((lang) => (
-                        <button
-                          key={lang.code}
-                          onClick={() => setUserData({...userData, language: lang.code})}
-                          className={`p-4 border-2 rounded-xl text-center transition-all ${
-                            userData.language === lang.code
-                              ? 'border-blue-500 bg-blue-50'
-                              : 'border-gray-200 hover:border-gray-300'
-                          }`}
-                        >
-                          <div className="text-3xl mb-2">{lang.flag}</div>
-                          <p className="font-medium">{lang.name}</p>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">??????? ??????</h3>
-                    <select className="w-full md:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-                      <option>????? ?????? (UTC+3)</option>
-                      <option>????? ??? (UTC+4)</option>
-                      <option>????? ??????? (UTC+2)</option>
-                      <option>????? ?????? (UTC+0)</option>
-                    </select>
-                  </div>
-                </div>
-              </Card>
-            )}
-
-            {activeTab === 'billing' && (
-              <Card>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                  <CreditCard size={24} /> ????? ???????????
-                </h2>
-                
-                <div className="space-y-8">
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">????? ???????</h3>
-                    <div className="bg-linear-to-r from-green-50 to-emerald-100 border-2 border-green-200 rounded-xl p-6">
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <h4 className="text-xl font-black text-gray-900">????? ????????</h4>
-                          <p className="text-gray-600">5 ?????? ?????? ????? � ??? ????</p>
-                        </div>
-                        <span className="text-3xl font-black text-green-600">?????</span>
-                      </div>
-                      <Button variant="primary" className="mt-4">????? ??? ????? ???????</Button>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">??? ?????</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-4 border rounded-lg">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-6 bg-blue-500 rounded"></div>
-                          <div>
-                            <p className="font-medium">????? Visa ????? ? 4242</p>
-                            <p className="text-sm text-gray-500">????? ?? 12/2026</p>
-                          </div>
-                        </div>
-                        <Button variant="outline" size="sm">???</Button>
-                      </div>
-                      <Button variant="outline">+ ????? ????? ??? ?????</Button>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            )}
-
-            {activeTab === 'privacy' && (
-              <Card>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                  <Shield size={24} /> ????????
-                </h2>
-                
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">????? ?????? ?????</h3>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <span>??? ????? ?????? ????</span>
-                        <label className="relative inline-flex items-center cursor-pointer">
-                          <input type="checkbox" className="sr-only peer" defaultChecked />
-                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                        </label>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span>????? ???? ??????</span>
-                        <label className="relative inline-flex items-center cursor-pointer">
-                          <input type="checkbox" className="sr-only peer" defaultChecked />
-                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                        </label>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span>?????? ???????? ????????</span>
-                        <label className="relative inline-flex items-center cursor-pointer">
-                          <input type="checkbox" className="sr-only peer" />
-                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="border-t pt-6">
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">??? ??????</h3>
-                    <p className="text-gray-600 mb-4">??? ????? ???? ???? ????? ??????? ???????? ??. ??? ??????? ?? ???? ??????? ???.</p>
-                    <Button variant="outline" className="text-red-600 border-red-300 hover:bg-red-50">
-                      ??? ?????
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            )}
-
-            <div className="flex justify-end gap-4 mt-8">
-              <Button variant="outline">?????</Button>
-              <Button variant="primary" onClick={handleSave}>??? ?????????</Button>
+            <div className="mb-6">
+              <h1 className="text-3xl font-bold text-gray-900">
+                {tabs.find(tab => tab.id === activeTab)?.label}
+              </h1>
             </div>
+            {renderContent()}
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
-
