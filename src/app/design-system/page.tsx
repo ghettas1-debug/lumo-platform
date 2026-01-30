@@ -1,7 +1,7 @@
 'use client';
 
 import { LayoutGrid, Sparkles, CheckCircle2 } from 'lucide-react';
-import Card from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 import Tabs from '@/components/ui/Tabs';
 import Modal from '@/components/ui/Modal';
 import Toast from '@/components/ui/Toast';
@@ -71,3 +71,4 @@ export default function DesignSystemPage() {
     </main>
   );
 }
+

@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { MessageSquare, ThumbsUp, Users, Search } from 'lucide-react';
-import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
 import Modal from '@/components/ui/Modal';
 
 const discussions = [
@@ -96,3 +96,4 @@ export default function CourseCommunityPage() {
     </main>
   );
 }
+

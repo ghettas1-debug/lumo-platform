@@ -1,7 +1,7 @@
 "use client";
 
 import { Shield, Users, Award, Clock, CheckCircle, AlertCircle, BookOpen, CreditCard, Mail, Phone } from 'lucide-react';
-import Card from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 
 export default function TermsPage() {
   return (
@@ -250,3 +250,4 @@ export default function TermsPage() {
     </div>
   );
 }
+

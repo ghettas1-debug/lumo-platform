@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Award, Target, Users, Settings, Sparkles, Smartphone, BookOpen, PlayCircle, Search } from 'lucide-react';
-import Card from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 
 const guideSections = [
   {
@@ -89,3 +89,4 @@ export default function PlatformGuidePage() {
     </main>
   );
 }
+

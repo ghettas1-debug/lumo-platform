@@ -5,8 +5,8 @@ import {
   Plus, Search, Filter, Calendar, Clock, 
   Tag, Star, BookOpen, FileText, Hash
 } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 import NotesManager from '@/components/notes/NotesManager';
 
 export default function NotesPage() {
@@ -362,3 +362,4 @@ export default function NotesPage() {
     </div>
   );
 }
+

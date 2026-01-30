@@ -9,8 +9,8 @@ import {
   ChevronDown, ChevronUp, MoreVertical, Eye,
   Heart, MessageSquare, Bookmark, Hash, Grid
 } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 
 interface Note {
   id: string;

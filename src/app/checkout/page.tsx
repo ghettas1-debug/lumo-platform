@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { CreditCard, Shield, Lock, Check, AlertCircle, ArrowLeft, ArrowRight, User, Mail, Phone, MapPin, CreditCard as CardIcon, Calendar, Smartphone, Wallet, Banknote } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
 
 export default function CheckoutPage() {
@@ -635,3 +635,4 @@ export default function CheckoutPage() {
     </div>
   );
 }
+

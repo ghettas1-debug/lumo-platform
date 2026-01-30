@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { Award, Download, Share2, ExternalLink, Search, Filter, Calendar, Clock, CheckCircle, Star, User, Mail, Phone, Globe, Shield, Eye, Copy, ArrowRight } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 import CertificateGenerator from '@/components/certificates/CertificateGenerator';
 
 export default function CertificatesPage() {
@@ -534,3 +534,4 @@ export default function CertificatesPage() {
     </div>
   );
 }
+

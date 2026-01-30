@@ -1,7 +1,7 @@
 'use client';
 
 import { Award, ShieldCheck, Star, Users } from 'lucide-react';
-import Card from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 
 export default function TrustPage() {
   return (
@@ -38,3 +38,4 @@ export default function TrustPage() {
     </main>
   );
 }
+

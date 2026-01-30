@@ -8,8 +8,8 @@ import {
   ChevronRight, Users, Lock, Globe, Calendar, Target, Zap,
   TrendingUp, BarChart3, Award
 } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 
 interface Video {
   id: string;
@@ -1051,3 +1051,4 @@ export default function PlaylistPage() {
     </div>
   );
 }
+

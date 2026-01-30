@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { BookOpen, Award, TrendingUp, Clock, PlayCircle, Star, Calendar, CheckCircle } from 'lucide-react';
-import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
 import Tabs from '@/components/ui/Tabs';
 
 const enrolledCourses = [
@@ -199,3 +199,4 @@ export default function StudentDashboardPage() {
     </main>
   );
 }
+

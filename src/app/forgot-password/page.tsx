@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { Mail, ArrowLeft, CheckCircle, AlertCircle, Lock } from 'lucide-react';
 import Link from 'next/link';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -182,3 +182,4 @@ export default function ForgotPasswordPage() {
     </div>
   );
 }
+

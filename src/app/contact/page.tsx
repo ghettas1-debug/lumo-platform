@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Send, MessageSquare, Clock, Users, Building, CheckCircle } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
 
 export default function ContactPage() {
@@ -405,3 +405,4 @@ export default function ContactPage() {
     </div>
   );
 }
+

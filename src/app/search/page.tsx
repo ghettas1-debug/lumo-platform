@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Search, Clock, Star, Users, BookOpen, Filter, Award, TrendingUp, Calendar, Download, Heart, Share2, Eye, ChevronDown, X, Grid, List, Sparkles, Target, Zap } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 
 export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -611,3 +611,4 @@ export default function SearchPage() {
     </div>
   );
 }
+

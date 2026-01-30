@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { Search, HelpCircle, BookOpen, MessageSquare, Phone, Mail, Clock, ChevronRight, FileText, Video, Settings, Shield, Users, Award, Target } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 
 export default function HelpPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -339,3 +339,4 @@ export default function HelpPage() {
     </div>
   );
 }
+

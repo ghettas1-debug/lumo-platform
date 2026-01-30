@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Search, HelpCircle, BookOpen, Users, CreditCard, Award, Clock, Shield } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 
 export default function FAQPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -327,3 +327,4 @@ export default function FAQPage() {
     </div>
   );
 }
+

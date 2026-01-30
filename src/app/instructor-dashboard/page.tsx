@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { BookOpen, Users, DollarSign, TrendingUp, Plus, Star, MessageSquare } from 'lucide-react';
-import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
 import Table from '@/components/ui/Table';
 import Tabs from '@/components/ui/Tabs';
 
@@ -145,3 +145,4 @@ export default function InstructorDashboardPage() {
     </main>
   );
 }
+

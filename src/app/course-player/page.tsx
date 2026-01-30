@@ -9,8 +9,8 @@ import {
   Gauge, Rewind, FastForward, Repeat, List, MessageSquare,
   ThumbsUp, ThumbsDown, Star, FileText, Award
 } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 
 export default function CoursePlayerPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -563,3 +563,4 @@ export default function CoursePlayerPage() {
     </div>
   );
 }
+

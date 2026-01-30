@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { ShoppingCart, Plus, Minus, Trash2, CreditCard, Shield, Truck, Clock, Star, BookOpen, Users, ChevronRight, X } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([
@@ -397,3 +397,4 @@ export default function CartPage() {
     </div>
   );
 }
+

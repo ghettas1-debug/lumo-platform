@@ -1,7 +1,7 @@
 'use client';
 
 import { Sparkles, Loader, Layers } from 'lucide-react';
-import Card from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 
 export default function PolishPage() {
   return (
@@ -33,3 +33,4 @@ export default function PolishPage() {
     </main>
   );
 }
+

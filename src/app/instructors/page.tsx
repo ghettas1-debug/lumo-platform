@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { Star, Users, BookOpen, Award, PlayCircle, Filter, Search } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 import Link from 'next/link';
 
 export default function InstructorsPage() {
@@ -335,3 +335,4 @@ export default function InstructorsPage() {
     </div>
   );
 }
+

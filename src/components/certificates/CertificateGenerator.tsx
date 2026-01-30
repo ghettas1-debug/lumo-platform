@@ -6,8 +6,8 @@ import {
   CheckCircle, Mail, Printer, QrCode, Star,
   Shield, Clock, BookOpen, Target
 } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 
 interface CertificateData {
   id: string;

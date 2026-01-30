@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Lock, Eye, EyeOff, CheckCircle, AlertCircle, Shield } from 'lucide-react';
 import Link from 'next/link';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 
 export default function ResetPasswordPage() {
   const params = useParams();
@@ -323,3 +323,4 @@ export default function ResetPasswordPage() {
     </div>
   );
 }
+

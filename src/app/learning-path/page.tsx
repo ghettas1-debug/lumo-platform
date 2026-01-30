@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { Target, BookOpen, CheckCircle, Clock, Star } from 'lucide-react';
-import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
 import Stepper from '@/components/ui/Stepper';
 import Tabs from '@/components/ui/Tabs';
 
@@ -110,3 +110,4 @@ export default function LearningPathPage() {
     </main>
   );
 }
+

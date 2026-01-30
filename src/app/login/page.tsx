@@ -1,28 +1,28 @@
-﻿'use client';
+'use client';
 
-import Button from '@/components/ui/Button';
+import { Button } from '@\/components\/ui\/Button';
 import Input from '@/components/ui/Input';
 import Link from 'next/link';
 
 export default function LoginPage() {
   const handleLogin = () => {
-    alert('سيتم إضافة منطق تسجيل الدخول هنا لاحقاً');
+    alert('???? ????? ???? ????? ?????? ??? ??????');
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
         <h1 className="text-3xl font-bold text-center text-gray-900 mb-2">
-          تسجيل الدخول
+          ????? ??????
         </h1>
         <p className="text-gray-500 text-center mb-8">
-          أدخل بياناتك للوصول إلى حسابك
+          ???? ??????? ?????? ??? ?????
         </p>
 
         <form className="space-y-6">
           <div>
             <label className="block text-gray-700 font-medium mb-2">
-              البريد الإلكتروني
+              ?????? ??????????
             </label>
             <Input
               type="email"
@@ -32,11 +32,11 @@ export default function LoginPage() {
 
           <div>
             <label className="block text-gray-700 font-medium mb-2">
-              كلمة المرور
+              ???? ??????
             </label>
             <Input
               type="password"
-              placeholder="••••••••"
+              placeholder="��������"
             />
           </div>
 
@@ -46,13 +46,13 @@ export default function LoginPage() {
                 type="checkbox"
                 className="ml-2 border-gray-300 rounded focus:ring-blue-500"
               />
-              <span className="text-sm text-gray-600">تذكرني</span>
+              <span className="text-sm text-gray-600">??????</span>
             </label>
             <Link
               href="/forgot-password"
               className="text-sm text-blue-600 hover:underline font-medium"
             >
-              نسيت كلمة المرور؟
+              ???? ???? ???????
             </Link>
           </div>
 
@@ -62,13 +62,13 @@ export default function LoginPage() {
             onClick={handleLogin}
             className="w-full"
           >
-            تسجيل الدخول
+            ????? ??????
           </Button>
 
           <p className="text-center text-gray-500 text-sm mt-4">
-            ليس لديك حساب؟{' '}
+            ??? ???? ?????{' '}
             <Link href="/signup" className="text-blue-600 font-medium hover:underline">
-              سجل الآن
+              ??? ????
             </Link>
           </p>
         </form>

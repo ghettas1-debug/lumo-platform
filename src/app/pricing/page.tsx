@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { Check, X, Star, Users, Award, Clock, HeadphonesIcon, Zap } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
+import { Card } from '@/components/ui/Card';
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
@@ -357,3 +357,4 @@ export default function PricingPage() {
     </div>
   );
 }
+

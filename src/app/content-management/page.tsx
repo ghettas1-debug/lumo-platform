@@ -1,8 +1,8 @@
 'use client';
 
 import { FileText, Video, UploadCloud, Settings } from 'lucide-react';
-import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@\/components\/ui\/Button';
 
 export default function ContentManagementPage() {
   return (
@@ -44,3 +44,4 @@ export default function ContentManagementPage() {
     </main>
   );
 }
+
