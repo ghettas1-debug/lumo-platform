@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { ArrowRight, Play, Brain, Bell, MessageSquare, TrendingUp, BarChart3, Award, Search, Target, Users, Settings, Sparkles, Smartphone, BookOpen, PlayCircle, Lock, Globe, Zap } from 'lucide-react';
+import { 
+  ArrowRight, Play, Brain, Bell, MessageSquare, TrendingUp, BarChart3, Award, Search, Target, Users, Settings, Sparkles, Smartphone, BookOpen, PlayCircle, Lock, Globe, Zap, Shield, CreditCard, FileText, Building2, Code, Activity, Crown, ChevronRight, Newspaper, Briefcase, Handshake, DollarSign
+} from 'lucide-react';
 import Hero from '@/components/landing/Hero';
 import Footer from '@/components/landing/Footer';
 import { Card } from '@/components/ui/Card';
@@ -167,6 +169,116 @@ export default function Home() {
     }
   ];
 
+  const globalFeatures = [
+    {
+      icon: Shield,
+      title: 'الأمان والخصوصية',
+      description: 'حماية متقدمة للبيانات والخصوصية الكاملة',
+      href: '/security',
+      color: 'from-red-500 to-pink-600',
+      badge: 'مهم'
+    },
+    {
+      icon: Building2,
+      title: 'حلول الشركات',
+      description: 'حلول B2B/B2G متكاملة للمؤسسات',
+      href: '/enterprise',
+      color: 'from-blue-500 to-indigo-600',
+      badge: 'جديد'
+    },
+    {
+      icon: CreditCard,
+      title: 'الاشتراكات',
+      description: 'نظام اشتراكات مرن ومخطط تسعير',
+      href: '/subscriptions',
+      color: 'from-green-500 to-teal-600'
+    },
+    {
+      icon: FileText,
+      title: 'الفواتير',
+      description: 'إدارة المدفوعات والفواتير',
+      href: '/billing',
+      color: 'from-yellow-500 to-orange-600'
+    },
+    {
+      icon: Code,
+      title: 'للمطورين',
+      description: 'API و SDKs ووثائق شاملة',
+      href: '/developers',
+      color: 'from-purple-500 to-pink-600'
+    },
+    {
+      icon: Activity,
+      title: 'حالة الخدمة',
+      description: 'مراقبة الخدمات في الوقت الفعلي',
+      href: '/status',
+      color: 'from-orange-500 to-red-600'
+    },
+    {
+      icon: FileText,
+      title: 'سياسة الخصوصية',
+      description: 'سياسة خصوصية شاملة وامتثال قانوني',
+      href: '/privacy-policy',
+      color: 'from-gray-600 to-gray-800'
+    },
+    {
+      icon: Crown,
+      title: 'لوحة الإدارة',
+      description: 'لوحة تحكم متكاملة للمشرفين',
+      href: '/admin',
+      color: 'from-yellow-500 to-orange-600'
+    },
+    {
+      icon: BookOpen,
+      title: 'من نحن',
+      description: 'تعرف على قصة Lumo وفريقنا',
+      href: '/about',
+      color: 'from-cyan-500 to-blue-600'
+    },
+    {
+      icon: Newspaper,
+      title: 'المدونة',
+      description: 'مقالات تعليمية ومحتوى متخصص',
+      href: '/blog',
+      color: 'from-indigo-500 to-purple-600'
+    },
+    {
+      icon: Briefcase,
+      title: 'الوظائف',
+      description: 'انضم فريق Lumo وكن جزءاً من النجاح',
+      href: '/careers',
+      color: 'from-blue-500 to-indigo-600'
+    },
+    {
+      icon: Newspaper,
+      title: 'الإعلام والأخبار',
+      description: 'تابع آخر أخبار Lumo وإنجازاتنا',
+      href: '/press',
+      color: 'from-purple-500 to-pink-600'
+    },
+    {
+      icon: Handshake,
+      title: 'الشركاء',
+      description: 'انضم مجتمع الشركاء الناجحين',
+      href: '/partners',
+      color: 'from-green-500 to-teal-600'
+    },
+    {
+      icon: DollarSign,
+      title: 'التسويق بالعمولة',
+      description: 'احصل على عمولات تنافسية',
+      href: '/affiliates',
+      color: 'from-yellow-500 to-orange-600'
+    },
+    {
+      icon: TrendingUp,
+      title: 'المستثمرون',
+      description: 'استثمر في مستقبل التعليم',
+      href: '/investors',
+      color: 'from-red-500 to-pink-600'
+    }
+  ];
+
   // منطق التصفية الذكية
   const filteredCourses = activeTab === 'الكل' 
     ? courses 
@@ -259,6 +371,67 @@ export default function Home() {
                 </Link>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* قسم الصفحات العالمية */}
+      <section className="py-16 md:py-24 bg-linear-to-br from-gray-50 to-blue-50">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-bold mb-4">
+              <Crown className="w-4 h-4" />
+              منصة عالمية متكاملة
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">صفحات عالمية احترافية</h2>
+            <p className="text-gray-500 text-lg max-w-3xl mx-auto font-bold">مجموعة كاملة من الصفحات المتقدمة التي تجعل Lumo منصة تعليمية عالمية</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {globalFeatures.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <Link
+                  key={index}
+                  href={feature.href}
+                  className="group block"
+                >
+                  <Card className="p-6 h-full hover:shadow-2xl transition-all duration-300 border-0 hover:scale-105 cursor-pointer bg-white relative overflow-hidden">
+                    {feature.badge && (
+                      <div className="absolute top-4 right-4 z-10">
+                        <span className={`px-2 py-1 rounded-full text-xs font-bold ${
+                          feature.badge === 'مهم' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
+                        }`}>
+                          {feature.badge}
+                        </span>
+                      </div>
+                    )}
+                    <div className={`w-16 h-16 bg-linear-to-r ${feature.color} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                      {feature.description}
+                    </p>
+                    <div className="flex items-center gap-2 text-blue-600 font-medium text-sm group-hover:gap-3 transition-all">
+                      <span>استكشف الآن</span>
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link
+              href="/platform-guide"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gray-900 text-white font-bold hover:scale-105 transition-all shadow-xl"
+            >
+              استكشف جميع الصفحات <ChevronRight size={20} />
+            </Link>
           </div>
         </div>
       </section>

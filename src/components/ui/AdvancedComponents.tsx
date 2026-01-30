@@ -15,7 +15,7 @@ export function AdvancedDialog() {
       <DialogTrigger asChild>
         <Button>فتح نافذة متقدمة</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106.25">
         <DialogTitle>نافذة متقدمة</DialogTitle>
         <div className="mt-4">
           <p>هذا مثال على نافذة حوارية متقدمة باستخدام Radix UI.</p>
