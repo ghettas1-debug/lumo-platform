@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { ArrowRight, Play, Brain, Bell, MessageSquare, TrendingUp, BarChart3, Award, Search, Target, Users, Settings, Sparkles, Smartphone, BookOpen, PlayCircle } from 'lucide-react';
 import Hero from '@/components/landing/Hero';
 import Footer from '@/components/landing/Footer';
-import Card from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 import StatsSection from '@/components/landing/StatsSection';
 import CourseCard from '@/components/shared/CourseCard';
 import Link from 'next/link';

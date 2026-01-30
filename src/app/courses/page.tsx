@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { Search, Filter, Grid, List, ShoppingCart, Star, Clock, Users, BookOpen, Award } from 'lucide-react';
 import Link from 'next/link';
-import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 const categories = [
   'الكل', 'البرمجة', 'التصميم', 'البيانات', 'الذكاء الاصطناعي', 
