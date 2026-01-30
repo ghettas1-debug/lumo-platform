@@ -2,8 +2,8 @@
 
 import { useState, useRef } from 'react';
 import { User, Mail, Phone, Calendar, Award, BookOpen, Clock, Star, Edit, Camera, Settings, LogOut, ChevronRight, ChevronLeft, MapPin, Briefcase, Globe, Shield, Bell, CreditCard, Download, Share2 } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState('overview');
