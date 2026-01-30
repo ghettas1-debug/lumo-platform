@@ -6,7 +6,7 @@ import {
   Star, TrendingUp, Calendar, CheckCircle, 
   Circle, Lock, Zap, Medal, Crown
 } from 'lucide-react';
-import Card from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 
 interface ProgressTrackerProps {
   userId?: string;
