@@ -12,9 +12,9 @@ interface CourseProps {
   price: string;
 }
 
-export default function CourseCard({ title, instructor, rating, students, image, price }: CourseProps) {
+export default function CourseCard({ id, title, instructor, rating, students, image, price }: CourseProps) {
   return (
-    <Link href="/course-player" className="group">
+    <Link href={`/courses/${id}`} className="group">
       <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 h-full flex flex-col">
         {/* Course Thumbnail */}
         <div className={`${image} h-40 relative overflow-hidden flex items-center justify-center`}>

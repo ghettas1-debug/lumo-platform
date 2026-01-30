@@ -260,10 +260,12 @@ export default function Home() {
             {filteredCourses.length > 0 ? (
               filteredCourses.map((course, index) => (
                 index === 0 ? (
-                  <Card key={course.id} className="p-4">
-                    <h3 className="text-lg font-bold">تجربة الكارد الجديد</h3>
-                    <p className="text-gray-600">هذا كارد مخصص من نظام التصميم</p>
-                  </Card>
+                  <Link key={course.id} href={`/courses/${course.id}`}>
+                    <Card className="p-4 hover:shadow-lg transition-all cursor-pointer">
+                      <h3 className="text-lg font-bold">تجربة الكارد الجديد</h3>
+                      <p className="text-gray-600">هذا كارد مخصص من نظام التصميم</p>
+                    </Card>
+                  </Link>
                 ) : (
                   <CourseCard key={course.id} {...course} />
                 )

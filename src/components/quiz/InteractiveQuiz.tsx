@@ -1,13 +1,63 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from 'react';
-import { 
-  CheckCircle, XCircle, Clock, Award, BarChart3, 
-  Play, Pause, RotateCcw, ArrowRight, ArrowLeft,
-  AlertCircle, Lightbulb, BookOpen, Target, Trophy
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  CheckCircle,
+  XCircle,
+  Clock,
+  Trophy,
+  Target,
+  Brain,
+  FileText,
+  Image,
+  Code,
+  Mic,
+  Video,
+  BarChart3,
+  TrendingUp,
+  Award,
+  Star,
+  RotateCcw,
+  ArrowRight,
+  ArrowLeft,
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Download,
+  Upload,
+  Share2,
+  Bookmark,
+  MessageSquare,
+  ThumbsUp,
+  ThumbsDown,
+  HelpCircle,
+  Lightbulb,
+  Zap,
+  Timer,
+  Flag,
+  Eye,
+  EyeOff,
+  RefreshCw,
+  Save,
+  Send,
+  Paperclip,
+  Link,
+  Grid3x3,
+  List,
+  Settings,
+  ChevronRight,
+  ChevronLeft,
+  Check,
+  X,
+  Plus,
+  Trash2,
+  BookOpen
 } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { AnimatedWrapper, StaggerContainer, StaggerItem, AnimatedProgress } from '@/components/ui/Animations';
 
 interface Question {
   id: number;

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Star, Users, BookOpen, Award, PlayCircle, Filter, Search } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
+import Link from 'next/link';
 
 export default function InstructorsPage() {
   const [selectedCategory, setSelectedCategory] = useState('الكل');
@@ -11,7 +12,7 @@ export default function InstructorsPage() {
 
   const categories = ['الكل', 'البرمجة', 'التصميم', 'البيانات', 'التسويق', 'الأعمال'];
 
-  // بيانات وهمية للمدربين
+  // بيانات وهمية للمدربين مع إضافة دوراتهم
   const instructors = [
     {
       id: 1,
@@ -26,7 +27,8 @@ export default function InstructorsPage() {
       avatar: null,
       achievements: ['أفضل مدرب 2023', '100+ تقييم 5 نجوم'],
       languages: ['العربية', 'الإنجليزية'],
-      experience: '10 سنوات'
+      experience: '10 سنوات',
+      courseIds: [1, 4, 6] // روابط الدورات
     },
     {
       id: 2,
@@ -41,7 +43,8 @@ export default function InstructorsPage() {
       avatar: null,
       achievements: ['خبيرة Next.js', '50+ دورة ناجحة'],
       languages: ['العربية', 'الإنجليزية', 'الفرنسية'],
-      experience: '7 سنوات'
+      experience: '7 سنوات',
+      courseIds: [2] // روابط الدورات
     },
     {
       id: 3,
@@ -56,7 +59,8 @@ export default function InstructorsPage() {
       avatar: null,
       achievements: ['أفضل مصمم 2022', 'تصميم 100+ تطبيق'],
       languages: ['العربية', 'الإنجليزية'],
-      experience: '8 سنوات'
+      experience: '8 سنوات',
+      courseIds: [3] // روابط الدورات
     },
     {
       id: 4,
@@ -71,7 +75,8 @@ export default function InstructorsPage() {
       avatar: null,
       achievements: ['خبيرة Python', '100+ مشروع'],
       languages: ['العربية', 'الإنجليزية'],
-      experience: '9 سنوات'
+      experience: '9 سنوات',
+      courseIds: [5] // روابط الدورات
     },
     {
       id: 5,
@@ -86,7 +91,8 @@ export default function InstructorsPage() {
       avatar: null,
       achievements: ['خبير SEO', '1000+ حملة ناجحة'],
       languages: ['العربية', 'الإنجليزية'],
-      experience: '6 سنوات'
+      experience: '6 سنوات',
+      courseIds: [7] // روابط الدورات
     },
     {
       id: 6,
@@ -101,7 +107,8 @@ export default function InstructorsPage() {
       avatar: null,
       achievements: ['PMP معتمدة', '50+ مشروع ناجح'],
       languages: ['العربية', 'الإنجليزية'],
-      experience: '12 سنة'
+      experience: '12 سنوات',
+      courseIds: [8] // روابط الدورات
     }
   ];
 
@@ -267,13 +274,38 @@ export default function InstructorsPage() {
 
                     {/* Action Buttons */}
                     <div className="flex gap-3">
-                      <Button variant="primary" className="flex-1">
-                        عرض الدورات
-                      </Button>
+                      <Link href={`/courses?instructor=${instructor.id}`} className="flex-1">
+                        <Button variant="primary" className="w-full">
+                          عرض الدورات
+                        </Button>
+                      </Link>
                       <Button variant="outline" className="flex-1">
                         <PlayCircle size={16} className="ml-2" />
                         معاينة
                       </Button>
+                    </div>
+
+                    {/* Courses List */}
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                      <h4 className="font-bold text-gray-700 mb-3">دورات هذا المدرب</h4>
+                      <div className="space-y-2">
+                        {instructor.courseIds.map((courseId) => (
+                          <Link 
+                            key={courseId}
+                            href={`/courses/${courseId}`}
+                            className="block p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors"
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm font-medium text-gray-700">
+                                دورة رقم {courseId}
+                              </span>
+                              <span className="text-xs text-blue-600 font-medium">
+                                عرض التفاصيل
+                              </span>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </Card>

@@ -2,6 +2,7 @@
 
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const handleLogin = () => {
@@ -39,6 +40,22 @@ export default function LoginPage() {
             />
           </div>
 
+          <div className="flex items-center justify-between">
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                className="ml-2 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <span className="text-sm text-gray-600">تذكرني</span>
+            </label>
+            <Link
+              href="/forgot-password"
+              className="text-sm text-blue-600 hover:underline font-medium"
+            >
+              نسيت كلمة المرور؟
+            </Link>
+          </div>
+
           <Button 
             variant="primary" 
             size="lg"
@@ -50,9 +67,9 @@ export default function LoginPage() {
 
           <p className="text-center text-gray-500 text-sm mt-4">
             ليس لديك حساب؟{' '}
-            <a href="#" className="text-blue-600 font-medium hover:underline">
+            <Link href="/signup" className="text-blue-600 font-medium hover:underline">
               سجل الآن
-            </a>
+            </Link>
           </p>
         </form>
       </div>

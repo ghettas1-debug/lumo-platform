@@ -157,105 +157,103 @@ export default function CoursesPage() {
             {viewMode === 'grid' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredCourses.map((course) => (
-                  <Card key={course.id} className="hover:shadow-xl transition-shadow duration-300">
-                    {course.featured && (
-                      <div className="absolute top-4 left-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                        مميز
-                      </div>
-                    )}
-                    <div className="h-48 bg-linear-to-r from-blue-400 to-purple-500 rounded-xl mb-4"></div>
-                    <div className="p-4">
-                      <div className="flex justify-between items-start mb-3">
-                        <span className="px-3 py-1 bg-blue-100 text-blue-600 text-sm font-bold rounded-full">
-                          {course.category}
-                        </span>
-                        <div>
-                          {course.price === 0 ? (
-                            <span className="text-lg font-black text-green-600">مجاني</span>
-                          ) : (
-                            <span className="text-lg font-black text-gray-900">${course.price}</span>
-                          )}
+                  <Link key={course.id} href={`/courses/${course.id}`}>
+                    <Card className="hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+                      {course.featured && (
+                        <div className="absolute top-4 left-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                          مميز
                         </div>
-                      </div>
-                      <h3 className="text-xl font-black text-gray-900 mb-2 line-clamp-2">{course.title}</h3>
-                      <p className="text-gray-500 mb-3">المدرب: {course.instructor}</p>
-                        <div className="flex items-center justify-between text-sm">
-                          <div className="flex items-center gap-1">
-                            <Star className="text-yellow-500" size={14} fill="currentColor" />
-                            <span className="font-bold">{course.rating}</span>
-                            <span className="text-gray-400">({formatNumber(course.students)})</span>
+                      )}
+                      <div className="h-48 bg-linear-to-r from-blue-400 to-purple-500 rounded-xl mb-4"></div>
+                      <div className="p-4">
+                        <div className="flex justify-between items-start mb-3">
+                          <span className="px-3 py-1 bg-blue-100 text-blue-600 text-sm font-bold rounded-full">
+                            {course.category}
+                          </span>
+                          <div>
+                            {course.price === 0 ? (
+                              <span className="text-lg font-black text-green-600">مجاني</span>
+                            ) : (
+                              <span className="text-lg font-black text-gray-900">${course.price}</span>
+                            )}
                           </div>
-                          <span className="text-gray-500">{course.duration}</span>
                         </div>
-                        <Link href={`/courses/${course.id}`}>
+                        <h3 className="text-xl font-black text-gray-900 mb-2 line-clamp-2">{course.title}</h3>
+                        <p className="text-gray-500 mb-3">المدرب: {course.instructor}</p>
+                          <div className="flex items-center justify-between text-sm">
+                            <div className="flex items-center gap-1">
+                              <Star className="text-yellow-500" size={14} fill="currentColor" />
+                              <span className="font-bold">{course.rating}</span>
+                              <span className="text-gray-400">({formatNumber(course.students)})</span>
+                            </div>
+                            <span className="text-gray-500">{course.duration}</span>
+                          </div>
                           <Button variant="primary" className="w-full mt-6">
                             عرض التفاصيل
                           </Button>
-                        </Link>
-                    </div>
-                  </Card>
+                      </div>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             ) : (
               <div className="space-y-6">
                 {filteredCourses.map((course) => (
-                  <Card key={course.id} className="hover:shadow-lg transition-all">
-                    <div className="flex flex-col md:flex-row gap-6">
-                      <div className="md:w-1/4">
-                        <div className="h-48 bg-linear-to-r from-blue-400 to-purple-500 rounded-xl"></div>
-                      </div>
-                      <div className="md:w-3/4">
-                        <div className="flex justify-between items-start mb-4">
-                          <div>
-                            <h3 className="text-2xl font-black text-gray-900 mb-2">{course.title}</h3>
-                            <p className="text-gray-600 mb-2">{course.instructor} â€¢ {course.category}</p>
+                  <Link key={course.id} href={`/courses/${course.id}`}>
+                    <Card className="hover:shadow-lg transition-all cursor-pointer">
+                      <div className="flex flex-col md:flex-row gap-6">
+                        <div className="md:w-1/4">
+                          <div className="h-48 bg-linear-to-r from-blue-400 to-purple-500 rounded-xl"></div>
+                        </div>
+                        <div className="md:w-3/4">
+                          <div className="flex justify-between items-start mb-4">
+                            <div>
+                              <h3 className="text-2xl font-black text-gray-900 mb-2">{course.title}</h3>
+                              <p className="text-gray-600 mb-2">{course.instructor} • {course.category}</p>
+                            </div>
+                            <div className="text-right">
+                              {course.price === 0 ? (
+                                <span className="text-2xl font-black text-green-600">مجاني</span>
+                              ) : (
+                                <span className="text-2xl font-black text-gray-900">${course.price}</span>
+                              )}
+                            </div>
                           </div>
-                          <div className="text-right">
-                            {course.price === 0 ? (
-                              <span className="text-2xl font-black text-green-600">مجاني</span>
-                            ) : (
-                              <span className="text-2xl font-black text-gray-900">${course.price}</span>
+                          <div className="flex items-center gap-6 text-gray-600 mb-6">
+                            <div className="flex items-center gap-2">
+                              <Star className="text-yellow-500" size={16} fill="currentColor" />
+                              <span className="font-bold">{course.rating}</span>
+                              <span>({formatNumber(course.students)} طالب)</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Clock size={16} />
+                              <span>{course.duration}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Users size={16} />
+                              <span>{formatNumber(course.students)} طالب</span>
+                            </div>
+                            {course.featured && (
+                              <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-bold">
+                                مميز
+                              </span>
                             )}
                           </div>
-                        </div>
-                        <div className="flex items-center gap-6 text-gray-600 mb-6">
-                          <div className="flex items-center gap-2">
-                            <Star className="text-yellow-500" size={16} fill="currentColor" />
-                            <span className="font-bold">{course.rating}</span>
-                            <span>({formatNumber(course.students)} طالب)</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Clock size={16} />
-                            <span>{course.duration}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Users size={16} />
-                            <span>{formatNumber(course.students)} طالب</span>
-                          </div>
-                          {course.featured && (
-                            <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-bold">
-                              مميز
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-gray-700 mb-6 line-clamp-2">
-                          تعلم أحدث تقنيات البرمجة وتطوير الويب من خلال دوراتنا التعليمية الشاملة التي تغطي جميع جوانب البرمجة والتصميم.
-                        </p>
-                        <div className="flex gap-4">
-                          <Link href={`/courses/${course.id}`}>
+                          <p className="text-gray-700 mb-6 line-clamp-2">
+                            تعلم أحدث تقنيات البرمجة وتطوير الويب من خلال دوراتنا التعليمية الشاملة التي تغطي جميع جوانب البرمجة والتصميم.
+                          </p>
+                          <div className="flex gap-4">
                             <Button variant="primary">بدء التعلم</Button>
-                          </Link>
-                          <Link href={`/courses/${course.id}`}>
                             <Button variant="outline">المزيد من التفاصيل</Button>
-                          </Link>
-                          <Button variant="outline" size="sm">
-                            <ShoppingCart size={16} className="ml-2" />
-                            إضافة للسلة
-                          </Button>
+                            <Button variant="outline" size="sm">
+                              <ShoppingCart size={16} className="ml-2" />
+                              إضافة للسلة
+                            </Button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             )}

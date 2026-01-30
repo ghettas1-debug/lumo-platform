@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Search, LayoutDashboard, Menu, X, ShoppingCart, User, BookOpen, GraduationCap, Award, HelpCircle, DollarSign, Play, Bell, MessageSquare, TrendingUp, BarChart3, Brain, Settings, Users, Target, Smartphone, Sparkles } from 'lucide-react';
+import { Search, LayoutDashboard, Menu, X, ShoppingCart, User, BookOpen, GraduationCap, Award, HelpCircle, DollarSign, Play, Bell, MessageSquare, TrendingUp, BarChart3, Brain, Settings, Users, Target, Smartphone, Sparkles, FileText, CheckCircle, CreditCard, Wrench } from 'lucide-react';
 import { useState } from 'react';
 import ThemeToggle from '../../components/ThemeToggle';
 import LanguageSelector from '../../components/LanguageSelector';
@@ -108,6 +108,20 @@ export default function Navbar() {
                     >
                       <Target size={16} />
                       <span>مسار التعلم</span>
+                    </Link>
+                    <Link 
+                      href="/quiz" 
+                      className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 px-3 rounded hover:bg-blue-50"
+                    >
+                      <FileText size={16} />
+                      <span>الاختبارات</span>
+                    </Link>
+                    <Link 
+                      href="/notes" 
+                      className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 px-3 rounded hover:bg-blue-50"
+                    >
+                      <Wrench size={16} />
+                      <span>الملاحظات</span>
                     </Link>
                   </div>
                 </div>
@@ -236,6 +250,15 @@ export default function Navbar() {
                 <Link href="/cart" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 text-sm py-2 px-3 rounded hover:bg-blue-50">
                   <ShoppingCart size={16} /> السلة
                 </Link>
+                <Link href="/checkout" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 text-sm py-2 px-3 rounded hover:bg-blue-50">
+                  <CreditCard size={16} /> الدفع
+                </Link>
+                <Link href="/certificates" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 text-sm py-2 px-3 rounded hover:bg-blue-50">
+                  <CheckCircle size={16} /> الشهادات
+                </Link>
+                <Link href="/settings" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 text-sm py-2 px-3 rounded hover:bg-blue-50">
+                  <Settings size={16} /> الإعدادات
+                </Link>
                 <Link href="/help" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 text-sm py-2 px-3 rounded hover:bg-blue-50">
                   <HelpCircle size={16} /> المساعدة
                 </Link>
@@ -248,6 +271,15 @@ export default function Navbar() {
             <ThemeToggle />
             <LanguageSelector />
           </div>
+
+          <Link 
+            href="/login"
+            className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors text-sm"
+            title="دخول"
+          >
+            <User size={18} />
+            <span className="hidden xl:inline">دخول</span>
+          </Link>
 
           <Link 
             href="/signup"
@@ -312,6 +344,14 @@ export default function Navbar() {
             <Link href="/learning-path" className="text-gray-600 font-medium py-2 flex items-center gap-2">
               <Target size={18} />
               مسار التعلم
+            </Link>
+            <Link href="/quiz" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <FileText size={18} />
+              الاختبارات
+            </Link>
+            <Link href="/notes" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <Wrench size={18} />
+              الملاحظات
             </Link>
           </div>
           
@@ -388,6 +428,18 @@ export default function Navbar() {
             <Link href="/cart" className="text-gray-600 font-medium py-2 flex items-center gap-2">
               <ShoppingCart size={18} />
               السلة
+            </Link>
+            <Link href="/checkout" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <CreditCard size={18} />
+              الدفع
+            </Link>
+            <Link href="/certificates" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <CheckCircle size={18} />
+              الشهادات
+            </Link>
+            <Link href="/settings" className="text-gray-600 font-medium py-2 flex items-center gap-2">
+              <Settings size={18} />
+              الإعدادات
             </Link>
             <Link href="/help" className="text-gray-600 font-medium py-2 flex items-center gap-2">
               <HelpCircle size={18} />

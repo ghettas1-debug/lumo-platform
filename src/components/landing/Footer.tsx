@@ -18,7 +18,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4 text-gray-900">المنصة</h4>
             <ul className="space-y-2 text-gray-600">
               <li><Link href="/courses" className="hover:text-blue-600">الدورات</Link></li>
-              <li><Link href="/mentors" className="hover:text-blue-600">المدربون</Link></li>
+              <li><Link href="/instructors" className="hover:text-blue-600">المدربون</Link></li>
               <li><Link href="/pricing" className="hover:text-blue-600">الأسعار</Link></li>
             </ul>
           </div>
@@ -28,6 +28,15 @@ export default function Footer() {
             <ul className="space-y-2 text-gray-600">
               <li><Link href="/faq" className="hover:text-blue-600">الأسئلة الشائعة</Link></li>
               <li><Link href="/contact" className="hover:text-blue-600">اتصل بنا</Link></li>
+              <li><Link href="/help" className="hover:text-blue-600">المساعدة</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-4 text-gray-900">قانوني</h4>
+            <ul className="space-y-2 text-gray-600">
+              <li><Link href="/terms" className="hover:text-blue-600">الشروط والأحكام</Link></li>
+              <li><Link href="/privacy" className="hover:text-blue-600">سياسة الخصوصية</Link></li>
             </ul>
           </div>
         </div>
