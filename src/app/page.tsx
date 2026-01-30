@@ -31,51 +31,51 @@ export default function Home() {
     },
     {
       icon: Brain,
-      title: 'التعلم التكيفي',
-      description: 'نظام ذكي يعتمد على AI لتحليل أنماط التعلم وتقديم توصيات مخصصة',
-      href: '/adaptive-learning',
+      title: 'التحكم الصوتي',
+      description: 'نظام تحكم صوتي متقدم مع أوامر عربية ودعم كامل للوصول',
+      href: '/voice-navigation',
       color: 'from-green-500 to-teal-600'
     },
     {
       icon: Bell,
-      title: 'الإشعارات والتذكيرات',
-      description: 'نظام شامل للإشعارات والتذكيرات المجدولة مع تصنيفات وأولويات',
-      href: '/notifications',
+      title: 'التحليلات المتقدمة',
+      description: 'نظام تحليلات شامل مع خرائط حرارية وإحصائيات تفاعلية',
+      href: '/analytics',
       color: 'from-yellow-500 to-orange-600'
     },
     {
       icon: MessageSquare,
-      title: 'منتديات النقاش',
-      description: 'منتديات تفاعلية مع فئات ومناقشات وردود ونظام سمعة',
-      href: '/forums',
+      title: 'التعاون الجماعي',
+      description: 'غرف دراسية تفاعلية مع مكالمات فيديو ودردشة جماعية',
+      href: '/collaboration',
       color: 'from-purple-500 to-pink-600'
     },
     {
       icon: TrendingUp,
-      title: 'مشاركة التقدم',
-      description: 'نظام شامل لمشاركة الإنجازات مع إحصائيات مفصلة وشهادات',
-      href: '/progress',
+      title: 'المختبرات الافتراضية',
+      description: 'تجارب علمية تفاعلية مع محاكاة افتراضية وأدوات متقدمة',
+      href: '/labs',
       color: 'from-indigo-500 to-blue-600'
     },
     {
       icon: BarChart3,
-      title: 'لوحة المتصدرين',
-      description: 'لوحة متصدرين تفاعلية مع ترتيبات متعددة وجوائز وإحصائيات',
-      href: '/leaderboard',
+      title: 'دعم PWA',
+      description: 'دعم كامل لعدم الاتصال مع تثبيت التطبيق ومزامنة تلقائية',
+      href: '/pwa',
       color: 'from-red-500 to-pink-600'
     },
     {
       icon: Award,
-      title: 'المراجعات والتقييمات',
-      description: 'نظام متكامل للتقييمات مع فلترة وبحث وتقييمات بالنجوم',
-      href: '/reviews',
+      title: 'تتبع التقدم',
+      description: 'نظام شامل لمتابعة التقدم مع إحصائيات مفصلة وشهادات',
+      href: '/progress',
       color: 'from-amber-500 to-yellow-600'
     },
     {
       icon: Search,
-      title: 'البحث المتقدم',
-      description: 'محرك بحث متقدم مع اقتراحات ذكية وفلترة متعددة المستويات',
-      href: '/search',
+      title: 'غرف الدراسة',
+      description: 'إنشاء والانضمام لغرف دراسية مع إدارة المشاركين',
+      href: '/study-rooms',
       color: 'from-gray-600 to-gray-800'
     }
   ];
