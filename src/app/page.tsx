@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { 
-  ArrowRight, Play, Brain, Bell, MessageSquare, TrendingUp, BarChart3, Award, Search, Target, Users, Settings, Sparkles, Smartphone, BookOpen, PlayCircle, Lock, Globe, Zap, Shield, CreditCard, FileText, Building2, Code, Activity, Crown, ChevronRight, Newspaper, Briefcase, Handshake, DollarSign
+  ArrowRight, Play, Brain, Bell, MessageSquare, TrendingUp, BarChart3, Award, Search, Target, Users, Settings, Sparkles, Smartphone, BookOpen, PlayCircle, Lock, Globe, Zap, Shield, CreditCard, FileText, Building2, Code, Activity, Crown, ChevronRight, Newspaper, Briefcase, Handshake, DollarSign, Monitor, Download
 } from 'lucide-react';
 import Hero from '@/components/landing/Hero';
 import Footer from '@/components/landing/Footer';
@@ -276,6 +276,109 @@ export default function Home() {
       description: 'استثمر في مستقبل التعليم',
       href: '/investors',
       color: 'from-red-500 to-pink-600'
+    },
+    {
+      icon: Smartphone,
+      title: 'تحميل تطبيق iOS',
+      description: 'حمل تطبيق Lumo على أجهزة iOS',
+      href: '/ios',
+      color: 'from-blue-500 to-purple-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Smartphone,
+      title: 'تحميل تطبيق Android',
+      description: 'حمل تطبيق Lumo على أجهزة Android',
+      href: '/android',
+      color: 'from-green-500 to-teal-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Monitor,
+      title: 'تحميل تطبيق سطح المكتب',
+      description: 'حمل تطبيق Lumo للكمبيوتر',
+      href: '/desktop',
+      color: 'from-purple-500 to-pink-600',
+      badge: 'جديد'
+    },
+    {
+      icon: Download,
+      title: 'صفحة التنزيل',
+      description: 'جميع تطبيقات Lumo في مكان واحد',
+      href: '/download-app',
+      color: 'from-orange-500 to-red-600',
+      badge: 'مهم'
+    },
+    {
+      icon: Briefcase,
+      title: 'لوحة الوظائف',
+      description: 'ابحث عن وظائف وتقدم على الفرص المتاحة',
+      href: '/job-board',
+      color: 'from-indigo-500 to-blue-600',
+      badge: 'جديد'
+    },
+    {
+      icon: FileText,
+      title: 'سياسة الكوكيز',
+      description: 'سياسة استخدام الكوكيز والخصوصية',
+      href: '/cookie-policy',
+      color: 'from-amber-500 to-orange-600'
+    },
+    {
+      icon: Building2,
+      title: 'التدريب الشركاتي',
+      description: 'حلول تدريبية متخصصة للشركات',
+      href: '/corporate-training',
+      color: 'from-cyan-500 to-blue-600'
+    },
+    {
+      icon: FileText,
+      title: 'الاستردادات',
+      description: 'سياسة الاسترداد وشروط الخدمة',
+      href: '/refunds',
+      color: 'from-red-500 to-pink-600'
+    },
+    {
+      icon: Building2,
+      title: 'المدارس والجامعات',
+      description: 'حلول تعليمية للمؤسسات الأكاديمية',
+      href: '/schools',
+      color: 'from-green-500 to-teal-600'
+    },
+    {
+      icon: FileText,
+      title: 'الشروط والأحكام',
+      description: 'شروط استخدام المنصة وسياساتها',
+      href: '/terms',
+      color: 'from-gray-600 to-gray-800'
+    },
+    {
+      icon: Shield,
+      title: 'الثقة والأمان',
+      description: 'معلومات حول أمان وثوقية المنصة',
+      href: '/trust',
+      color: 'from-blue-500 to-indigo-600'
+    },
+    {
+      icon: Building2,
+      title: 'الجامعات',
+      description: 'شراكات مع الجامعات والمؤسسات التعليمية',
+      href: '/universities',
+      color: 'from-purple-500 to-pink-600'
+    },
+    {
+      icon: FileText,
+      title: 'الفواتير والضرائب',
+      description: 'إدارة الفواتير والضرائب والمدفوعات',
+      href: '/invoices',
+      color: 'from-yellow-500 to-orange-600'
+    },
+    {
+      icon: FileText,
+      title: 'الضرائب',
+      description: 'معلومات ضريبية وإدارة الضرائب',
+      href: '/tax',
+      color: 'from-red-500 to-pink-600'
     }
   ];
 
@@ -387,7 +490,7 @@ export default function Home() {
             <p className="text-gray-500 text-lg max-w-3xl mx-auto font-bold">مجموعة كاملة من الصفحات المتقدمة التي تجعل Lumo منصة تعليمية عالمية</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {globalFeatures.map((feature, index) => {
               const Icon = feature.icon;
               return (
