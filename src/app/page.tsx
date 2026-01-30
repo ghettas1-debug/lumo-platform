@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { ArrowRight, Play, Brain, Bell, MessageSquare, TrendingUp, BarChart3, Award, Search, Target, Users, Settings, Sparkles, Smartphone, BookOpen, PlayCircle } from 'lucide-react';
+import { ArrowRight, Play, Brain, Bell, MessageSquare, TrendingUp, BarChart3, Award, Search, Target, Users, Settings, Sparkles, Smartphone, BookOpen, PlayCircle, Lock, Globe, Zap } from 'lucide-react';
 import Hero from '@/components/landing/Hero';
 import Footer from '@/components/landing/Footer';
 import { Card } from '@/components/ui/Card';
@@ -83,59 +83,87 @@ export default function Home() {
   const platformFeatures = [
     {
       icon: BookOpen,
-      title: 'صفحة الدورة الاحترافية',
-      description: 'منهج، تقييمات، نتائج، ومدرب في صفحة واحدة.',
-      href: '/courses/1',
+      title: 'مشغل الفيديو',
+      description: 'مشغل فيديو متقدم مع ملاحظات وإشارات مرجعية وتحكم في السرعة',
+      href: '/course-player',
       color: 'from-blue-500 to-indigo-600'
     },
     {
       icon: Target,
-      title: 'مسار التعلم',
-      description: 'رحلة تعليمية واضحة مع تقدم بصري.',
-      href: '/learning-path',
+      title: 'الاختبارات التفاعلية',
+      description: 'اختبارات متقدمة بأنواع متعددة من الأسئلة وتغذية راجعة فورية',
+      href: '/quiz',
       color: 'from-green-500 to-teal-600'
     },
     {
       icon: Users,
-      title: 'لوحة الطالب والمدرس',
-      description: 'إدارة الدورات، الشهادات، والتحليلات.',
-      href: '/student',
+      title: 'ملعب الأكواد',
+      description: 'بيئة برمجة تفاعلية مع محرر أكواد وتنفيذ مباشر',
+      href: '/playground',
       color: 'from-purple-500 to-pink-600'
     },
     {
       icon: PlayCircle,
-      title: 'مشغل التعلم التفاعلي',
-      description: 'Notes + Resume + Bookmark + Transcript.',
-      href: '/course-player',
+      title: 'التوصيات الذكية',
+      description: 'نظام ذكي يعتمد على AI لتقديم توصيات محتوى مخصصة',
+      href: '/recommendations',
       color: 'from-slate-600 to-gray-800'
     },
     {
       icon: Award,
-      title: 'عناصر الثقة',
-      description: 'شعارات شركاء، أرقام إنجازات، وقصص نجاح.',
-      href: '/trust',
+      title: 'نظام الألعاب',
+      description: 'نقاط وشارات ومستويات وسلسلة انتصارات لتحفيز التعلم',
+      href: '/gamification',
       color: 'from-amber-500 to-yellow-600'
     },
     {
       icon: Settings,
-      title: 'إدارة المحتوى',
-      description: 'تنظيم الدروس، الموارد، والنشر.',
-      href: '/content-management',
+      title: 'لوحة التحكم',
+      description: 'لوحة تحكم شخصية تتكيف مع سلوك المستخدم وتفضيلاته',
+      href: '/dashboard',
       color: 'from-orange-500 to-red-600'
     },
     {
       icon: Smartphone,
       title: 'تجربة الجوال',
-      description: 'واجهة مهيأة بالكامل للجوال.',
+      description: 'واجهة مهيأة بالكامل للجوال مع إيماءات اللمس',
       href: '/mobile-experience',
       color: 'from-sky-500 to-blue-600'
     },
     {
       icon: Sparkles,
-      title: 'تفاصيل دقيقة',
-      description: 'Skeletons + Animations + Typography.',
-      href: '/polish',
+      title: 'ميزات AI',
+      description: 'مساعد ذكاء اصطناعي وتوصيات محتوى وتحليلات متقدمة',
+      href: '/ai-features',
       color: 'from-fuchsia-500 to-purple-600'
+    },
+    {
+      icon: Brain,
+      title: 'الدعم الفني',
+      description: 'دعم فني متقدم مع مركز مساعدة وتذاكر دعم',
+      href: '/help',
+      color: 'from-emerald-500 to-teal-600'
+    },
+    {
+      icon: Lock,
+      title: 'الأمان والخصوصية',
+      description: 'إعدادات أمان متقدمة وحماية بيانات المستخدمين',
+      href: '/settings',
+      color: 'from-red-500 to-pink-600'
+    },
+    {
+      icon: Globe,
+      title: 'التدويل',
+      description: 'دعم 10 لغات مع RTL/LTR واكتشاف تلقائي للغة',
+      href: '/internationalization',
+      color: 'from-indigo-500 to-blue-600'
+    },
+    {
+      icon: Zap,
+      title: 'تحسين الأداء',
+      description: 'تحسينات متقدمة للأداء مع تقسيم الكود والتخزين المؤقت',
+      href: '/performance',
+      color: 'from-yellow-500 to-orange-600'
     }
   ];
 
