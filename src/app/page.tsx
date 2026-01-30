@@ -99,21 +99,21 @@ export default function Home() {
       icon: Users,
       title: 'ملعب الأكواد',
       description: 'بيئة برمجة تفاعلية مع محرر أكواد وتنفيذ مباشر',
-      href: '/playground',
+      href: '/demo',
       color: 'from-purple-500 to-pink-600'
     },
     {
       icon: PlayCircle,
       title: 'التوصيات الذكية',
       description: 'نظام ذكي يعتمد على AI لتقديم توصيات محتوى مخصصة',
-      href: '/recommendations',
+      href: '/analytics',
       color: 'from-slate-600 to-gray-800'
     },
     {
       icon: Award,
       title: 'نظام الألعاب',
       description: 'نقاط وشارات ومستويات وسلسلة انتصارات لتحفيز التعلم',
-      href: '/gamification',
+      href: '/leaderboard',
       color: 'from-amber-500 to-yellow-600'
     },
     {
@@ -134,7 +134,7 @@ export default function Home() {
       icon: Sparkles,
       title: 'ميزات AI',
       description: 'مساعد ذكاء اصطناعي وتوصيات محتوى وتحليلات متقدمة',
-      href: '/ai-features',
+      href: '/adaptive-learning',
       color: 'from-fuchsia-500 to-purple-600'
     },
     {
@@ -155,14 +155,14 @@ export default function Home() {
       icon: Globe,
       title: 'التدويل',
       description: 'دعم 10 لغات مع RTL/LTR واكتشاف تلقائي للغة',
-      href: '/internationalization',
+      href: '/settings',
       color: 'from-indigo-500 to-blue-600'
     },
     {
       icon: Zap,
       title: 'تحسين الأداء',
       description: 'تحسينات متقدمة للأداء مع تقسيم الكود والتخزين المؤقت',
-      href: '/performance',
+      href: '/pwa',
       color: 'from-yellow-500 to-orange-600'
     }
   ];
