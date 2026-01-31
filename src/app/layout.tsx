@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
 import ThemeProvider from "../components/ThemeProvider";
 
 const inter = Inter({
@@ -25,7 +24,6 @@ export default function RootLayout({
         className={`${inter.variable} antialiased`}
       >
         <ThemeProvider>
-          <Navbar />
           {children}
         </ThemeProvider>
       </body>
