@@ -25,12 +25,12 @@ export default function Hero() {
               <span className="text-blue-600 block">شهادات ودبلومات</span>
             </h1>
             
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed animate-slide-up" style={{animationDelay: '0.1s'}}>
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed animate-slide-up animate-delay-100">
               تعلم من خبراء عالميين واستكشف أكثر من 6000 دورة مجانية. 
               انضم إلى 50 مليون متعلم وتمكين لمستقبلك المهني.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-slide-up" style={{animationDelay: '0.2s'}}>
+            <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-slide-up animate-delay-200">
               <Link href="/signup">
                 <Button size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700">
                   ابدأ التعلم مجاناً
@@ -46,7 +46,7 @@ export default function Hero() {
             </div>
             
             {/* Trust Badges */}
-            <div className="flex flex-wrap items-center gap-6 mb-8 animate-slide-up" style={{animationDelay: '0.3s'}}>
+            <div className="flex flex-wrap items-center gap-6 mb-8 animate-slide-up animate-delay-300">
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <Users className="w-5 h-5 text-blue-600" />
                 <span>50+ مليون متعلم</span>
@@ -112,7 +112,7 @@ export default function Hero() {
             <div className="absolute -top-4 -right-4 bg-yellow-400 rounded-2xl p-4 shadow-lg transform rotate-12 animate-float">
               <BookOpen className="w-8 h-8 text-yellow-900" />
             </div>
-            <div className="absolute -bottom-4 -left-4 bg-green-400 rounded-2xl p-4 shadow-lg transform -rotate-12 animate-float" style={{animationDelay: '1s'}}>
+            <div className="absolute -bottom-4 -left-4 bg-green-400 rounded-2xl p-4 shadow-lg transform -rotate-12 animate-float animate-delay-1000">
               <Award className="w-8 h-8 text-green-900" />
             </div>
           </div>

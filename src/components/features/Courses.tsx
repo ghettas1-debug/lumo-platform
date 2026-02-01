@@ -1,176 +1,160 @@
 'use client';
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { Star, Clock, Users, Play } from 'lucide-react';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import React from 'react';
+import CourseCard from '@/components/ui/CourseCard';
+import { Course } from '@/types';
 
-// Format number function to avoid hydration issues
-function formatNumber(num: number): string {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
-const courses = [
+// Sample courses data - should come from API
+const courses: Course[] = [
   {
-    id: 1,
+    id: '1',
     title: 'تطوير الويب المتقدم',
+    slug: 'advanced-web-development',
+    description: 'تعلم أحدث تقنيات تطوير الويب بما في ذلك React و Next.js',
+    shortDescription: 'دورة شاملة في تطوير الويب الحديث',
+    provider: 'معهد التكنولوجيا المتقدمة',
     instructor: 'أحمد محمد',
-    rating: 4.9,
-    students: 12500,
-    duration: '8 أسابيع',
-    level: 'متقدم',
-    price: 'مجاني',
-    image: 'bg-blue-500',
-    category: 'برمجة'
-  },
-  {
-    id: 2,
-    title: 'تصميم واجهة المستخدم',
-    instructor: 'سارة أحمد',
-    rating: 4.8,
-    students: 8900,
-    duration: '6 أسابيع',
+    instructorId: 'inst-1',
+    thumbnail: '/images/courses/web-dev.jpg',
+    previewVideo: '/videos/web-dev-preview.mp4',
     level: 'متوسط',
-    price: 'مجاني',
-    image: 'bg-purple-500',
-    category: 'تصميم'
-  },
-  {
-    id: 3,
-    title: 'تحليل البيانات',
-    instructor: 'محمد علي',
-    rating: 4.7,
-    students: 7600,
-    duration: '10 أسابيع',
-    level: 'متقدم',
-    price: 'مجاني',
-    image: 'bg-green-500',
-    category: 'بيانات'
-  },
-  {
-    id: 4,
-    title: 'التسويق الرقمي',
-    instructor: 'فاطمة سالم',
+    duration: '8 أسابيع',
+    durationMinutes: 1920,
+    language: 'العربية',
+    price: 0,
+    isFree: true,
+    hasCertificate: true,
     rating: 4.9,
-    students: 14200,
-    duration: '4 أسابيع',
+    reviewCount: 342,
+    studentCount: 12500,
+    category: {} as any,
+    categoryId: 'it',
+    tags: ['React', 'Next.js', 'TypeScript', 'JavaScript'],
+    learningObjectives: ['بناء تطبيقات ويب حديثة', 'فهم معمارية React', 'تطبيق أفضل الممارسات'],
+    requirements: ['معرفة أساسية بـ HTML/CSS', 'أساسيات JavaScript'],
+    whatYouLearn: ['React Hooks', 'Next.js', 'TypeScript', 'SEO'],
+    targetAudience: ['مطورو الويب', 'طلاب علوم الحاسوب'],
+    status: 'published',
+    featured: true,
+    badge: 'الأكثر شهرة',
+    lastUpdated: '2024-01-15',
+    createdAt: '2024-01-01',
+    updatedAt: '2024-01-15'
+  },
+  {
+    id: '2',
+    title: 'الذكاء الاصطناعي وتعلم الآلة',
+    slug: 'ai-machine-learning',
+    description: 'مقدمة شاملة في الذكاء الاصطناعي وتعلم الآلة باستخدام Python',
+    shortDescription: 'دورة تمهيدية في AI و ML',
+    provider: 'مركز الذكاء الاصطناعي',
+    instructor: 'د. سارة أحمد',
+    instructorId: 'inst-2',
+    thumbnail: '/images/courses/ai-ml.jpg',
     level: 'مبتدئ',
-    price: 'مجاني',
-    image: 'bg-orange-500',
-    category: 'تسويق'
+    duration: '12 أسبوع',
+    durationMinutes: 2880,
+    language: 'العربية',
+    price: 299,
+    originalPrice: 599,
+    isFree: false,
+    hasCertificate: true,
+    rating: 4.8,
+    reviewCount: 256,
+    studentCount: 8900,
+    category: {} as any,
+    categoryId: 'it',
+    tags: ['Python', 'Machine Learning', 'Deep Learning', 'AI'],
+    learningObjectives: ['فهم أساسيات ML', 'بناء نماذج بسيطة', 'استخدام Python للـ AI'],
+    requirements: ['أساسيات البرمجة', 'رياضيات أساسية'],
+    whatYouLearn: ['Python', 'Scikit-learn', 'TensorFlow', 'Neural Networks'],
+    targetAudience: ['المبرمجون', 'طلاب الهندسة', 'محللو البيانات'],
+    status: 'published',
+    featured: false,
+    lastUpdated: '2024-01-10',
+    createdAt: '2024-01-01',
+    updatedAt: '2024-01-10'
+  },
+  {
+    id: '3',
+    title: 'التسويق الرقمي الشامل',
+    slug: 'digital-marketing-mastery',
+    description: 'تعلم جميع جوانب التسويق الرقمي من SEO إلى وسائل التواصل الاجتماعي',
+    shortDescription: 'دورة متكاملة في التسويق الرقمي',
+    provider: 'الأكاديمية الرقمية',
+    instructor: 'خالد العتيبي',
+    instructorId: 'inst-3',
+    thumbnail: '/images/courses/digital-marketing.jpg',
+    level: 'مبتدئ',
+    duration: '6 أسابيع',
+    durationMinutes: 1440,
+    language: 'العربية',
+    price: 0,
+    isFree: true,
+    hasCertificate: true,
+    rating: 4.7,
+    reviewCount: 189,
+    studentCount: 6700,
+    category: {} as any,
+    categoryId: 'business',
+    tags: ['SEO', 'Social Media', 'Content Marketing', 'Analytics'],
+    learningObjectives: ['فهم التسويق الرقمي', 'تنفيذ حملات تسويقية', 'تحليل الأداء'],
+    requirements: ['مهارات استخدام الكمبيوتر', 'مهارات تواصل جيدة'],
+    whatYouLearn: ['Google Analytics', 'Facebook Ads', 'SEO', 'Content Strategy'],
+    targetAudience: ['المسوقون', 'أصحاب الأعمال', 'خريجو الجامعات'],
+    status: 'published',
+    featured: false,
+    lastUpdated: '2024-01-12',
+    createdAt: '2024-01-01',
+    updatedAt: '2024-01-12'
   }
 ];
 
-const categories = ['الكل', 'برمجة', 'تصميم', 'بيانات', 'تسويق'];
-
 export default function Courses() {
-  const [activeCategory, setActiveCategory] = useState('الكل');
-
-  const filteredCourses = activeCategory === 'الكل' 
-    ? courses 
-    : courses.filter(course => course.category === activeCategory);
-
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-bold mb-6">
-            <Play className="w-4 h-4" />
-            دورات مميزة
-          </div>
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4">
-            ابدأ التعلم الآن
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            دورات <span className="text-blue-600">مميزة</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            اختر من بين آلاف الدورات المصممة بواسطة خبراء في مجالهم
+            اكتشف دوراتنا المختارة بعناية من خبراء الصناعة
           </p>
         </div>
 
-        {/* Categories */}
-        <div className="flex justify-center gap-3 mb-12 flex-wrap">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-6 py-3 rounded-full font-bold transition-all ${
-                activeCategory === category 
-                  ? 'bg-blue-600 text-white shadow-lg' 
-                  : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
         {/* Courses Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {filteredCourses.map((course) => (
-            <Link key={course.id} href={`/courses/${course.id}`}>
-              <Card variant="elevated" hover={true} interactive={true} className="h-full">
-                {/* Course Image */}
-                <div className={`aspect-video ${course.image} rounded-2xl mb-4 relative overflow-hidden`}>
-                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                    <Play className="w-12 h-12 text-white" />
-                  </div>
-                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold">
-                    {course.level}
-                  </div>
-                </div>
-
-                {/* Course Info */}
-                <div className="space-y-3">
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-1">
-                      {course.title}
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      {course.instructor}
-                    </p>
-                  </div>
-
-                  {/* Rating and Students */}
-                  <div className="flex items-center justify-between text-sm">
-                    <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                      <span className="font-medium">{course.rating}</span>
-                    </div>
-                    <div className="flex items-center gap-1 text-gray-500">
-                      <Users className="w-4 h-4" />
-                      <span>{formatNumber(course.students)}</span>
-                    </div>
-                  </div>
-
-                  {/* Duration */}
-                  <div className="flex items-center gap-1 text-sm text-gray-500">
-                    <Clock className="w-4 h-4" />
-                    <span>{course.duration}</span>
-                  </div>
-
-                  {/* Price */}
-                  <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-                    <span className="text-lg font-bold text-green-600">
-                      {course.price}
-                    </span>
-                    <Button size="sm" variant="outline">
-                      ابدأ الآن
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            </Link>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {courses.map((course, index) => (
+            <div 
+              key={course.id}
+              className="animate-fade-in animate-stagger-1"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <CourseCard course={{
+                ...course,
+                reviews: course.reviewCount,
+                students: course.studentCount,
+                certificate: course.hasCertificate,
+                free: course.isFree,
+                category: course.categoryId
+              }} />
+            </div>
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="text-center">
-          <Link href="/courses">
-            <Button size="lg" variant="outline">
-              استكشف جميع الدورات
-            </Button>
-          </Link>
+        {/* View All Button */}
+        <div className="text-center mt-12">
+          <a
+            href="/courses"
+            className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full transition-colors"
+          >
+            عرض جميع الدورات
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </a>
         </div>
       </div>
     </section>

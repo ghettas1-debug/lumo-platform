@@ -1,30 +1,30 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Hero from '@/components/features/Hero';
-import Features from '@/components/features/Features';
-import Courses from '@/components/features/Courses';
 import Stats from '@/components/features/Stats';
-import CTA from '@/components/features/CTA';
+import Categories from '@/components/features/Categories';
+import LearningPaths from '@/components/features/LearningPaths';
+import Courses from '@/components/features/Courses';
+import Testimonials from '@/components/features/Testimonials';
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
-import Categories from '@/components/features/Categories';
-import Testimonials from '@/components/features/Testimonials';
-import LearningPaths from '@/components/features/LearningPaths';
+import { logger } from '@/lib/logger';
 
 export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  React.useEffect(() => {
+    logger.track('page_view', { page: 'home' });
+  }, []);
 
   return (
     <main className="min-h-screen bg-white">
-      <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <Header isMenuOpen={false} setIsMenuOpen={() => {}} />
       <Hero />
       <Stats />
       <Categories />
       <LearningPaths />
       <Courses />
       <Testimonials />
-      <CTA />
       <Footer />
     </main>
   );
