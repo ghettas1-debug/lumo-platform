@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { Search, Menu, X, User, LogIn } from 'lucide-react';
+import { Search, Menu, X, User, LogIn, ChevronDown, BookOpen, Briefcase, Heart, Languages, TrendingUp, Users } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import ThemeToggle from '@/components/ThemeToggle';
 import LanguageSelector from '@/components/LanguageSelector';
@@ -13,6 +13,16 @@ interface HeaderProps {
 }
 
 export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const categories = [
+    { name: 'تكنولوجيا المعلومات', icon: BookOpen, href: '/courses/it', count: '1292' },
+    { name: 'الصحة', icon: Heart, href: '/courses/health', count: '1102' },
+    { name: 'اللغات', icon: Languages, href: '/courses/language', count: '316' },
+    { name: 'الأعمال', icon: Briefcase, href: '/courses/business', count: '1777' },
+    { name: 'الإدارة', icon: Users, href: '/courses/management', count: '1098' },
+    { name: 'التطوير الشخصي', icon: TrendingUp, href: '/courses/personal-development', count: '1350' },
+  ];
   return (
     <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-200">
       <div className="container mx-auto px-4 h-16 md:h-20 flex items-center justify-between">
@@ -41,23 +51,67 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-6">
+          {/* Categories Dropdown */}
+          <div className="relative">
+            <button
+              className="flex items-center gap-1 text-gray-600 hover:text-blue-600 font-medium transition-colors"
+              onMouseEnter={() => setIsDropdownOpen(true)}
+              onMouseLeave={() => setIsDropdownOpen(false)}
+            >
+              الفئات
+              <ChevronDown size={16} className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+            
+            {isDropdownOpen && (
+              <div 
+                className="absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 py-4"
+                onMouseEnter={() => setIsDropdownOpen(true)}
+                onMouseLeave={() => setIsDropdownOpen(false)}
+              >
+                <div className="grid grid-cols-1 gap-2 px-4">
+                  {categories.map((category) => {
+                    const Icon = category.icon;
+                    return (
+                      <Link
+                        key={category.name}
+                        href={category.href}
+                        className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        <div className="flex items-center gap-3">
+                          <Icon size={20} className="text-blue-600" />
+                          <span className="font-medium text-gray-700">{category.name}</span>
+                        </div>
+                        <span className="text-sm text-gray-500">{category.count} دورة</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+                <div className="border-t border-gray-200 mt-4 pt-4 px-4">
+                  <Link href="/courses" className="text-blue-600 hover:text-blue-700 font-medium text-sm">
+                    عرض جميع الفئات →
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+          
           <Link 
-            href="/courses" 
+            href="/diplomas" 
             className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
           >
-            الدورات
+            دبلومات
           </Link>
           <Link 
-            href="/features" 
+            href="/certificates" 
             className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
           >
-            الميزات
+            شهادات
           </Link>
           <Link 
-            href="/pricing" 
+            href="/about" 
             className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
           >
-            الأسعار
+            من نحن
           </Link>
         </nav>
 

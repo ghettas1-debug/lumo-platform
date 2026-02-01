@@ -8,6 +8,9 @@ import Stats from '@/components/features/Stats';
 import CTA from '@/components/features/CTA';
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
+import Categories from '@/components/features/Categories';
+import Testimonials from '@/components/features/Testimonials';
+import LearningPaths from '@/components/features/LearningPaths';
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,8 +20,10 @@ export default function Home() {
       <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <Hero />
       <Stats />
-      <Features />
+      <Categories />
+      <LearningPaths />
       <Courses />
+      <Testimonials />
       <CTA />
       <Footer />
     </main>

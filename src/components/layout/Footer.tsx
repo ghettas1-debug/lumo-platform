@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Facebook, Twitter, Linkedin, Instagram, Youtube, Mail, Phone, MapPin, BookOpen, Users, Award, HelpCircle, ChevronRight } from 'lucide-react';
+import { Facebook, Twitter, Linkedin, Instagram, Youtube, Mail, Phone, MapPin, BookOpen, Users, Award, HelpCircle, ChevronRight, Smartphone, Download } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -59,7 +59,7 @@ export default function Footer() {
 
           {/* Learning */}
           <div>
-            <h3 className="text-lg font-bold mb-6">التعلم</h3>
+            <h3 className="text-lg font-bold mb-6">استكشف</h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/courses" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
@@ -68,9 +68,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/instructors" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
-                  <Users size={16} />
-                  <span>المدربون</span>
+                <Link href="/diplomas" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
+                  <Award size={16} />
+                  <span>الدبلومات</span>
                 </Link>
               </li>
               <li>
@@ -80,9 +80,15 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/features" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
+                <Link href="/career-paths" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
                   <ChevronRight size={16} />
-                  <span>الميزات</span>
+                  <span>المسارات المهنية</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/recruitment" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
+                  <Users size={16} />
+                  <span>الوظائف</span>
                 </Link>
               </li>
             </ul>
@@ -121,7 +127,32 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="text-lg font-bold mb-6">الشركة</h3>
+            <h3 className="text-lg font-bold mb-6">تطبيق لumo</h3>
+            <div className="mb-6">
+              <p className="text-gray-300 mb-4">
+                تعلم بدون إنترنت - قم بتنزيل تطبيق لumo
+              </p>
+              <div className="space-y-3">
+                <a href="#" className="flex items-center gap-3 p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">
+                  <Smartphone className="w-6 h-6 text-blue-400" />
+                  <div>
+                    <div className="text-sm font-semibold">Google Play</div>
+                    <div className="text-xs text-gray-400">احصل على التطبيق</div>
+                  </div>
+                  <Download className="w-4 h-4 text-gray-400 mr-auto" />
+                </a>
+                <a href="#" className="flex items-center gap-3 p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">
+                  <Smartphone className="w-6 h-6 text-blue-400" />
+                  <div>
+                    <div className="text-sm font-semibold">App Store</div>
+                    <div className="text-xs text-gray-400">متوفر الآن</div>
+                  </div>
+                  <Download className="w-4 h-4 text-gray-400 mr-auto" />
+                </a>
+              </div>
+            </div>
+            
+            <h3 className="text-lg font-bold mb-4">الشركة</h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/about" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
@@ -142,9 +173,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/partners" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
+                <Link href="/press" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
                   <ChevronRight size={16} />
-                  <span>الشركاء</span>
+                  <span>الصحافة</span>
                 </Link>
               </li>
             </ul>
