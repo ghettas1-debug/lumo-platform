@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { BookOpen, Users, DollarSign, TrendingUp, Plus, Star, MessageSquare } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@\/components\/ui\/Button';
+import { Button } from '@/components/ui/Button';
 import Table from '@/components/ui/Table';
 import Tabs from '@/components/ui/Tabs';
 
@@ -123,9 +124,11 @@ export default function InstructorDashboardPage() {
             <h1 className="text-3xl font-black text-gray-900">لوحة المدرس</h1>
             <p className="text-gray-600">إدارة الدورات والطلاب والتحليلات.</p>
           </div>
-          <Button variant="primary" size="md" className="gap-2">
-            <Plus size={16} /> إنشاء دورة
-          </Button>
+          <Link href="/instructor-dashboard/create-course">
+            <Button variant="primary" size="md" className="gap-2">
+              <Plus size={16} /> إنشاء دورة
+            </Button>
+          </Link>
         </div>
 
         <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />

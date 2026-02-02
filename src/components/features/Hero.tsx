@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Play, Star, Users, BookOpen, Award, Globe } from 'lucide-react';
+import { ArrowRight, Play, Star, Users, BookOpen, Award, Globe, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
 export default function Hero() {
@@ -68,18 +68,18 @@ export default function Hero() {
               <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
                 <div className="aspect-video bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center relative overflow-hidden">
                   <div className="absolute inset-0 bg-black opacity-20"></div>
-                  <div className="relative text-center text-white">
+                  <Link href="/courses" className="relative text-center text-white hover:scale-105 transition-transform">
                     <div className="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Play className="w-10 h-10 ml-1" />
                     </div>
                     <h3 className="text-2xl font-bold mb-2">تمكين نفسك مجاناً</h3>
                     <p className="text-blue-100 text-lg">ابدأ رحلتك التعليمية اليوم</p>
-                  </div>
+                  </Link>
                 </div>
                 
                 {/* Course Preview */}
                 <div className="mt-6 space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <Link href="/courses/web-development" className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                         <BookOpen className="w-5 h-5 text-blue-600" />
@@ -90,9 +90,9 @@ export default function Hero() {
                       </div>
                     </div>
                     <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">مجاني</span>
-                  </div>
+                  </Link>
                   
-                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <Link href="/courses/business" className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
                         <Award className="w-5 h-5 text-purple-600" />
@@ -103,7 +103,20 @@ export default function Hero() {
                       </div>
                     </div>
                     <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">مجاني</span>
-                  </div>
+                  </Link>
+                  
+                  <Link href="/courses/ai" className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                        <TrendingUp className="w-5 h-5 text-green-600" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-sm">الذكاء الاصطناعي</h4>
+                        <p className="text-xs text-gray-500">15 دورة</p>
+                      </div>
+                    </div>
+                    <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">مجاني</span>
+                  </Link>
                 </div>
               </div>
             </div>

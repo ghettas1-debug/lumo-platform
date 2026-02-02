@@ -7,6 +7,7 @@ import Categories from '@/components/features/Categories';
 import LearningPaths from '@/components/features/LearningPaths';
 import Courses from '@/components/features/Courses';
 import Testimonials from '@/components/features/Testimonials';
+import QuickLinks from '@/components/features/QuickLinks';
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 import { logger } from '@/lib/logger';
@@ -24,6 +25,7 @@ export default function Home() {
       <Categories />
       <LearningPaths />
       <Courses />
+      <QuickLinks />
       <Testimonials />
       <Footer />
     </main>

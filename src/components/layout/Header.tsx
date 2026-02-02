@@ -18,6 +18,46 @@ interface HeaderProps {
 export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMyLearningOpen, setIsMyLearningOpen] = useState(false);
+  const [dropdownTimeout, setDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [myLearningTimeout, setMyLearningTimeout] = useState<NodeJS.Timeout | null>(null);
+
+  const handleDropdownMouseEnter = () => {
+    if (dropdownTimeout) {
+      clearTimeout(dropdownTimeout);
+      setDropdownTimeout(null);
+    }
+    setIsDropdownOpen(true);
+  };
+
+  const handleDropdownMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsDropdownOpen(false);
+    }, 200); // 200ms delay before closing
+    setDropdownTimeout(timeout);
+  };
+
+  const handleMyLearningMouseEnter = () => {
+    if (myLearningTimeout) {
+      clearTimeout(myLearningTimeout);
+      setMyLearningTimeout(null);
+    }
+    setIsMyLearningOpen(true);
+  };
+
+  const handleMyLearningMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsMyLearningOpen(false);
+    }, 200); // 200ms delay before closing
+    setMyLearningTimeout(timeout);
+  };
+
+  // Cleanup timeouts on unmount
+  React.useEffect(() => {
+    return () => {
+      if (dropdownTimeout) clearTimeout(dropdownTimeout);
+      if (myLearningTimeout) clearTimeout(myLearningTimeout);
+    };
+  }, [dropdownTimeout, myLearningTimeout]);
 
   const categories: Category[] = [
     { id: 'it', name: 'تكنولوجيا المعلومات', slug: 'it', description: 'دورات في البرمجة والشبكات', icon: 'book-open', color: 'blue', courseCount: 1292, isActive: true, order: 1, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
@@ -56,8 +96,8 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
           <div className="relative">
             <button
               className="flex items-center gap-1 text-gray-600 hover:text-blue-600 font-medium transition-colors"
-              onMouseEnter={() => setIsDropdownOpen(true)}
-              onMouseLeave={() => setIsDropdownOpen(false)}
+              onMouseEnter={handleDropdownMouseEnter}
+              onMouseLeave={handleDropdownMouseLeave}
             >
               الفئات
               <ChevronDown size={16} className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
@@ -65,9 +105,9 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
             
             {isDropdownOpen && (
               <div 
-                className="absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 py-4"
-                onMouseEnter={() => setIsDropdownOpen(true)}
-                onMouseLeave={() => setIsDropdownOpen(false)}
+                className="absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 py-4 z-50"
+                onMouseEnter={handleDropdownMouseEnter}
+                onMouseLeave={handleDropdownMouseLeave}
               >
                 <div className="grid grid-cols-1 gap-2 px-4">
                   {categories.map((category) => {
@@ -105,8 +145,8 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
           <div className="relative">
             <button
               className="flex items-center gap-1 text-gray-600 hover:text-blue-600 font-medium transition-colors"
-              onMouseEnter={() => setIsMyLearningOpen(true)}
-              onMouseLeave={() => setIsMyLearningOpen(false)}
+              onMouseEnter={handleMyLearningMouseEnter}
+              onMouseLeave={handleMyLearningMouseLeave}
             >
               تعلمي
               <ChevronDown size={16} className={`transition-transform ${isMyLearningOpen ? 'rotate-180' : ''}`} />
@@ -114,9 +154,9 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
             
             {isMyLearningOpen && (
               <div 
-                className="absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 py-4"
-                onMouseEnter={() => setIsMyLearningOpen(true)}
-                onMouseLeave={() => setIsMyLearningOpen(false)}
+                className="absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 py-4 z-50"
+                onMouseEnter={handleMyLearningMouseEnter}
+                onMouseLeave={handleMyLearningMouseLeave}
               >
                 <div className="grid grid-cols-1 gap-2 px-4">
                   <Link
@@ -174,24 +214,42 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
             دبلومات
           </Link>
           <Link 
+            href="/learning-path" 
+            className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
+          >
+            مسارات التعلم
+          </Link>
+          <Link 
+            href="/enterprise" 
+            className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
+          >
+            للمؤسسات
+          </Link>
+          <Link 
             href="/about" 
             className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
           >
             من نحن
           </Link>
+          <Link 
+            href="/contact" 
+            className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
+          >
+            اتصل بنا
+          </Link>
         </nav>
 
         {/* Right Actions */}
         <div className="hidden lg:flex items-center gap-3">
-          <button className="relative p-2 text-gray-600 hover:text-blue-600 transition-colors">
+          <Link href="/student/dashboard" className="relative p-2 text-gray-600 hover:text-blue-600 transition-colors">
             <Bell size={20} />
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
+          </Link>
           
-          <button className="relative p-2 text-gray-600 hover:text-blue-600 transition-colors">
+          <Link href="/cart" className="relative p-2 text-gray-600 hover:text-blue-600 transition-colors">
             <ShoppingCart size={20} />
             <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
-          </button>
+          </Link>
           
           <ThemeToggle />
           <LanguageSelector />
