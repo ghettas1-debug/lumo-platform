@@ -135,27 +135,15 @@ export default function Footer() {
                     </Link>
                   </li>
                   <li>
-                    <Link href="/diplomas" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-blue-400" />
-                      الدبلومات
-                    </Link>
-                  </li>
-                  <li>
                     <Link href="/certificates" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
                       <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-blue-400" />
                       الشهادات
                     </Link>
                   </li>
-                  <li>
-                    <Link href="/resources" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-blue-400" />
-                      المميزات
-                    </Link>
-                  </li>
                 </ul>
 
                 <h3 className="text-sm font-bold mb-3 flex items-center gap-2 text-orange-400">
-                  <TrendingUp className="w-4 h-4" />
+                  <Building className="w-4 h-4" />
                   الشركة
                 </h3>
                 <ul className="space-y-1">
@@ -186,153 +174,89 @@ export default function Footer() {
                 </ul>
               </div>
 
-              {/* Column 2: الحلول + المجتمع */}
+              {/* Column 2: الدعم + قانوني */}
               <div>
                 <h3 className="text-sm font-bold mb-3 flex items-center gap-2 text-green-400">
-                  <Building className="w-4 h-4" />
-                  الحلول
+                  <HelpCircle className="w-4 h-4" />
+                  الدعم
                 </h3>
                 <ul className="space-y-1 mb-4">
                   <li>
-                    <Link href="/solutions" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-green-400" />
-                      جميع الحلول
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/enterprise" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-green-400" />
-                      للشركات
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/universities" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-green-400" />
-                      للجامعات
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/corporate-training" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-green-400" />
-                      تدريب الشركات
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/developers" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-green-400" />
-                      للمطورين
-                    </Link>
-                  </li>
-                </ul>
-
-                <h3 className="text-sm font-bold mb-3 flex items-center gap-2 text-purple-400">
-                  <Users className="w-4 h-4" />
-                  المجتمع
-                </h3>
-                <ul className="space-y-1">
-                  <li>
-                    <Link href="/community" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-purple-400" />
-                      جميع الخدمات
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/forums" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-purple-400" />
-                      المنتديات
-                    </Link>
-                  </li>
-                  <li>
                     <Link href="/help" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-purple-400" />
+                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-green-400" />
                       مركز المساعدة
                     </Link>
                   </li>
                   <li>
                     <Link href="/faq" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-purple-400" />
-                      الأسئلة الشائعة
+                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-green-400" />
+                      FAQ
                     </Link>
                   </li>
                   <li>
                     <Link href="/status" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-purple-400" />
+                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-green-400" />
                       حالة الخدمة
+                    </Link>
+                  </li>
+                </ul>
+
+                <h3 className="text-sm font-bold mb-3 flex items-center gap-2 text-purple-400">
+                  <Shield className="w-4 h-4" />
+                  قانوني
+                </h3>
+                <ul className="space-y-1">
+                  <li>
+                    <Link href="/privacy" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
+                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-purple-400" />
+                      الخصوصية
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/terms" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
+                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-purple-400" />
+                      الشروط
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/cookie-policy" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
+                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-purple-400" />
+                      سياسة الكوكيز
                     </Link>
                   </li>
                 </ul>
               </div>
 
-              {/* Column 3: الأدوات + تطبيق */}
+              {/* Column 3: تطبيقات */}
               <div>
                 <h3 className="text-sm font-bold mb-3 flex items-center gap-2 text-yellow-400">
-                  <Settings className="w-4 h-4" />
-                  الأدوات
+                  <Smartphone className="w-4 h-4" />
+                  تطبيقات
                 </h3>
-                <ul className="space-y-1 mb-4">
-                  <li>
-                    <Link href="/tools" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-yellow-400" />
-                      جميع الأدوات
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/cart" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-yellow-400" />
-                      سلة التسوق
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/wishlist" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-yellow-400" />
-                      قائمة الرغبات
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/notifications" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-yellow-400" />
-                      الإشعارات
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/settings" className="flex items-center gap-1 text-gray-300 hover:text-white transition-all duration-300 group text-xs">
-                      <ChevronRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity text-yellow-400" />
-                      الإعدادات
-                    </Link>
-                  </li>
-                </ul>
-
-                {/* Mobile App */}
-                <div>
-                  <h3 className="text-sm font-bold mb-3 flex items-center gap-2 text-purple-400">
-                    <Smartphone className="w-4 h-4" />
-                    تطبيق LUMO
-                  </h3>
-                  <p className="text-gray-300 mb-3 text-xs leading-relaxed">
-                    تعلم بدون إنترنت - قم بتنزيل تطبيق LUMO الآن
-                  </p>
-                  <div className="space-y-2">
-                    <a href="#" className="flex items-center gap-2 p-2 bg-gray-800 rounded hover:bg-gray-700 transition-all duration-300 hover:scale-105 group border border-gray-700 hover:border-gray-600">
-                      <div className="w-8 h-8 bg-black rounded flex items-center justify-center">
-                        <Smartphone className="w-4 h-4 text-green-400" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-semibold">Google Play</div>
-                        <div className="text-xs text-gray-400">احصل على التطبيق</div>
-                      </div>
-                      <Download className="w-3 h-3 text-gray-400 mr-auto group-hover:scale-110 transition-transform" />
-                    </a>
-                    <a href="#" className="flex items-center gap-2 p-2 bg-gray-800 rounded hover:bg-gray-700 transition-all duration-300 hover:scale-105 group border border-gray-700 hover:border-gray-600">
-                      <div className="w-8 h-8 bg-black rounded flex items-center justify-center">
-                        <Smartphone className="w-4 h-4 text-blue-400" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-semibold">App Store</div>
-                        <div className="text-xs text-gray-400">متوفر الآن</div>
-                      </div>
-                      <Download className="w-3 h-3 text-gray-400 mr-auto group-hover:scale-110 transition-transform" />
-                    </a>
-                  </div>
+                <p className="text-gray-300 mb-3 text-xs leading-relaxed">
+                  قم بتنزيل تطبيق Lumo للتعلم في أي مكان
+                </p>
+                <div className="space-y-2">
+                  <a href="#" className="flex items-center gap-2 p-2 bg-gray-800 rounded hover:bg-gray-700 transition-all duration-300 hover:scale-105 group border border-gray-700 hover:border-gray-600">
+                    <div className="w-8 h-8 bg-black rounded flex items-center justify-center">
+                      <Smartphone className="w-4 h-4 text-green-400" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold">Google Play</div>
+                      <div className="text-xs text-gray-400">Android App</div>
+                    </div>
+                    <Download className="w-3 h-3 text-gray-400 mr-auto group-hover:scale-110 transition-transform" />
+                  </a>
+                  <a href="#" className="flex items-center gap-2 p-2 bg-gray-800 rounded hover:bg-gray-700 transition-all duration-300 hover:scale-105 group border border-gray-700 hover:border-gray-600">
+                    <div className="w-8 h-8 bg-black rounded flex items-center justify-center">
+                      <Smartphone className="w-4 h-4 text-blue-400" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold">App Store</div>
+                      <div className="text-xs text-gray-400">iOS App</div>
+                    </div>
+                    <Download className="w-3 h-3 text-gray-400 mr-auto group-hover:scale-110 transition-transform" />
+                  </a>
                 </div>
               </div>
             </div>

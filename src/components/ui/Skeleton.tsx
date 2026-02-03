@@ -2,31 +2,39 @@ import React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const skeletonVariants = cva(
-  'animate-pulse rounded-md bg-gray-200',
+  'animate-pulse rounded-md',
   {
     variants: {
       variant: {
         default: 'bg-gray-200',
         dark: 'bg-gray-300',
         light: 'bg-gray-100',
+        card: 'bg-gray-200',
+        text: 'bg-gray-200',
+        avatar: 'bg-gray-200',
+        button: 'bg-gray-200',
       },
       size: {
-        sm: 'h-4',
-        md: 'h-6',
-        lg: 'h-8',
-        xl: 'h-12',
-        full: 'h-full',
+        sm: 'h-4 w-4',
+        md: 'h-6 w-6',
+        lg: 'h-8 w-8',
+        xl: 'h-12 w-12',
+        full: 'w-full',
+        h4: 'h-4',
+        h6: 'h-6',
+        h8: 'h-8',
+        h12: 'h-12',
       },
       shape: {
-        rectangle: 'rounded-md',
+        rounded: 'rounded-md',
         circle: 'rounded-full',
-        pill: 'rounded-full',
+        none: '',
       },
     },
     defaultVariants: {
       variant: 'default',
       size: 'md',
-      shape: 'rectangle',
+      shape: 'rounded',
     },
   }
 );

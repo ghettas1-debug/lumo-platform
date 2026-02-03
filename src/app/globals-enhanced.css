@@ -1,0 +1,541 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== LUMO ENHANCED DESIGN SYSTEM ===== */
+
+/* Enhanced CSS Custom Properties with Design Tokens */
+:root {
+  /* Primary Brand Colors */
+  --lumo-primary-50: #eff6ff;
+  --lumo-primary-100: #dbeafe;
+  --lumo-primary-200: #bfdbfe;
+  --lumo-primary-300: #93c5fd;
+  --lumo-primary-400: #60a5fa;
+  --lumo-primary-500: #3b82f6;
+  --lumo-primary-600: #2563eb;
+  --lumo-primary-700: #1d4ed8;
+  --lumo-primary-800: #1e40af;
+  --lumo-primary-900: #1e3a8a;
+  --lumo-primary-950: #172554;
+  
+  /* Neutral Colors */
+  --lumo-neutral-0: #ffffff;
+  --lumo-neutral-50: #f8fafc;
+  --lumo-neutral-100: #f1f5f9;
+  --lumo-neutral-200: #e2e8f0;
+  --lumo-neutral-300: #cbd5e1;
+  --lumo-neutral-400: #94a3b8;
+  --lumo-neutral-500: #64748b;
+  --lumo-neutral-600: #475569;
+  --lumo-neutral-700: #334155;
+  --lumo-neutral-800: #1e293b;
+  --lumo-neutral-900: #0f172a;
+  --lumo-neutral-950: #020617;
+  
+  /* Semantic Colors */
+  --lumo-success-50: #f0fdf4;
+  --lumo-success-100: #dcfce7;
+  --lumo-success-500: #22c55e;
+  --lumo-success-600: #16a34a;
+  --lumo-success-700: #15803d;
+  
+  --lumo-warning-50: #fffbeb;
+  --lumo-warning-100: #fef3c7;
+  --lumo-warning-500: #f59e0b;
+  --lumo-warning-600: #d97706;
+  --lumo-warning-700: #b45309;
+  
+  --lumo-error-50: #fef2f2;
+  --lumo-error-100: #fee2e2;
+  --lumo-error-500: #ef4444;
+  --lumo-error-600: #dc2626;
+  --lumo-error-700: #b91c1c;
+  
+  --lumo-info-50: #eff6ff;
+  --lumo-info-100: #dbeafe;
+  --lumo-info-500: #3b82f6;
+  --lumo-info-600: #2563eb;
+  --lumo-info-700: #1d4ed8;
+  
+  /* Accent Colors */
+  --lumo-accent-purple-50: #faf5ff;
+  --lumo-accent-purple-100: #f3e8ff;
+  --lumo-accent-purple-500: #8b5cf6;
+  --lumo-accent-purple-600: #7c3aed;
+  --lumo-accent-purple-700: #6d28d9;
+  
+  --lumo-accent-pink-50: #fdf2f8;
+  --lumo-accent-pink-100: #fce7f3;
+  --lumo-accent-pink-500: #ec4899;
+  --lumo-accent-pink-600: #db2777;
+  --lumo-accent-pink-700: #be185d;
+  
+  --lumo-accent-teal-50: #f0fdfa;
+  --lumo-accent-teal-100: #ccfbf1;
+  --lumo-accent-teal-500: #14b8a6;
+  --lumo-accent-teal-600: #0d9488;
+  --lumo-accent-teal-700: #0f766e;
+  
+  --lumo-accent-orange-50: #fff7ed;
+  --lumo-accent-orange-100: #ffedd5;
+  --lumo-accent-orange-500: #f97316;
+  --lumo-accent-orange-600: #ea580c;
+  --lumo-accent-orange-700: #c2410c;
+  
+  --lumo-accent-emerald-50: #ecfdf5;
+  --lumo-accent-emerald-100: #d1fae5;
+  --lumo-accent-emerald-500: #10b981;
+  --lumo-accent-emerald-600: #059669;
+  --lumo-accent-emerald-700: #047857;
+  
+  --lumo-accent-yellow-50: #fefce8;
+  --lumo-accent-yellow-100: #fef3c7;
+  --lumo-accent-yellow-500: #eab308;
+  --lumo-accent-yellow-600: #ca8a04;
+  --lumo-accent-yellow-700: #a16207;
+  
+  /* Typography System */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-arabic: 'Cairo', 'Noto Sans Arabic', sans-serif;
+  --font-display: 'Clash Display', var(--font-primary);
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+  
+  /* Line Heights */
+  --line-height-xs: 1rem;
+  --line-height-sm: 1.25rem;
+  --line-height-base: 1.5rem;
+  --line-height-lg: 1.75rem;
+  --line-height-xl: 1.75rem;
+  --line-height-2xl: 2rem;
+  --line-height-3xl: 2.25rem;
+  
+  /* Spacing System */
+  --spacing-0: 0;
+  --spacing-px: 1px;
+  --spacing-0_5: 0.125rem;
+  --spacing-1: 0.25rem;
+  --spacing-1_5: 0.375rem;
+  --spacing-2: 0.5rem;
+  --spacing-2_5: 0.625rem;
+  --spacing-3: 0.75rem;
+  --spacing-3_5: 0.875rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-7: 1.75rem;
+  --spacing-8: 2rem;
+  --spacing-9: 2.25rem;
+  --spacing-10: 2.5rem;
+  --spacing-11: 2.75rem;
+  --spacing-12: 3rem;
+  --spacing-14: 3.5rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  --spacing-28: 7rem;
+  --spacing-32: 8rem;
+  --spacing-36: 9rem;
+  --spacing-40: 10rem;
+  --spacing-44: 11rem;
+  --spacing-48: 12rem;
+  --spacing-52: 13rem;
+  --spacing-56: 14rem;
+  --spacing-60: 15rem;
+  --spacing-64: 16rem;
+  --spacing-72: 18rem;
+  --spacing-80: 20rem;
+  --spacing-96: 24rem;
+  
+  /* Border Radius */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;
+  --radius-base: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-glow: 0 0 20px rgb(59 130 246 / 0.3);
+  --shadow-glow-lg: 0 0 40px rgb(59 130 246 / 0.4);
+  
+  /* Z-Index */
+  --z-hide: -1;
+  --z-auto: auto;
+  --z-base: 0;
+  --z-docked: 10;
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-banner: 1200;
+  --z-overlay: 1300;
+  --z-modal: 1400;
+  --z-popover: 1500;
+  --z-skip-link: 1600;
+  --z-toast: 1700;
+  --z-tooltip: 1800;
+  
+  /* Transitions */
+  --transition-duration-75: 75ms;
+  --transition-duration-100: 100ms;
+  --transition-duration-150: 150ms;
+  --transition-duration-200: 200ms;
+  --transition-duration-300: 300ms;
+  --transition-duration-500: 500ms;
+  --transition-duration-700: 700ms;
+  --transition-duration-1000: 1000ms;
+  
+  --transition-easing-linear: linear;
+  --transition-easing-ease: ease;
+  --transition-easing-ease-in: ease-in;
+  --transition-easing-ease-out: ease-out;
+  --transition-easing-ease-in-out: ease-in-out;
+  --transition-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-easing-entrance: cubic-bezier(0, 0, 0.2, 1);
+  --transition-easing-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Dark Mode Enhanced */
+.dark {
+  --background: var(--lumo-neutral-900);
+  --foreground: var(--lumo-neutral-50);
+  --primary: var(--lumo-primary-500);
+  --primary-foreground: #ffffff;
+  --secondary: var(--lumo-neutral-800);
+  --secondary-foreground: var(--lumo-neutral-50);
+  --muted: var(--lumo-neutral-800);
+  --muted-foreground: var(--lumo-neutral-400);
+  --accent: var(--lumo-neutral-800);
+  --accent-foreground: var(--lumo-neutral-50);
+  --destructive: var(--lumo-error-500);
+  --destructive-foreground: #ffffff;
+  --border: var(--lumo-neutral-700);
+  --input: var(--lumo-neutral-800);
+  --ring: var(--lumo-primary-500);
+}
+
+/* Light Mode */
+.light {
+  --background: var(--lumo-neutral-0);
+  --foreground: var(--lumo-neutral-900);
+  --primary: var(--lumo-primary-600);
+  --primary-foreground: #ffffff;
+  --secondary: var(--lumo-neutral-100);
+  --secondary-foreground: var(--lumo-neutral-900);
+  --muted: var(--lumo-neutral-100);
+  --muted-foreground: var(--lumo-neutral-500);
+  --accent: var(--lumo-neutral-100);
+  --accent-foreground: var(--lumo-neutral-900);
+  --destructive: var(--lumo-error-500);
+  --destructive-foreground: #ffffff;
+  --border: var(--lumo-neutral-200);
+  --input: var(--lumo-neutral-50);
+  --ring: var(--lumo-primary-600);
+}
+
+/* High Contrast Mode */
+.high-contrast {
+  --background: #000000;
+  --foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: #333333;
+  --secondary-foreground: #ffffff;
+  --border: #ffffff;
+  --ring: #ffffff;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Base Styles */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-primary), -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Arabic", "Arial", sans-serif;
+  unicode-bidi: embed;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+/* Focus Styles for Keyboard Navigation */
+.keyboard-nav *:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Enhanced Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px);
+  }
+  50% { 
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--primary);
+  }
+  50% {
+    box-shadow: 0 0 40px var(--primary);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes card-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background-size: 200px 100%;
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.2s ease-out;
+}
+
+.animate-card-entrance {
+  animation: card-entrance 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Focus Ring Utility */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary;
+}
+
+/* Responsive Container */
+.container-responsive {
+  @apply w-full px-4 sm:px-6 lg:px-8 mx-auto;
+  max-width: 1200px;
+}
+
+/* Card Variants */
+.card-elevated {
+  @apply bg-white border border-neutral-200 rounded-xl shadow-lg;
+}
+
+.card-outlined {
+  @apply bg-white border-2 border-neutral-300 rounded-xl;
+}
+
+.card-flat {
+  @apply bg-white rounded-xl;
+}
+
+/* Button Variants */
+.btn-primary {
+  @apply bg-primary text-white hover:bg-primary-600 focus:ring-primary;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary-600 focus:ring-secondary;
+}
+
+.btn-outline {
+  @apply border border-neutral-300 text-neutral-700 hover:bg-neutral-50 focus:ring-primary;
+}
+
+.btn-ghost {
+  @apply text-neutral-700 hover:bg-neutral-100 focus:ring-neutral-500;
+}
+
+/* Text Utilities */
+.text-responsive-xs {
+  @apply text-xs sm:text-sm;
+}
+
+.text-responsive-sm {
+  @apply text-sm sm:text-base;
+}
+
+.text-responsive-base {
+  @apply text-base sm:text-lg;
+}
+
+.text-responsive-lg {
+  @apply text-lg sm:text-xl;
+}
+
+.text-responsive-xl {
+  @apply text-xl sm:text-2xl;
+}
+
+.text-responsive-2xl {
+  @apply text-2xl sm:text-3xl;
+}
+
+.text-responsive-3xl {
+  @apply text-3xl sm:text-4xl;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .print-break-before {
+    page-break-before: always;
+  }
+  
+  .print-break-after {
+    page-break-after: always;
+  }
+  
+  .print-break-inside-avoid {
+    page-break-inside: avoid;
+  }
+}

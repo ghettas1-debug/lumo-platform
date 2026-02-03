@@ -1,35 +1,78 @@
-'use client';
+"use client";
 
-import { ReactNode } from 'react';
+import React from 'react';
 
 interface TabsProps {
-  tabs: { id: string; label: string; content: ReactNode }[];
+  tabs: string[];
   activeTab: string;
-  onChange: (id: string) => void;
+  onChange: (value: string) => void;
+}
+
+interface TabsListProps {
+  children: React.ReactNode;
   className?: string;
 }
 
-export default function Tabs({ tabs, activeTab, onChange, className = '' }: TabsProps) {
+interface TabsTriggerProps {
+  value: string;
+  children: React.ReactNode;
+  isActive?: boolean;
+  onClick?: () => void;
+  className?: string;
+}
+
+interface TabsContentProps {
+  value: string;
+  children: React.ReactNode;
+  isActive?: boolean;
+  className?: string;
+}
+
+function Tabs({ tabs, activeTab, onChange }: TabsProps) {
   return (
-    <div className={className}>
-      <div className="flex flex-wrap gap-2 border-b border-gray-200">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => onChange(tab.id)}
-            className={`px-4 py-2 text-sm font-semibold transition-colors border-b-2 -mb-px ${
-              activeTab === tab.id
-                ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-      <div className="pt-4">
-        {tabs.find((tab) => tab.id === activeTab)?.content}
-      </div>
+    <div className="tabs">
+      {tabs.map(tab => (
+        <button 
+          key={tab} 
+          className={activeTab === tab ? 'active' : ''} 
+          onClick={() => onChange(tab)}
+        >
+          {tab}
+        </button>
+      ))}
     </div>
   );
 }
+
+function TabsList({ children, className = "" }: TabsListProps) {
+  return (
+    <div className={`tabs-list ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+function TabsTrigger({ value, children, isActive = false, onClick, className = "" }: TabsTriggerProps) {
+  return (
+    <button
+      className={`tabs-trigger ${isActive ? 'active' : ''} ${className}`}
+      onClick={onClick}
+      data-value={value}
+    >
+      {children}
+    </button>
+  );
+}
+
+function TabsContent({ value, children, isActive = false, className = "" }: TabsContentProps) {
+  if (!isActive) return null;
+  
+  return (
+    <div className={`tabs-content ${className}`} data-value={value}>
+      {children}
+    </div>
+  );
+}
+
+export default Tabs;
+export { TabsList, TabsTrigger, TabsContent };

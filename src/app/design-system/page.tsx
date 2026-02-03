@@ -38,7 +38,7 @@ export default function DesignSystemPage() {
       label: 'معاينة',
       content: (
         <div className="space-y-6">
-          <Toast type="success" title="تم التحديث" message="نظام التصميم يعمل بنجاح" />
+          <Toast variant="success" title="تم التحديث" description="نظام التصميم يعمل بنجاح" />
           <Tooltip content="مثال Tooltip">
             <button className="px-4 py-2 bg-gray-900 text-white rounded-lg">مرر هنا</button>
           </Tooltip>
@@ -57,7 +57,7 @@ export default function DesignSystemPage() {
           <h1 className="text-3xl font-black text-gray-900">Design System</h1>
           <p className="text-gray-600">توثيق المكونات ومعاينتها.</p>
         </div>
-        <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
+        <Tabs tabs={tabs.map(tab => tab.label)} activeTab={activeTab} onChange={setActiveTab} />
       </div>
 
       <Modal isOpen={showModal} onClose={() => setShowModal(false)} title="مثال Modal">

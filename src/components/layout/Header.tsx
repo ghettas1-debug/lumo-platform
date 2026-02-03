@@ -7,123 +7,104 @@ import {
   Menu, 
   X, 
   ChevronDown, 
+  ChevronRight,
+  MoreHorizontal,
   User, 
-  Bell, 
-  Settings, 
-  LogOut,
-  BookOpen,
-  Heart,
-  Award,
   Globe,
-  HelpCircle,
-  Moon,
-  Sun,
-  Briefcase, 
-  TrendingUp, 
-  Languages, 
-  Users, 
-  ShoppingCart, 
-  PlayCircle,
-  Building,
+  LogIn,
+  UserPlus,
+  BookOpen,
   GraduationCap,
+  Building,
+  FileText,
+  DollarSign,
+  Briefcase,
   Code,
   Palette,
-  Shield,
-  FileText,
-  Brain,
+  Heart,
+  Award,
+  TrendingUp,
+  HelpCircle,
+  Settings,
+  LogOut,
+  ShoppingCart,
+  Moon,
+  Sun,
+  Monitor,
+  Users,
+  Star,
+  MessageSquare,
   Download,
-  LogIn,
-  ChevronRight
+  Shield,
+  Zap,
+  Target,
+  BarChart,
+  Clock,
+  CheckCircle,
+  PlayCircle,
+  Video,
+  Headphones,
+  BookMarked,
+  Lightbulb,
+  Rocket,
+  Trophy,
+  Gift,
+  CreditCard
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import EnhancedLogo from '@/components/brand/EnhancedLogo';
-import ThemeToggle from '@/components/ThemeToggle';
-import LanguageSelector from '@/components/LanguageSelector';
-import AdvancedSearch from '@/components/ui/AdvancedSearch';
-import { logger } from '@/lib/logger';
-import { useNotifications } from '@/components/ui/NotificationSystem';
+import { Badge } from '@/components/ui/atoms/Badge';
+import { 
+  HoverEffect, 
+  SlideInAnimation, 
+  StaggeredAnimation 
+} from '@/components/design-system/MicroInteractions';
+import { useEnhancedTheme } from '@/components/design-system/EnhancedThemeProvider';
+import { useBreakpoint } from '@/components/design-system/ResponsiveGrid';
+import { cn } from '@/lib/utils';
 
 interface HeaderProps {
-  isMenuOpen?: boolean;
-  setIsMenuOpen?: (open: boolean) => void;
+  className?: string;
 }
 
-export default function Header({ isMenuOpen = false, setIsMenuOpen = () => {} }: HeaderProps) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isMyLearningOpen, setIsMyLearningOpen] = useState(false);
-  const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
-  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+const Header: React.FC<HeaderProps> = ({ className }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
   
-  const { notifications, unreadCount } = useNotifications();
+  const headerRef = useRef<HTMLElement>(null);
   
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const myLearningRef = useRef<HTMLDivElement>(null);
-  const solutionsRef = useRef<HTMLDivElement>(null);
-  const resourcesRef = useRef<HTMLDivElement>(null);
+  const { theme, setTheme, resolvedTheme } = useEnhancedTheme();
+  const breakpoint = useBreakpoint();
+  const isMobile = breakpoint === 'xs' || breakpoint === 'sm';
+  const isTablet = breakpoint === 'md';
 
-  // Categories for dropdown
-  const categories = [
-    { id: 'it', name: 'تكنولوجيا المعلومات', slug: 'it', icon: Code, courses: 1292, color: 'blue' },
-    { id: 'health', name: 'الصحة', slug: 'health', icon: Heart, courses: 1102, color: 'red' },
-    { id: 'language', name: 'اللغات', slug: 'language', icon: Languages, courses: 316, color: 'green' },
-    { id: 'business', name: 'الأعمال', slug: 'business', icon: Briefcase, courses: 1777, color: 'purple' },
-    { id: 'management', name: 'الإدارة', slug: 'management', icon: Users, courses: 1098, color: 'indigo' },
-    { id: 'personal', name: 'التطوير الشخصي', slug: 'personal-development', icon: TrendingUp, courses: 1350, color: 'yellow' }
-  ];
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
 
-  // Solutions for dropdown
-  const solutions = [
-    { id: 'enterprise', name: 'للشركات', description: 'حلول للمؤسسات', icon: Building, href: '/enterprise' },
-    { id: 'universities', name: 'للجامعات', description: 'حلول أكاديمية', icon: GraduationCap, href: '/universities' },
-    { id: 'corporate', name: 'تدريب الشركات', description: 'برامج مخصصة', icon: Users, href: '/corporate-training' },
-    { id: 'developers', name: 'للمطورين', description: 'API وأدوات', icon: Code, href: '/developers' }
-  ];
-
-  // Resources for dropdown
-  const resources = [
-    { id: 'features', name: 'المميزات', description: 'AI والتعلم التكيفي', icon: Brain, href: '/resources' },
-    { id: 'api', name: 'وثائق API', description: 'للمطورين', icon: FileText, href: '/api-docs' },
-    { id: 'downloads', name: 'التنزيلات', description: 'تطبيقات وأدوات', icon: Download, href: '/downloads' }
-  ];
-
-  // My Learning items
-  const myLearningItems = [
-    { id: 'diplomas', name: 'دبلومات', description: 'برامج متقدمة', icon: GraduationCap, href: '/diplomas' },
-    { id: 'paths', name: 'مسارات التعلم', description: 'مسارات مهنية', icon: TrendingUp, href: '/career-paths' },
-    { id: 'enterprise', name: 'للمؤسسات', description: 'حلول للشركات', icon: Building, href: '/enterprise' },
-    { id: 'about', name: 'من نحن', description: 'تعرف علينا', icon: Users, href: '/about' },
-    { id: 'contact', name: 'اتصل بنا', description: 'تواصل معنا', icon: HelpCircle, href: '/contact' }
-  ];
-
-  const handleSearch = useCallback((query: string) => {
-    logger.track('search_performed', { query, source: 'header' });
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close all dropdowns
-  const closeAllDropdowns = () => {
-    setIsDropdownOpen(false);
-    setIsMyLearningOpen(false);
-    setIsSolutionsOpen(false);
-    setIsResourcesOpen(false);
-  };
+  // Handle dropdown enter - immediate response
+  const handleDropdownEnter = useCallback((dropdownId: string) => {
+    setActiveDropdown(dropdownId);
+  }, []);
 
-  // Handle click outside
-  React.useEffect(() => {
+  // Handle dropdown leave - immediate close
+  const handleDropdownLeave = useCallback(() => {
+    setActiveDropdown(null);
+  }, []);
+
+  // Close dropdowns on click outside
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-      if (myLearningRef.current && !myLearningRef.current.contains(event.target as Node)) {
-        setIsMyLearningOpen(false);
-      }
-      if (solutionsRef.current && !solutionsRef.current.contains(event.target as Node)) {
-        setIsSolutionsOpen(false);
-      }
-      if (resourcesRef.current && !resourcesRef.current.contains(event.target as Node)) {
-        setIsResourcesOpen(false);
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
       }
     };
 
@@ -131,252 +112,412 @@ export default function Header({ isMenuOpen = false, setIsMenuOpen = () => {} }:
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Navigation items structure - Updated to match the integrated navigation map
+  const navItems = [
+    {
+      id: 'learn',
+      label: 'تعلم',
+      icon: BookOpen,
+      dropdown: [
+        { label: 'الدورات', href: '/courses', icon: BookOpen, badge: '6000+' },
+        { label: 'المسارات التعليمية', href: '/learning-paths', icon: GraduationCap },
+        { label: 'الشهادات', href: '/certificates', icon: Award },
+        { label: 'المختبرات', href: '/labs', icon: Code },
+        { label: 'المدربون', href: '/instructors', icon: Users },
+      ]
+    },
+    {
+      id: 'business',
+      label: 'للشركات',
+      icon: Building,
+      dropdown: [
+        { label: 'حلول الشركات', href: '/enterprise', icon: Building },
+        { label: 'التدريب المؤسسي', href: '/corporate-training', icon: Briefcase },
+        { label: 'الأسعار للشركات', href: '/enterprise/pricing', icon: DollarSign },
+        { label: 'نجاح العملاء', href: '/success-stories', icon: TrendingUp },
+      ]
+    },
+    {
+      id: 'resources',
+      label: 'الموارد',
+      icon: FileText,
+      dropdown: [
+        { label: 'المدونة', href: '/blog', icon: FileText },
+        { label: 'مركز المساعدة', href: '/help', icon: HelpCircle },
+        { label: 'المجتمع', href: '/community', icon: Users },
+        { label: 'الأسئلة الشائعة', href: '/faq', icon: HelpCircle },
+        { label: 'للمطورين', href: '/developers', icon: Code },
+      ]
+    },
+    {
+      id: 'pricing',
+      label: 'الأسعار',
+      icon: DollarSign,
+      dropdown: [
+        { label: 'خطط الأفراد', href: '/pricing', icon: User },
+        { label: 'خطط الشركات', href: '/enterprise/pricing', icon: Building },
+      ]
+    }
+  ];
+
+  // Render dropdown with perfect wrapper approach
+  const renderDropdown = (items: any[], dropdownId: string) => {
+    if (activeDropdown !== dropdownId) return null;
+
+    const isMoreDropdown = dropdownId === 'more';
+    const dropdownWidth = isMoreDropdown ? 'w-96' : 'w-72';
+    const maxHeight = isMoreDropdown ? 'max-h-96 overflow-y-auto' : '';
+
+    return (
+      <SlideInAnimation direction="down" duration={0.15}>
+        <div 
+          className={`absolute top-full left-0 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-neutral-200 dark:border-neutral-700 z-50 overflow-hidden ${dropdownWidth} ${maxHeight}`}
+          data-dropdown-container="true"
+          style={{ 
+            pointerEvents: 'auto',
+            zIndex: 100
+            // No marginTop - no gap between button and dropdown
+          }}
+        >
+          <div className="py-2">
+            {items.map((item, index) => (
+              <Link
+                key={`${item.href}-${index}`} // Use composite key to ensure uniqueness
+                href={item.href}
+                className={`flex items-center gap-3 px-4 py-3 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors duration-200 group`}
+                onClick={() => setActiveDropdown(null)}
+              >
+                <div className="w-5 h-5 flex items-center justify-center">
+                  <item.icon className="w-4 h-4" />
+                </div>
+                <span className="flex-1 text-sm font-medium">{item.label}</span>
+                {item.badge && (
+                  <Badge variant="secondary" size="sm" className="text-xs">
+                    {item.badge}
+                  </Badge>
+                )}
+                <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </SlideInAnimation>
+    );
+  };
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm animate-slide-in-down">
-      <div className="container mx-auto px-2 h-12 md:h-16 flex items-center justify-between">
-        
-        {/* Enhanced Logo */}
-        <EnhancedLogo size="md" variant="default" />
-
-        {/* Desktop Navigation - Compact */}
-        <nav className="hidden md:flex items-center gap-1">
-          {/* الرئيسية */}
-          <Link 
-            href="/" 
-            className="px-2 py-1 text-gray-700 hover:text-blue-600 font-medium transition-colors text-xs"
-          >
-            الرئيسية
-          </Link>
-
-          {/* الدورات Dropdown - Smaller */}
-          <div className="relative" ref={dropdownRef}>
-            <button
-              className="flex items-center gap-1 px-2 py-1 text-gray-700 hover:text-blue-600 font-medium transition-colors text-xs"
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            >
-              الدورات
-              <ChevronDown size={12} className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-            </button>
-            
-            {isDropdownOpen && (
-              <div className="absolute top-full right-0 mt-1 w-80 bg-white rounded-lg shadow-lg border border-gray-200 py-3 z-50">
-                <div className="grid grid-cols-1 gap-1 px-3">
-                  {categories.map((category) => {
-                    const IconComponent = category.icon;
-                    return (
-                      <Link
-                        key={category.id}
-                        href={`/courses/${category.slug}`}
-                        className="flex items-center justify-between p-2 rounded hover:bg-gray-50 transition-colors group"
-                      >
-                        <div className="flex items-center gap-2">
-                          <div className={`w-6 h-6 bg-${category.color}-100 rounded flex items-center justify-center`}>
-                            <IconComponent width={12} height={12} className={`text-${category.color}-600`} />
-                          </div>
-                          <div>
-                            <div className="font-medium text-gray-900 text-xs">{category.name}</div>
-                            <div className="text-xs text-gray-400">{category.courses} دورة</div>
-                          </div>
-                        </div>
-                        <ChevronRight size={12} className="text-gray-400 group-hover:text-blue-600 transition-colors" />
-                      </Link>
-                    );
-                  })}
-                </div>
-                <div className="border-t border-gray-200 mt-2 pt-2 px-3">
-                  <Link href="/courses" className="flex items-center justify-between text-blue-600 hover:text-blue-700 font-medium text-xs">
-                    <span>عرض جميع الدورات</span>
-                    <ChevronRight size={12} />
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* المسارات */}
-          <Link 
-            href="/learning-paths" 
-            className="px-2 py-1 text-gray-700 hover:text-blue-600 font-medium transition-colors text-xs"
-          >
-            المسارات
-          </Link>
-
-          {/* المدربون */}
-          <Link 
-            href="/instructors" 
-            className="px-2 py-1 text-gray-700 hover:text-blue-600 font-medium transition-colors text-xs"
-          >
-            المدربون
-          </Link>
-
-          {/* للشركات - Dropdown */}
-          <div className="relative" ref={solutionsRef}>
-            <button
-              className="flex items-center gap-1 px-2 py-1 text-gray-700 hover:text-blue-600 font-medium transition-colors text-xs"
-              onClick={() => setIsSolutionsOpen(!isSolutionsOpen)}
-            >
-              للشركات
-              <ChevronDown size={12} className={`transition-transform ${isSolutionsOpen ? 'rotate-180' : ''}`} />
-            </button>
-            
-            {isSolutionsOpen && (
-              <div className="absolute top-full right-0 mt-1 w-72 bg-white rounded-lg shadow-lg border border-gray-200 py-3 z-50">
-                <div className="space-y-1 px-3">
-                  {solutions.map((solution) => {
-                    const IconComponent = solution.icon;
-                    return (
-                      <Link
-                        key={solution.id}
-                        href={solution.href}
-                        className="flex items-center gap-2 p-2 rounded hover:bg-gray-50 transition-colors group"
-                      >
-                        <div className={`w-6 h-6 bg-gradient-to-br from-blue-100 to-indigo-100 rounded flex items-center justify-center`}>
-                          <IconComponent width={12} height={12} className="text-blue-600" />
-                        </div>
-                        <div>
-                          <div className="font-medium text-gray-900 text-xs">{solution.name}</div>
-                          <div className="text-xs text-gray-400">{solution.description}</div>
-                        </div>
-                        <ChevronRight size={12} className="text-gray-400 group-hover:text-blue-600 transition-colors" />
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* الأسعار */}
-          <Link 
-            href="/pricing" 
-            className="px-2 py-1 text-gray-700 hover:text-blue-600 font-medium transition-colors text-xs"
-          >
-            الأسعار
-          </Link>
-
-          {/* المدونة */}
-          <Link 
-            href="/blog" 
-            className="px-2 py-1 text-gray-700 hover:text-blue-600 font-medium transition-colors text-xs"
-          >
-            المدونة
-          </Link>
-
-          {/* الموارد - Dropdown */}
-          <div className="relative" ref={resourcesRef}>
-            <button
-              className="flex items-center gap-1 px-2 py-1 text-gray-700 hover:text-blue-600 font-medium transition-colors text-xs"
-              onClick={() => setIsResourcesOpen(!isResourcesOpen)}
-            >
-              الموارد
-              <ChevronDown size={12} className={`transition-transform ${isResourcesOpen ? 'rotate-180' : ''}`} />
-            </button>
-            
-            {isResourcesOpen && (
-              <div className="absolute top-full right-0 mt-1 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-3 z-50">
-                <div className="space-y-1 px-3">
-                  {resources.map((resource) => {
-                    const IconComponent = resource.icon;
-                    return (
-                      <Link
-                        key={resource.id}
-                        href={resource.href}
-                        className="flex items-center gap-2 p-2 rounded hover:bg-gray-50 transition-colors group"
-                      >
-                        <div className={`w-6 h-6 bg-gradient-to-br from-green-100 to-emerald-100 rounded flex items-center justify-center`}>
-                          <IconComponent width={12} height={12} className="text-green-600" />
-                        </div>
-                        <div>
-                          <div className="font-medium text-gray-900 text-xs">{resource.name}</div>
-                          <div className="text-xs text-gray-400">{resource.description}</div>
-                        </div>
-                        <ChevronRight size={12} className="text-gray-400 group-hover:text-green-600 transition-colors" />
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </div>
-        </nav>
-
-        {/* Search Bar - Desktop - Smaller */}
-        <div className="hidden md:flex flex-1 max-w-lg mx-6">
-          <AdvancedSearch onSearch={handleSearch} />
-        </div>
-
-        {/* Right Section - Compact */}
-        <div className="flex items-center gap-2">
-          {/* Search - Mobile */}
-          <div className="md:hidden">
-            <Search className="w-4 h-4 text-gray-600" />
-          </div>
-
-          {/* Language Selector - Smaller */}
-          <div className="hidden sm:block">
-            <LanguageSelector />
-          </div>
-
-          {/* Theme Toggle - Smaller */}
-          <ThemeToggle />
-
-          {/* Shopping Cart - Smaller */}
-          <Link href="/cart" className="relative">
-            <ShoppingCart className="w-4 h-4 text-gray-600 hover:text-blue-600 transition-colors" />
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-              3
-            </span>
-          </Link>
-
-          {/* Mobile Menu Toggle - Smaller */}
-          <button
-            className="lg:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu - Smaller */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg z-50">
-          <div className="container mx-auto px-2 py-3 space-y-2">
-            <Link href="/" className="block py-2 text-gray-700 hover:text-blue-600 font-medium text-sm">
-              الرئيسية
-            </Link>
-            <Link href="/courses" className="block py-2 text-gray-700 hover:text-blue-600 font-medium text-sm">
-              الدورات
-            </Link>
-            <Link href="/learning-paths" className="block py-2 text-gray-700 hover:text-blue-600 font-medium text-sm">
-              المسارات التعليمية
-            </Link>
-            <Link href="/instructors" className="block py-2 text-gray-700 hover:text-blue-600 font-medium text-sm">
-              المدربون
-            </Link>
-            <Link href="/solutions" className="block py-2 text-gray-700 hover:text-blue-600 font-medium text-sm">
-              للشركات
-            </Link>
-            <Link href="/pricing" className="block py-2 text-gray-700 hover:text-blue-600 font-medium text-sm">
-              الأسعار
-            </Link>
-            <Link href="/blog" className="block py-2 text-gray-700 hover:text-blue-600 font-medium text-sm">
-              المدونة
-            </Link>
-            <Link href="/resources" className="block py-2 text-gray-700 hover:text-blue-600 font-medium text-sm">
-              الموارد
-            </Link>
-            <div className="border-t border-gray-200 pt-2">
-              <Link href="/login" className="block py-2 text-gray-700 hover:text-blue-600 font-medium text-sm">
-                تسجيل الدخول
-              </Link>
-              <Link href="/signup" className="block py-2 text-blue-600 font-medium text-sm">
-                ابدأ مجاناً
-              </Link>
-            </div>
-          </div>
-        </div>
+    <header 
+      ref={headerRef}
+      className={cn(
+        "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
+        isScrolled 
+          ? "bg-gradient-to-r from-blue-600/95 via-purple-600/95 to-pink-600/95 backdrop-blur-md shadow-lg border-b border-white/20 dark:border-neutral-700/30"
+          : "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 shadow-lg border-b border-white/20 dark:border-neutral-700/30"
       )}
+    >
+      <div className="max-w-screen-2xl mx-auto">
+        <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+          {/* Logo */}
+          <div className="flex items-center gap-8">
+            <Link 
+              href="/" 
+              className="flex items-center gap-2 text-2xl font-bold text-white hover:opacity-90 transition-opacity"
+            >
+              <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center border border-white/30">
+                <span className="text-white font-bold">L</span>
+              </div>
+              <span className="hidden sm:inline">LUMO</span>
+            </Link>
+
+            {/* Desktop Navigation - WITH WRAPPER APPROACH */}
+            {!isMobile && (
+              <nav className="hidden lg:flex items-center gap-1">
+                {navItems.map((item) => (
+                  <div
+                    key={item.id}
+                    className="relative"
+                    onMouseEnter={() => handleDropdownEnter(item.id)}
+                    onMouseLeave={handleDropdownLeave}
+                  >
+                    <HoverEffect scale={1.02}>
+                      <button
+                        className={`flex items-center gap-2 px-4 py-2 text-sm font-medium text-white hover:text-white/90 transition-colors duration-200 rounded-lg hover:bg-white/10 backdrop-blur-sm`}
+                      >
+                        <item.icon className="w-4 h-4" />
+                        <span>{item.label}</span>
+                        <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === item.id ? 'rotate-180' : ''}`} />
+                      </button>
+                    </HoverEffect>
+                    {renderDropdown(item.dropdown, item.id)}
+                  </div>
+                ))}
+              </nav>
+            )}
+          </div>
+
+          {/* Right Section */}
+          <div className="flex items-center gap-2 sm:gap-4">
+            {/* Search Bar - Hidden on mobile */}
+            {!isMobile && (
+              <div className={`relative transition-all duration-300 ${isSearchFocused ? 'w-80' : 'w-64'}`}>
+                <div className="relative">
+                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/70" />
+                  <input
+                    type="text"
+                    placeholder="ابحث عن 6000+ دورة..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onFocus={() => setIsSearchFocused(true)}
+                    onBlur={() => setIsSearchFocused(false)}
+                    className="w-full pl-10 pr-10 py-2 text-sm rounded-lg border bg-white/20 backdrop-blur-sm border-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent placeholder:text-white/70 text-white"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Language Selector - WITH WRAPPER APPROACH */}
+            <div 
+              className="relative"
+              onMouseEnter={() => handleDropdownEnter('language')}
+              onMouseLeave={handleDropdownLeave}
+            >
+              <HoverEffect scale={1.05}>
+                <button className="flex items-center gap-1 p-2 text-sm text-white hover:text-white/90 rounded-lg hover:bg-white/10 backdrop-blur-sm transition-colors">
+                  <Globe className="w-4 h-4" />
+                  <span className="hidden sm:inline">🇺🇸</span>
+                  <ChevronDown className="w-3 h-3" />
+                </button>
+              </HoverEffect>
+              
+              {/* Language Dropdown - NO onMouseLeave */}
+              {activeDropdown === 'language' && (
+                <SlideInAnimation direction="down" duration={0.15}>
+                  <div 
+                    className="absolute top-full left-0 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-neutral-200 dark:border-neutral-700 z-50"
+                    data-dropdown-container="true"
+                    style={{ 
+                      pointerEvents: 'auto',
+                      zIndex: 100
+                      // No marginTop - no gap
+                    }}
+                  >
+                    <div className="py-2">
+                      <button className="w-full flex items-center gap-3 px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800">
+                        🇺🇸 English
+                      </button>
+                      <button className="w-full flex items-center gap-3 px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800">
+                        🇸🇦 العربية
+                      </button>
+                      <button className="w-full flex items-center gap-3 px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800">
+                        🇫🇷 Français
+                      </button>
+                    </div>
+                  </div>
+                </SlideInAnimation>
+              )}
+            </div>
+
+            {/* Theme Toggle - WITH WRAPPER APPROACH */}
+            <div 
+              className="relative"
+              onMouseEnter={() => handleDropdownEnter('theme')}
+              onMouseLeave={handleDropdownLeave}
+            >
+              <HoverEffect scale={1.05}>
+                <button 
+                  onClick={() => {
+                    if (theme === 'light') {
+                      setTheme('dark');
+                    } else if (theme === 'dark') {
+                      setTheme('system');
+                    } else {
+                      setTheme('light');
+                    }
+                  }}
+                  className="flex items-center gap-1 p-2 text-sm text-white hover:text-white/90 rounded-lg hover:bg-white/10 backdrop-blur-sm transition-colors"
+                  title="تبديل الوضع"
+                >
+                  {theme === 'light' && <Sun className="w-4 h-4" />}
+                  {theme === 'dark' && <Moon className="w-4 h-4" />}
+                  {theme === 'system' && <Monitor className="w-4 h-4" />}
+                </button>
+              </HoverEffect>
+              
+              {/* Theme Dropdown - NO onMouseLeave */}
+              {activeDropdown === 'theme' && (
+                <SlideInAnimation direction="down" duration={0.15}>
+                  <div 
+                    className="absolute top-full left-0 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-neutral-200 dark:border-neutral-700 z-50"
+                    data-dropdown-container="true"
+                    style={{ 
+                      pointerEvents: 'auto',
+                      zIndex: 100
+                      // No marginTop - no gap
+                    }}
+                  >
+                    <div className="py-2">
+                      <button 
+                        onClick={() => setTheme('light')}
+                        className={`w-full flex items-center gap-3 px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 ${theme === 'light' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : ''}`}
+                      >
+                        <Sun className="w-4 h-4" />
+                        <span>وضع النهار</span>
+                      </button>
+                      <button 
+                        onClick={() => setTheme('dark')}
+                        className={`w-full flex items-center gap-3 px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 ${theme === 'dark' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : ''}`}
+                      >
+                        <Moon className="w-4 h-4" />
+                        <span>وضع الليل</span>
+                      </button>
+                      <button 
+                        onClick={() => setTheme('system')}
+                        className={`w-full flex items-center gap-3 px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 ${theme === 'system' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : ''}`}
+                      >
+                        <Monitor className="w-4 h-4" />
+                        <span>النظام</span>
+                      </button>
+                    </div>
+                  </div>
+                </SlideInAnimation>
+              )}
+            </div>
+
+            {/* Auth Buttons - Desktop */}
+            {!isMobile && (
+              <div className="hidden sm:flex items-center gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  leftIcon={<LogIn className="w-4 h-4" />}
+                  className="text-white hover:text-white/90 hover:bg-white/10 backdrop-blur-sm font-semibold"
+                >
+                  تسجيل الدخول
+                </Button>
+                <Button
+                  size="sm"
+                  leftIcon={<UserPlus className="w-4 h-4" />}
+                  className="bg-white text-blue-600 hover:bg-white/90 font-bold shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  إنشاء حساب
+                </Button>
+              </div>
+            )}
+
+            {/* Mobile Menu Button */}
+            {isMobile && (
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 text-white hover:text-white/90 rounded-lg hover:bg-white/10 backdrop-blur-sm transition-colors"
+              >
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMobile && isMobileMenuOpen && (
+          <SlideInAnimation direction="down">
+            <div className="border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
+              {/* Mobile Search */}
+              <div className="p-4 border-b border-neutral-200 dark:border-neutral-800">
+                <div className="relative">
+                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-neutral-400" />
+                  <input
+                    type="text"
+                    placeholder="ابحث عن دورات..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-10 pr-10 py-3 text-sm rounded-lg border bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Mobile Navigation */}
+              <nav className="p-4 space-y-2">
+                {navItems.map((item) => (
+                  <div key={item.id}>
+                    <button
+                      onClick={() => setActiveDropdown(activeDropdown === item.id ? null : item.id)}
+                      className={`w-full flex items-center justify-between gap-3 p-3 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-lg transition-colors`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <item.icon className="w-5 h-5" />
+                        <span className="font-medium">{item.label}</span>
+                      </div>
+                      <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === item.id ? 'rotate-180' : ''}`} />
+                    </button>
+                    
+                    {activeDropdown === item.id && (
+                      <div className="mr-8 mt-2 space-y-1">
+                        {item.dropdown.map((subItem: any, subIndex: number) => (
+                          <Link
+                            key={`${subItem.href}-${subIndex}`} // Use composite key to ensure uniqueness
+                            href={subItem.href}
+                            className="flex items-center gap-3 p-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg transition-colors"
+                            onClick={() => {
+                              setActiveDropdown(null);
+                              setIsMobileMenuOpen(false);
+                            }}
+                          >
+                            <subItem.icon className="w-4 h-4" />
+                            <span>{subItem.label}</span>
+                            {subItem.badge && (
+                              <Badge variant="secondary" size="sm" className="text-xs">
+                                {subItem.badge}
+                              </Badge>
+                            )}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </nav>
+
+              {/* Mobile Auth */}
+              <div className="p-4 border-t border-neutral-200 dark:border-neutral-800 space-y-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  leftIcon={<LogIn className="w-4 h-4" />}
+                  className="w-full justify-center"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  تسجيل الدخول
+                </Button>
+                <Button
+                  size="sm"
+                  leftIcon={<UserPlus className="w-4 h-4" />}
+                  className="w-full justify-center bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  إنشاء حساب
+                </Button>
+              </div>
+            </div>
+          </SlideInAnimation>
+        )}
+      </div>
     </header>
   );
-}
+};
+
+export default Header;

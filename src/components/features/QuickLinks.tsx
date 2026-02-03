@@ -3,30 +3,18 @@
 import React from 'react';
 import Link from 'next/link';
 import { 
-  BookOpen, 
-  Users, 
-  Award, 
-  Briefcase, 
-  Building, 
-  HelpCircle, 
-  Settings, 
-  Bell,
-  ShoppingCart,
+  BookOpen,
+  GraduationCap,
+  Award,
+  Users,
+  Briefcase,
+  Code,
+  Palette,
+  Camera,
+  Music,
   Heart,
-  Star,
   TrendingUp,
-  Globe,
-  Smartphone,
-  CreditCard,
-  FileText,
-  Shield,
-  Headphones,
-  MessageSquare,
-  Calendar,
-  Clock,
-  Target,
-  Zap,
-  ChevronLeft
+  ChevronRight
 } from 'lucide-react';
 
 export default function QuickLinks() {

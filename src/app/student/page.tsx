@@ -194,7 +194,7 @@ export default function StudentDashboardPage() {
           </Card>
         </div>
 
-        <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
+        <Tabs tabs={tabs.map(tab => tab.label)} activeTab={activeTab} onChange={setActiveTab} />
       </div>
     </main>
   );

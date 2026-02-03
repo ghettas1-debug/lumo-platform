@@ -199,10 +199,10 @@ const EnhancedHero: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 px-6 py-3 text-sm font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <Sparkles className="w-4 h-4 mr-2" />
+          <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 px-8 py-4 text-base font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105">
+            <Sparkles className="w-5 h-5 mr-3" />
             منصة التعلم الرائدة في العالم العربي
-            <Trophy className="w-4 h-4 ml-2" />
+            <Trophy className="w-5 h-5 ml-3" />
           </Badge>
         </motion.div>
 
@@ -211,15 +211,15 @@ const EnhancedHero: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="text-center max-w-5xl mx-auto mb-16"
+          className="text-center max-w-6xl mx-auto mb-20"
         >
           {/* Main Title */}
           <motion.h1 
             variants={itemVariants}
-            className="text-5xl md:text-7xl font-black text-gray-900 mb-6 leading-tight"
+            className="text-6xl md:text-8xl font-black text-gray-900 mb-8 leading-tight"
           >
             تعلم مهارات
-            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient">
               المستقبل
             </span>
             مع خبراء عالميين
@@ -228,9 +228,11 @@ const EnhancedHero: React.FC = () => {
           {/* Subtitle */}
           <motion.p 
             variants={itemVariants}
-            className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto"
+            className="text-2xl md:text-3xl text-gray-700 mb-12 leading-relaxed max-w-4xl mx-auto font-medium"
           >
-            انضم إلى أكثر من 50 مليون طالب حول العالم
+            انضم إلى أكثر من 
+            <span className="text-blue-600 font-bold"> 50 مليون </span>
+            طالب حول العالم
             <br />
             واحصل على شهادات معتمدة من أفضل الجامعات والشركات التقنية
           </motion.p>
@@ -238,67 +240,69 @@ const EnhancedHero: React.FC = () => {
           {/* CTA Buttons */}
           <motion.div 
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+            className="flex flex-col sm:flex-row gap-6 justify-center mb-16"
           >
-            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-12 py-6 rounded-full text-xl font-bold hover:shadow-2xl transition-all duration-300 hover:scale-105 group transform">
               ابدأ التعلم مجاناً
-              <ArrowRight className="mr-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="mr-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
             </Button>
-            <Button variant="outline" className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-50 transition-all duration-300 hover:border-blue-600 hover:text-blue-600 group">
-              <Play className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
+            <Button variant="outline" className="border-2 border-gray-300 text-gray-700 px-12 py-6 rounded-full text-xl font-bold hover:bg-gray-50 transition-all duration-300 hover:border-blue-600 hover:text-blue-600 group transform hover:scale-105">
+              <Play className="mr-3 w-6 h-6 group-hover:scale-110 transition-transform" />
               شاهد التجربة
             </Button>
           </motion.div>
 
-          {/* Features Grid */}
+          {/* Enhanced Features Grid */}
           <motion.div 
             variants={itemVariants}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
           >
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className="flex items-center gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 group"
-                whileHover={{ scale: 1.02 }}
+                className="flex items-center gap-4 p-6 bg-white/80 backdrop-blur-md rounded-2xl border border-gray-200 hover:border-blue-400 hover:shadow-2xl transition-all duration-300 group transform hover:scale-105"
+                whileHover={{ scale: 1.05 }}
               >
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <feature.icon className="w-6 h-6 text-blue-600" />
+                <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                  <feature.icon className="w-7 h-7 text-blue-600" />
                 </div>
-                <div className="text-right">
-                  <div className="font-semibold text-gray-900 text-sm">{feature.title}</div>
-                  <div className="text-xs text-gray-500">{feature.description}</div>
+                <div className="text-right flex-1">
+                  <div className="font-bold text-gray-900 text-base">{feature.title}</div>
+                  <div className="text-sm text-gray-600 mt-1">{feature.description}</div>
                 </div>
               </motion.div>
             ))}
           </motion.div>
 
-          {/* Animated Stats */}
+          {/* Enhanced Animated Stats */}
           <motion.div 
             variants={itemVariants}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+            className="bg-white/60 backdrop-blur-md rounded-3xl p-12 border border-gray-200 shadow-2xl"
           >
-            <AnimatePresence mode="wait">
-              {stats.map((stat, index) => (
-                currentStat === index && (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-center group"
-                  >
-                    <div className="flex items-center justify-center mb-2">
-                      <stat.icon className="w-6 h-6 text-blue-600 mr-2 group-hover:scale-110 transition-transform" />
-                      <span className="text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                        {stat.number}
-                      </span>
-                    </div>
-                    <div className="text-sm text-gray-600">{stat.label}</div>
-                  </motion.div>
-                )
-              ))}
-            </AnimatePresence>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+              <AnimatePresence mode="wait">
+                {stats.map((stat, index) => (
+                  currentStat === index && (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.5 }}
+                      className="text-center group"
+                    >
+                      <div className="flex items-center justify-center mb-3">
+                        <stat.icon className="w-8 h-8 text-blue-600 mr-3 group-hover:scale-110 transition-transform" />
+                        <span className="text-4xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                          {stat.number}
+                        </span>
+                      </div>
+                      <div className="text-base text-gray-700 font-medium">{stat.label}</div>
+                    </motion.div>
+                  )
+                ))}
+              </AnimatePresence>
+            </div>
           </motion.div>
         </motion.div>
 
@@ -307,55 +311,90 @@ const EnhancedHero: React.FC = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="max-w-4xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
-          <div className="bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-gray-200 hover:shadow-3xl transition-shadow duration-500">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          <div className="bg-gradient-to-br from-white/90 via-white/80 to-white/70 backdrop-blur-2xl rounded-3xl shadow-2xl p-10 border border-gray-200/50 hover:shadow-3xl transition-all duration-500 transform hover:scale-105">
+            <div className="text-center mb-10">
+              <motion.h2 
+                initial={{ opacity: 0, y: -20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="text-3xl font-black text-gray-900 mb-3 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
+              >
                 اكتشف فئاتنا المميزة
-              </h2>
-              <p className="text-gray-600">
+              </motion.h2>
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.7 }}
+                className="text-lg text-gray-700 font-medium max-w-2xl mx-auto"
+              >
                 اختر المسار الذي يناسب أهدافك المهنية وابدأ رحلتك اليوم
-              </p>
+              </motion.p>
             </div>
             
-            {/* Categories Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Enhanced Categories Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {categories.map((category, index) => {
                 const Icon = category.icon;
                 return (
                   <motion.div
                     key={category.id}
-                    className={`p-4 rounded-xl border-2 transition-all duration-300 cursor-pointer ${
+                    className={`relative p-6 rounded-2xl border-2 transition-all duration-500 cursor-pointer overflow-hidden ${
                       activeCategory === category.id 
-                        ? `bg-gradient-to-br ${getCategoryBgColor(category.color)} border-opacity-100 shadow-lg transform scale-105` 
-                        : 'bg-gray-50 border-gray-200 hover:shadow-md hover:border-gray-300'
+                        ? `bg-gradient-to-br ${getCategoryBgColor(category.color)} border-opacity-100 shadow-2xl transform scale-105` 
+                        : 'bg-gradient-to-br from-gray-50 to-white border-gray-200 hover:shadow-xl hover:border-gray-300 hover:scale-102'
                     }`}
                     onMouseEnter={() => setActiveCategory(category.id)}
                     whileHover={{ scale: activeCategory === category.id ? 1.05 : 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className={`w-12 h-12 bg-gradient-to-br ${getCategoryColor(category.color)} rounded-lg flex items-center justify-center shadow-md`}>
-                        <Icon className="w-6 h-6 text-white" />
+                    {/* Background Pattern */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${getCategoryColor(category.color)} opacity-5 rounded-2xl`} />
+                    
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className={`w-14 h-14 bg-gradient-to-br ${getCategoryColor(category.color)} rounded-xl flex items-center justify-center shadow-lg transform transition-transform duration-300 ${activeCategory === category.id ? 'scale-110' : 'hover:scale-105'}`}>
+                          <Icon className="w-7 h-7 text-white drop-shadow-sm" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-bold text-gray-900 text-lg">{category.name}</div>
+                          <div className="text-sm text-gray-600 mt-1">{category.description}</div>
+                        </div>
+                        {activeCategory === category.id && (
+                          <motion.div
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <CheckCircle className="w-6 h-6 text-green-500 drop-shadow-sm" />
+                          </motion.div>
+                        )}
                       </div>
-                      <div className="flex-1">
-                        <div className="font-bold text-gray-900 text-sm">{category.name}</div>
-                        <div className="text-xs text-gray-500">{category.description}</div>
+                      
+                      {/* Stats */}
+                      <div className="flex justify-between items-center text-sm">
+                        <div className="flex items-center gap-1">
+                          <BookOpen className="w-4 h-4 text-gray-500" />
+                          <span className="font-medium text-gray-700">{category.courses}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Users className="w-4 h-4 text-gray-500" />
+                          <span className="font-medium text-gray-700">{category.students}</span>
+                        </div>
                       </div>
-                      {activeCategory === category.id && (
-                        <CheckCircle className="w-5 h-5 text-green-500" />
+                      
+                      {/* Hover Effect */}
+                      {activeCategory !== category.id && (
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
                       )}
-                    </div>
-                    <div className="flex justify-between text-xs text-gray-500">
-                      <span>{category.courses}</span>
-                      <span>{category.students}</span>
                     </div>
                   </motion.div>
                 );
               })}
             </div>
-
+            
             {/* CTA Section */}
             <div className="mt-8 text-center">
               <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold group">

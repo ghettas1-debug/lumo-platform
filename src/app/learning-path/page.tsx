@@ -105,7 +105,7 @@ export default function LearningPathPage() {
           <h1 className="text-3xl font-black text-gray-900">مسار تعلم</h1>
           <p className="text-gray-600">رحلة تعليمية متكاملة خطوة بخطوة.</p>
         </div>
-        <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
+        <Tabs tabs={tabs.map(tab => tab.label)} activeTab={activeTab} onChange={setActiveTab} />
       </div>
     </main>
   );

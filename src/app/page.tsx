@@ -6,7 +6,7 @@ import { logger } from '@/lib/logger';
 import { NotificationProvider, useNotifications, ConnectionStatus } from '@/components/ui/NotificationSystem';
 
 // Lazy load components for better performance
-const EnhancedHero = dynamic(() => import('@/components/features/EnhancedHero'), {
+const HeroSection = dynamic(() => import('@/components/features/HeroSection'), {
   loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-xl" />
 });
 
@@ -14,7 +14,7 @@ const Stats = dynamic(() => import('@/components/features/Stats'), {
   loading: () => <div className="h-32 bg-gray-100 animate-pulse rounded-xl" />
 });
 
-const Categories = dynamic(() => import('@/components/features/Categories'), {
+const QuickLinks = dynamic(() => import('@/components/features/QuickLinksUpdated'), {
   loading: () => <div className="h-64 bg-gray-100 animate-pulse rounded-xl" />
 });
 
@@ -54,8 +54,8 @@ const Newsletter = dynamic(() => import('@/components/features/Newsletter'), {
   loading: () => <div className="h-32 bg-gray-100 animate-pulse rounded-xl" />
 });
 
-const QuickAccessBar = dynamic(() => import('@/components/features/QuickAccessBar'), {
-  loading: () => <div className="h-32 bg-gray-100 animate-pulse rounded-xl" />
+const RightActions = dynamic(() => import('@/components/features/RightActions'), {
+  loading: () => <div className="h-16 bg-gray-100 animate-pulse rounded-xl" />
 });
 
 const InteractiveCourseCards = dynamic(() => import('@/components/features/InteractiveCourseCardsNew'), {
@@ -197,8 +197,8 @@ function HomePageContent() {
         />
       </div>
 
-      {/* Enhanced Hero Section */}
-      <EnhancedHero />
+      {/* Hero Section */}
+      <HeroSection />
 
       {/* Trust Badges */}
       <TrustBadges />
@@ -206,8 +206,8 @@ function HomePageContent() {
       {/* Stats */}
       <Stats />
 
-      {/* Categories */}
-      <Categories />
+      {/* Quick Links */}
+      <QuickLinks />
 
       {/* Interactive Course Cards */}
       <div className="container mx-auto px-6 py-16">
@@ -234,8 +234,10 @@ function HomePageContent() {
       {/* Testimonials */}
       <Testimonials />
 
-      {/* Quick Access Bar */}
-      <QuickAccessBar />
+      {/* Right Actions */}
+      <div className="container mx-auto px-6 py-8">
+        <RightActions />
+      </div>
 
       {/* Newsletter */}
       <Newsletter />

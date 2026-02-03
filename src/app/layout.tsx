@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ThemeProvider from "../components/ThemeProvider";
+import EnhancedThemeProvider from "../components/design-system/EnhancedThemeProvider";
+import ErrorBoundary from "../components/design-system/ErrorBoundary";
+import { KeyboardNavigationProvider } from "../components/design-system/Accessibility";
 import SEOHead from "../components/seo/SEOHead";
 
 const inter = Inter({
@@ -90,9 +92,13 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased`}
       >
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <ErrorBoundary>
+          <KeyboardNavigationProvider>
+            <EnhancedThemeProvider>
+              {children}
+            </EnhancedThemeProvider>
+          </KeyboardNavigationProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );
