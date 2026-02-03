@@ -57,7 +57,7 @@ export default function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-gray-50 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 animate-fade-in"
+              className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 animate-fade-in border-2 border-blue-300 hover:border-blue-400 hover:-translate-y-1"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Rating */}
@@ -69,7 +69,7 @@ export default function Testimonials() {
 
               {/* Quote */}
               <div className="relative mb-6">
-                <Quote className="absolute -top-2 -right-2 w-8 h-8 text-blue-200" />
+                <Quote className="absolute -top-2 -right-2 w-8 h-8 text-blue-400 drop-shadow-lg" />
                 <p className="text-gray-700 leading-relaxed relative z-10">
                   {testimonial.content}
                 </p>
@@ -77,7 +77,7 @@ export default function Testimonials() {
 
               {/* Author */}
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold border-2 border-white shadow-lg">
                   {testimonial.avatar}
                 </div>
                 <div>
@@ -91,7 +91,7 @@ export default function Testimonials() {
         </div>
 
         {/* Trust Banner */}
-        <div className="mt-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-8 text-white text-center">
+        <div className="mt-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-8 text-white text-center border-4 border-blue-400 shadow-2xl">
           <h3 className="text-2xl font-bold mb-4">
             انضم إلى 50+ مليون متعلم حول العالم
           </h3>

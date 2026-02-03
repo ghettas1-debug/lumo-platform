@@ -57,26 +57,42 @@ export default function Categories() {
   ];
 
   const colorClasses = {
-    blue: 'bg-blue-50 hover:bg-blue-100 border-blue-200',
-    red: 'bg-red-50 hover:bg-red-100 border-red-200',
-    green: 'bg-green-50 hover:bg-green-100 border-green-200',
-    purple: 'bg-purple-50 hover:bg-purple-100 border-purple-200',
-    indigo: 'bg-indigo-50 hover:bg-indigo-100 border-indigo-200',
-    yellow: 'bg-yellow-50 hover:bg-yellow-100 border-yellow-200'
+    blue: 'bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 border-2 border-blue-200',
+    red: 'bg-gradient-to-br from-red-50 to-red-100 hover:from-red-100 hover:to-red-200 border-2 border-red-200',
+    green: 'bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 border-2 border-green-200',
+    purple: 'bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 border-2 border-purple-200',
+    indigo: 'bg-gradient-to-br from-indigo-50 to-indigo-100 hover:from-indigo-100 hover:to-indigo-200 border-2 border-indigo-200',
+    yellow: 'bg-gradient-to-br from-yellow-50 to-yellow-100 hover:from-yellow-100 hover:to-yellow-200 border-2 border-yellow-200'
   };
 
   const iconColorClasses = {
-    blue: 'text-blue-600',
-    red: 'text-red-600',
-    green: 'text-green-600',
-    purple: 'text-purple-600',
-    indigo: 'text-indigo-600',
-    yellow: 'text-yellow-600'
+    blue: 'text-blue-500 bg-blue-100',
+    red: 'text-red-500 bg-red-100',
+    green: 'text-green-500 bg-green-100',
+    purple: 'text-purple-500 bg-purple-100',
+    indigo: 'text-indigo-500 bg-indigo-100',
+    yellow: 'text-yellow-500 bg-yellow-100'
   };
 
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-6">
+    <section className="relative py-20 bg-gradient-to-br from-green-50 via-white to-blue-50 overflow-hidden">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-green-200/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-20 right-20 w-64 h-64 bg-blue-200/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-20 left-32 w-80 h-80 bg-purple-200/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        <div className="absolute top-1/2 right-1/2 w-64 h-64 bg-green-300/20 rounded-full blur-2xl animate-pulse delay-3000"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-48 h-48 bg-blue-300/20 rounded-full blur-2xl animate-pulse delay-4000"></div>
+        
+        {/* Moving Particles */}
+        <div className="absolute top-10 left-10 w-2 h-2 bg-green-400/30 rounded-full animate-bounce"></div>
+        <div className="absolute top-20 right-20 w-3 h-3 bg-blue-400/30 rounded-full animate-bounce delay-500"></div>
+        <div className="absolute bottom-32 left-16 w-2 h-2 bg-purple-400/30 rounded-full animate-bounce delay-1000"></div>
+        <div className="absolute top-1/3 right-16 w-2 h-2 bg-green-500/30 rounded-full animate-bounce delay-1500"></div>
+        <div className="absolute bottom-20 right-32 w-3 h-3 bg-blue-500/30 rounded-full animate-bounce delay-2000"></div>
+      </div>
+      
+      <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -95,12 +111,12 @@ export default function Categories() {
               <Link
                 key={category.name}
                 href={category.href}
-                className={`group p-6 rounded-2xl border-2 transition-all duration-300 ${colorClasses[category.color]} hover:shadow-lg hover:-translate-y-1 animate-fade-in`}
+                className={`group p-6 rounded-2xl border-2 transition-all duration-300 ${colorClasses[category.color as keyof typeof colorClasses]} hover:shadow-lg hover:-translate-y-1 animate-fade-in`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className={`w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-sm`}>
-                    <Icon className={`w-7 h-7 ${iconColorClasses[category.color]}`} />
+                  <div className={`w-14 h-14 ${iconColorClasses[category.color as keyof typeof iconColorClasses]} rounded-xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform`}>
+                    <Icon className={`w-7 h-7`} />
                   </div>
                   <span className="text-sm font-semibold text-gray-500">
                     {category.count} دورة
@@ -134,6 +150,14 @@ export default function Categories() {
             <ArrowLeft className="mr-2 w-5 h-5" />
           </Link>
         </div>
+      </div>
+      
+      {/* Bottom Wave with Animation */}
+      <div className="absolute bottom-0 left-0 right-0">
+        <svg className="w-full h-20 text-gray-50 animate-pulse" preserveAspectRatio="none" viewBox="0 0 1440 100">
+          <path fill="currentColor" d="M0,50 C360,100 720,0 1440,50 L1440,100 L0,100 Z"></path>
+        </svg>
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-transparent to-white/80"></div>
       </div>
     </section>
   );

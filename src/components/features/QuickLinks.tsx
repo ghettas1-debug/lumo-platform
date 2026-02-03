@@ -185,7 +185,7 @@ export default function QuickLinks() {
             </Link>
             
             <Link
-              href="/admin/dashboard"
+              href="/admin"
               className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50 transition-colors text-center"
             >
               <div className="p-2 bg-red-100 rounded-lg text-red-600">

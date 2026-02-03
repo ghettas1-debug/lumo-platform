@@ -1,16 +1,25 @@
 "use client";
 
 import { useState } from 'react';
-import { Search, Filter, Clock, Star, Users, BookOpen, Play, Award, TrendingUp, Calendar, DollarSign, BarChart3 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Search, Filter, Clock, Star, Users, BookOpen, Play, Award, TrendingUp, Calendar, DollarSign, BarChart3, Grid3X3, List, SlidersHorizontal, ChevronDown } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
+import EnhancedCourseCard from '@/components/ui/molecules/EnhancedCourseCard';
+import { useInView } from 'react-intersection-observer';
 
 export default function CoursesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('الكل');
   const [selectedLevel, setSelectedLevel] = useState('الكل');
   const [selectedPrice, setSelectedPrice] = useState('الكل');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [sortBy, setSortBy] = useState<'newest' | 'rating' | 'popular' | 'price-low' | 'price-high'>('newest');
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1
+  });
 
   const categories = ['الكل', 'البرمجة', 'التصميم', 'البيانات', 'الريادة', 'التسويق', 'إدارة الأعمال'];
   const levels = ['الكل', 'مبتدئ', 'متوسط', 'متقدم'];
@@ -21,16 +30,20 @@ export default function CoursesPage() {
       id: 1,
       title: 'احتراف Python 2026',
       instructor: 'أحمد محمود',
+      instructorAvatar: '/images/instructors/ahmed.jpg',
       category: 'البرمجة',
       level: 'متوسط',
-      price: 'مجاني',
+      price: 0,
+      originalPrice: 99.99,
       rating: 4.9,
       students: 12500,
       duration: '40 ساعة',
-      image: 'bg-gradient-to-br from-blue-500 to-blue-600',
+      image: '/images/courses/python.jpg',
       description: 'تعلم Python من الصفر إلى الاحتراف مع مشاريع عملية',
       tags: ['Python', 'برمجة', 'AI', 'Data Science'],
-      progress: 0
+      progress: 0,
+      isNew: true,
+      isBestseller: true
     },
     {
       id: 2,

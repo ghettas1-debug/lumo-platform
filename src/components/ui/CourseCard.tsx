@@ -86,7 +86,7 @@ export default function CourseCard({
   if (compact) {
     return (
       <Link href={`/courses/${course.id}`} className="block">
-        <div className="bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300 overflow-hidden group">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-100 rounded-lg border-2 border-blue-300 hover:shadow-xl transition-all duration-300 overflow-hidden group hover:border-blue-400 hover:from-blue-100 hover:to-indigo-200">
           <div className="flex gap-4 p-4">
             {/* Thumbnail */}
             <div className="relative w-24 h-24 flex-shrink-0">
@@ -132,7 +132,7 @@ export default function CourseCard({
 
   return (
     <Link href={`/courses/${course.id}`} className="block">
-      <div className="bg-white rounded-2xl border border-gray-200 hover:shadow-xl transition-all duration-300 overflow-hidden group hover:-translate-y-1">
+      <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl border-2 border-blue-300 hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:-translate-y-2 hover:border-blue-400 hover:from-blue-100 hover:to-indigo-200">
         {/* Thumbnail Section */}
         <div className="relative">
           <div className="aspect-video relative overflow-hidden">
