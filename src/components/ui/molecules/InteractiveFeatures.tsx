@@ -141,7 +141,7 @@ export const InteractiveCourseCard = ({ course }: { course: any }) => {
                 isLiked ? 'bg-red-500/80 text-white' : 'bg-white/80 text-gray-700 hover:bg-red-500/80 hover:text-white'
               )}
             >
-              <Heart className={cn('w-4 h-4', isLiked && 'fill-current')} />
+              <Heart className={cn('w-4 h-4', isLiked ? 'fill-current' : '')} />
             </button>
             
             <button
@@ -151,7 +151,7 @@ export const InteractiveCourseCard = ({ course }: { course: any }) => {
                 isBookmarked ? 'bg-blue-500/80 text-white' : 'bg-white/80 text-gray-700 hover:bg-blue-500/80 hover:text-white'
               )}
             >
-              <Bookmark className={cn('w-4 h-4', isBookmarked && 'fill-current')} />
+              <Bookmark className={cn('w-4 h-4', isBookmarked ? 'fill-current' : '')} />
             </button>
             
             <div className="relative">

@@ -274,7 +274,7 @@ const FilterPanel = React.forwardRef<HTMLDivElement, FilterPanelProps>(
         className={cn(
           'bg-white rounded-xl border border-gray-200 transition-all duration-300',
           isCollapsed ? 'w-12' : 'w-80',
-          className
+          className || ''
         )}
         {...props}
       >

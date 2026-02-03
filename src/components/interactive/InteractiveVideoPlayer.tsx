@@ -51,7 +51,7 @@ const InteractiveVideoPlayer: React.FC<InteractiveVideoPlayerProps> = ({
   const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [videoDuration, setVideoDuration] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [showControls, setShowControls] = useState(true);
@@ -62,14 +62,14 @@ const InteractiveVideoPlayer: React.FC<InteractiveVideoPlayerProps> = ({
   
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const controlsTimeoutRef = useRef<NodeJS.Timeout>();
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     const updateTime = () => setCurrentTime(video.currentTime);
-    const updateDuration = () => setDuration(video.duration);
+    const updateDuration = () => setVideoDuration(video.duration);
 
     video.addEventListener('timeupdate', updateTime);
     video.addEventListener('loadedmetadata', updateDuration);
@@ -139,7 +139,7 @@ const InteractiveVideoPlayer: React.FC<InteractiveVideoPlayerProps> = ({
     const video = videoRef.current;
     if (!video) return;
 
-    const newTime = (parseFloat(e.target.value) / 100) * duration;
+    const newTime = (parseFloat(e.target.value) / 100) * videoDuration;
     video.currentTime = newTime;
     setCurrentTime(newTime);
   };
@@ -160,7 +160,7 @@ const InteractiveVideoPlayer: React.FC<InteractiveVideoPlayerProps> = ({
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const progressPercentage = videoDuration > 0 ? (currentTime / videoDuration) * 100 : 0;
 
   return (
     <div 
@@ -257,7 +257,7 @@ const InteractiveVideoPlayer: React.FC<InteractiveVideoPlayerProps> = ({
                 />
                 <div className="flex justify-between text-white text-sm mt-1">
                   <span>{formatTime(currentTime)}</span>
-                  <span>{formatTime(duration)}</span>
+                  <span>{formatTime(videoDuration)}</span>
                 </div>
               </div>
 

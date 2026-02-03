@@ -64,10 +64,46 @@ export default function InteractiveCourseCards({
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState<'popular' | 'newest' | 'price-low' | 'price-high'>('popular');
   const [filterCategory, setFilterCategory] = useState<string>('all');
+  const [savedCourses, setSavedCourses] = useState<Set<string>>(new Set());
+  const [showPreview, setShowPreview] = useState<string | null>(null);
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1
   });
+
+  const handleSave = (courseId: string) => {
+    setSavedCourses(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(courseId)) {
+        newSet.delete(courseId);
+      } else {
+        newSet.add(courseId);
+      }
+      return newSet;
+    });
+  };
+
+  const handleShare = (course: Course) => {
+    if (navigator.share) {
+      navigator.share({
+        title: course.title,
+        text: course.description,
+        url: window.location.origin + `/courses/${course.id}`
+      });
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(window.location.origin + `/courses/${course.id}`);
+    }
+  };
+
+  const getLevelColor = (level: string) => {
+    const colors = {
+      'مبتدئ': 'bg-green-100 text-green-800 border-2 border-green-300',
+      'متوسط': 'bg-blue-100 text-blue-800 border-2 border-blue-300',
+      'متقدم': 'bg-purple-100 text-purple-800 border-2 border-purple-300'
+    };
+    return colors[level as keyof typeof colors] || 'bg-gray-100 text-gray-800 border-2 border-gray-300';
+  };
 
   // Enhanced course data with additional properties
   const enhancedCourses = courses.map(course => ({

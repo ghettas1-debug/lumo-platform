@@ -20,7 +20,7 @@ export default function VoiceSearch({
   const [isProcessing, setIsProcessing] = useState(false);
   
   const recognitionRef = useRef<any>(null);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // Check if browser supports Web Speech API

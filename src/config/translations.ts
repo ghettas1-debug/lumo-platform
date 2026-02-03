@@ -1,3 +1,5 @@
+import React from 'react';
+
 // Translation configuration for the platform
 export const translations = {
   // Hero Section
@@ -151,7 +153,6 @@ export const translations = {
     retry: 'إعادة المحاولة',
     close: 'إغلاق',
     save: 'حفظ',
-    cancel: 'إلغاء',
     confirm: 'تأكيد',
     next: 'التالي',
     previous: 'السابق',
@@ -197,22 +198,6 @@ export const translations = {
     no: 'لا',
     ok: 'موافق',
     cancel: 'إلغاء',
-    apply: 'تطبيق',
-    skip: 'تخطي',
-    learnMore: 'اعرف المزيد',
-    readMore: 'اقرأ المزيد',
-    showMore: 'عرض المزيد',
-    showLess: 'عرض أقل',
-    expand: 'توسيع',
-    collapse: 'طي',
-    open: 'فتح',
-    close: 'إغلاق',
-    start: 'بدء',
-    stop: 'إيقاف',
-    pause: 'إيقاف مؤقت',
-    resume: 'استئناف',
-    play: 'تشغيل',
-    pause: 'إيقاف مؤقت',
     mute: 'كتم الصوت',
     unmute: 'إلغاء كتم الصوت',
     fullscreen: 'ملء الشاشة',
@@ -249,11 +234,7 @@ export function TranslatedText({
   as?: React.ElementType; 
 }) {
   const { t } = useTranslation();
-  const Tag = Component as any;
+  const Tag = Component as React.ElementType;
   
-  return (
-    <Tag className={className}>
-      {t(i18nKey, fallback)}
-    </Tag>
-  );
+  return React.createElement(Tag, { className }, t(i18nKey, fallback));
 }

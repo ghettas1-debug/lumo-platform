@@ -130,7 +130,7 @@ const NavigationLayout = React.forwardRef<HTMLDivElement, NavigationLayoutProps>
     return (
       <div
         ref={ref}
-        className={cn('min-h-screen bg-gray-50', className)}
+        className={cn('min-h-screen bg-gray-50', className || '')}
         {...props}
       >
         <div className="flex">
@@ -144,9 +144,9 @@ const NavigationLayout = React.forwardRef<HTMLDivElement, NavigationLayoutProps>
           {/* Main Content */}
           <div className={cn(
             'flex-1 min-h-screen',
-            navigationConfig.showSidebar && (
+            navigationConfig.showSidebar ? (
               navigationConfig.sidebarCollapsed ? 'lg:mr-16' : 'lg:mr-72'
-            )
+            ) : ''
           )}>
             {/* Breadcrumbs */}
             {navigationConfig.breadcrumbs && navigationConfig.breadcrumbs.length > 1 && (
@@ -228,12 +228,6 @@ function getSegmentLabel(segment: string): string {
     'press': 'الصحافة',
     'investors': 'المستثمرون',
     'trust': 'الثقة والأمان',
-    'privacy-policy': 'سياسة الخصوصية',
-    'terms': 'الشروط والأحكام',
-    'cookie-policy': 'سياسة الكوكيز',
-    'gdpr': 'GDPR',
-    'data-protection': 'حماية البيانات',
-    'security': 'الأمان',
     'status': 'حالة الخدمة',
     'download-app': 'تحميل التطبيق',
     'android': 'تطبيق أندرويد',

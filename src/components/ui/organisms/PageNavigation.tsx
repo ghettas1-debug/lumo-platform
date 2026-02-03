@@ -28,7 +28,7 @@ const PageNavigation = React.forwardRef<HTMLDivElement, PageNavigationProps>(
       return (
         <div
           ref={ref}
-          className={cn('flex items-center justify-between py-6 border-t border-gray-200', className)}
+          className={cn('flex items-center justify-between py-6 border-t border-gray-200', className || '')}
           {...props}
         >
           {/* Previous */}
@@ -83,7 +83,7 @@ const PageNavigation = React.forwardRef<HTMLDivElement, PageNavigationProps>(
       return (
         <div
           ref={ref}
-          className={cn('space-y-4 py-6 border-t border-gray-200', className)}
+          className={cn('grid grid-cols-1 md:grid-cols-2 gap-6 py-6 border-t border-gray-200', className || '')}
           {...props}
         >
           {/* Previous */}
@@ -135,7 +135,7 @@ const PageNavigation = React.forwardRef<HTMLDivElement, PageNavigationProps>(
       return (
         <div
           ref={ref}
-          className={cn('py-6 border-t border-gray-200', className)}
+          className={cn('py-6 border-t border-gray-200', className || '')}
           {...props}
         >
           {/* Previous and Next */}

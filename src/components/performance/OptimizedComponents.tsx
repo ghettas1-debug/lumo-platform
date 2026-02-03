@@ -171,7 +171,7 @@ export const OptimizedImage: React.FC<{
   const [hasError, setHasError] = React.useState(false);
   const imgRef = React.useRef<HTMLImageElement>(null);
 
-  const isIntersecting = useIntersectionObserver(imgRef, {
+  const isIntersecting = useIntersectionObserver(imgRef as React.RefObject<Element>, {
     threshold: 0.1,
     rootMargin: '50px'
   });

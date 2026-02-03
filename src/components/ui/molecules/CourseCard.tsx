@@ -116,7 +116,7 @@ const CourseCard = forwardRef<HTMLDivElement, CourseCardProps>(({
                   isWishlisted ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600 hover:bg-red-100 hover:text-red-600'
                 )}
               >
-                <Heart className={cn('w-4 h-4', isWishlisted && 'fill-current')} />
+                <Heart className={cn('w-4 h-4', isWishlisted ? 'fill-current' : '')} />
               </button>
             </div>
           </div>
@@ -194,7 +194,7 @@ const CourseCard = forwardRef<HTMLDivElement, CourseCardProps>(({
               isWishlisted ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600 hover:bg-red-100 hover:text-red-600'
             )}
           >
-            <Heart className={cn('w-4 h-4', isWishlisted && 'fill-current')} />
+            <Heart className={cn('w-4 h-4', isWishlisted ? 'fill-current' : '')} />
           </button>
         </div>
         

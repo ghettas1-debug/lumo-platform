@@ -25,7 +25,7 @@ const Breadcrumbs = React.forwardRef<HTMLDivElement, BreadcrumbsProps>(
     return (
       <nav
         ref={ref}
-        className={cn('flex items-center space-x-reverse space-x-2 text-sm', className)}
+        className={cn('flex items-center space-x-reverse space-x-2 text-sm', className || '')}
         aria-label="Breadcrumb"
         {...props}
       >
