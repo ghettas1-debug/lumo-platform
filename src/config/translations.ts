@@ -209,13 +209,18 @@ export const translations = {
 export function useTranslation() {
   const t = (key: string, fallback?: string) => {
     const keys = key.split('.');
-    let value: any = translations;
+    let value: unknown = translations;
     
     for (const k of keys) {
-      value = value?.[k];
+      if (value && typeof value === 'object' && k in value) {
+        value = (value as Record<string, unknown>)[k];
+      } else {
+        value = undefined;
+        break;
+      }
     }
     
-    return value || fallback || key;
+    return (typeof value === 'string' ? value : fallback) || key;
   };
 
   return { t };

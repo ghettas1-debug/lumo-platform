@@ -18,6 +18,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -45,8 +46,19 @@ export default function LoginPage() {
     
     setIsLoading(true);
     
-    // محاكاة عملية تسجيل الدخول
-    setTimeout(() => {
+    try {
+      // محاكاة عملية تسجيل الدخول
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // Simulate potential error (10% chance for demo)
+          if (Math.random() < 0.1) {
+            reject(new Error('فشل تسجيل الدخول. يرجى التحقق من بياناتك.'));
+            return;
+          }
+          resolve(undefined);
+        }, 1500);
+      });
+      
       setIsLoading(false);
       setSuccess(true);
       
@@ -61,7 +73,15 @@ export default function LoginPage() {
       setTimeout(() => {
         window.location.href = '/dashboard';
       }, 2000);
-    }, 1500);
+    } catch (error) {
+      setIsLoading(false);
+      setError(error instanceof Error ? error.message : 'حدث خطأ غير متوقع');
+      
+      // Clear error after 5 seconds
+      setTimeout(() => {
+        setError('');
+      }, 5000);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

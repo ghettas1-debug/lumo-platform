@@ -773,18 +773,56 @@ export function useAnalytics() {
   const [loading, setLoading] = useState(false);
 
   const trackEvent = (eventName: string, properties?: any) => {
-    // Track analytics event
-    console.log('Analytics Event:', eventName, properties);
+    try {
+      // Track analytics event
+      if (process.env.NODE_ENV === 'development') {
+        console.debug('Analytics Event:', eventName, properties);
+      }
+      
+      // In production, send to analytics service
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', eventName, properties);
+      }
+    } catch (error) {
+      console.warn('Analytics tracking failed:', error);
+    }
   };
 
   const trackPageView = (page: string) => {
-    // Track page view
-    console.log('Page View:', page);
+    try {
+      // Track page view
+      if (process.env.NODE_ENV === 'development') {
+        console.debug('Page View:', page);
+      }
+      
+      // In production, send to analytics service
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('config', 'GA_MEASUREMENT_ID', {
+          page_path: page
+        });
+      }
+    } catch (error) {
+      console.warn('Page view tracking failed:', error);
+    }
   };
 
   const trackUserAction = (action: string, details?: any) => {
-    // Track user action
-    console.log('User Action:', action, details);
+    try {
+      // Track user action
+      if (process.env.NODE_ENV === 'development') {
+        console.debug('User Action:', action, details);
+      }
+      
+      // In production, send to analytics service
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'user_action', {
+          action_name: action,
+          ...details
+        });
+      }
+    } catch (error) {
+      console.warn('User action tracking failed:', error);
+    }
   };
 
   return { data, loading, trackEvent, trackPageView, trackUserAction };

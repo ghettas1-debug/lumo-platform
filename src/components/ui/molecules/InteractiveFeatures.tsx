@@ -115,10 +115,29 @@ export const InteractiveCourseCard = ({ course }: { course: any }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [showShareMenu, setShowShareMenu] = useState(false);
 
-  const handleShare = (platform: string) => {
-    // Share functionality
-    console.log(`Sharing to ${platform}`);
-    setShowShareMenu(false);
+  const handleShare = async (platform: string) => {
+    try {
+      // Share functionality
+      const shareData = {
+        title: 'منصة Lumo التعليمية',
+        text: 'اكتشف أفضل الدورات التعليمية على منصة Lumo',
+        url: window.location.href
+      };
+
+      if (navigator.share && platform === 'native') {
+        await navigator.share(shareData);
+      } else {
+        // Fallback to clipboard for other platforms
+        const { copyToClipboard } = await import('@/lib/utils');
+        await copyToClipboard(window.location.href);
+      }
+      
+      setShowShareMenu(false);
+    } catch (error) {
+      console.warn('Share failed:', error);
+      // Still close the menu even if sharing fails
+      setShowShareMenu(false);
+    }
   };
 
   return (
@@ -224,10 +243,22 @@ export const InteractiveCourseCard = ({ course }: { course: any }) => {
 
 // Interactive Search with Live Results
 export const InteractiveSearch = () => {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState<any[]>([]);
-  const [isSearching, setIsSearching] = useState(false);
-  const [showResults, setShowResults] = useState(false);
+  const [query, setQuery] = useState<string>('');
+  const [results, setResults] = useState<Array<{
+    id: string;
+    title: string;
+    description: string;
+    category: string;
+    level: string;
+    rating: number;
+    students: number;
+    price: number;
+    image: string;
+    instructor: string;
+    duration: string;
+  }>>([]);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [showResults, setShowResults] = useState<boolean>(false);
 
   const handleSearch = async (searchQuery: string) => {
     setQuery(searchQuery);
@@ -236,9 +267,45 @@ export const InteractiveSearch = () => {
     // Simulate API call
     setTimeout(() => {
       setResults([
-        { id: 1, title: 'تطوير الويب الكامل', category: 'برمجة', level: 'مبتدئ' },
-        { id: 2, title: 'إدارة الأعمال', category: 'إدارة', level: 'متوسط' },
-        { id: 3, title: 'الذكاء الاصطناعي', category: 'تقنية', level: 'متقدم' },
+        { 
+          id: '1', 
+          title: 'تطوير الويب الكامل', 
+          description: 'تعلم تطوير الويب من الصفر',
+          category: 'برمجة', 
+          level: 'مبتدئ',
+          rating: 4.5,
+          students: 1200,
+          price: 99,
+          image: '/course1.jpg',
+          instructor: 'أحمد محمد',
+          duration: '40 ساعة'
+        },
+        { 
+          id: '2', 
+          title: 'إدارة الأعمال', 
+          description: 'أساسيات إدارة الأعمال الحديثة',
+          category: 'إدارة', 
+          level: 'متوسط',
+          rating: 4.7,
+          students: 800,
+          price: 149,
+          image: '/course2.jpg',
+          instructor: 'سارة أحمد',
+          duration: '30 ساعة'
+        },
+        { 
+          id: '3', 
+          title: 'الذكاء الاصطناعي', 
+          description: 'مقدمة في الذكاء الاصطناعي وتطبيقاته',
+          category: 'تقنية', 
+          level: 'متقدم',
+          rating: 4.9,
+          students: 2000,
+          price: 199,
+          image: '/course3.jpg',
+          instructor: 'محمد علي',
+          duration: '50 ساعة'
+        },
       ]);
       setIsSearching(false);
       setShowResults(true);
@@ -269,7 +336,7 @@ export const InteractiveSearch = () => {
         <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 z-50">
           <div className="p-2">
             <div className="text-xs text-gray-500 font-medium mb-2 px-2">نتائج البحث</div>
-            {results.map((result: any) => (
+            {results.map((result) => (
               <div
                 key={result.id}
                 className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors"

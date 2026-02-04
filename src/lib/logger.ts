@@ -11,7 +11,7 @@ export enum LogLevel {
 export interface LogEntry {
   level: LogLevel;
   message: string;
-  data?: any;
+  data?: Record<string, unknown>;
   timestamp: string;
   userId?: string;
   sessionId?: string;
@@ -30,7 +30,7 @@ class Logger {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   }
 
-  private createLogEntry(level: LogLevel, message: string, data?: any): LogEntry {
+  private createLogEntry(level: LogLevel, message: string, data?: Record<string, unknown>): LogEntry {
     return {
       level,
       message,
@@ -65,22 +65,22 @@ class Logger {
     }
   }
 
-  error(message: string, data?: any): void {
+  error(message: string, data?: Record<string, unknown>): void {
     const entry = this.createLogEntry(LogLevel.ERROR, message, data);
     this.log(entry);
   }
 
-  warn(message: string, data?: any): void {
+  warn(message: string, data?: Record<string, unknown>): void {
     const entry = this.createLogEntry(LogLevel.WARN, message, data);
     this.log(entry);
   }
 
-  info(message: string, data?: any): void {
+  info(message: string, data?: Record<string, unknown>): void {
     const entry = this.createLogEntry(LogLevel.INFO, message, data);
     this.log(entry);
   }
 
-  debug(message: string, data?: any): void {
+  debug(message: string, data?: Record<string, unknown>): void {
     const entry = this.createLogEntry(LogLevel.DEBUG, message, data);
     this.log(entry);
   }

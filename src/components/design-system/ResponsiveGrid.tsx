@@ -34,18 +34,18 @@ export const ResponsiveGrid: React.FC<ResponsiveGridProps> = ({
 }) => {
   const gridClasses = cn(
     'grid',
-    columns.xs && `grid-cols-${columns.xs}`,
-    columns.sm && `sm:grid-cols-${columns.sm}`,
-    columns.md && `md:grid-cols-${columns.md}`,
-    columns.lg && `lg:grid-cols-${columns.lg}`,
-    columns.xl && `xl:grid-cols-${columns.xl}`,
-    columns['2xl'] && `2xl:grid-cols-${columns['2xl']}`,
-    gap.xs && `gap-${gap.xs}`,
-    gap.sm && `sm:gap-${gap.sm}`,
-    gap.md && `md:gap-${gap.md}`,
-    gap.lg && `lg:gap-${gap.lg}`,
-    gap.xl && `xl:gap-${gap.xl}`,
-    gap['2xl'] && `2xl:gap-${gap['2xl']}`,
+    (columns.xs !== undefined && columns.xs !== 0) && `grid-cols-${columns.xs.toString()}`,
+    (columns.sm !== undefined && columns.sm !== 0) && `sm:grid-cols-${columns.sm.toString()}`,
+    (columns.md !== undefined && columns.md !== 0) && `md:grid-cols-${columns.md.toString()}`,
+    (columns.lg !== undefined && columns.lg !== 0) && `lg:grid-cols-${columns.lg.toString()}`,
+    (columns.xl !== undefined && columns.xl !== 0) && `xl:grid-cols-${columns.xl.toString()}`,
+    (columns['2xl'] !== undefined && columns['2xl'] !== 0) && `2xl:grid-cols-${columns['2xl'].toString()}`,
+    (gap.xs !== undefined && gap.xs !== 0) && `gap-${gap.xs.toString()}`,
+    (gap.sm !== undefined && gap.sm !== 0) && `sm:gap-${gap.sm.toString()}`,
+    (gap.md !== undefined && gap.md !== 0) && `md:gap-${gap.md.toString()}`,
+    (gap.lg !== undefined && gap.lg !== 0) && `lg:gap-${gap.lg.toString()}`,
+    (gap.xl !== undefined && gap.xl !== 0) && `xl:gap-${gap.xl.toString()}`,
+    (gap['2xl'] !== undefined && gap['2xl'] !== 0) && `2xl:gap-${gap['2xl'].toString()}`,
     className
   );
 

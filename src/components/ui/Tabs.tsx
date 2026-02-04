@@ -28,7 +28,7 @@ interface TabsContentProps {
   className?: string;
 }
 
-function Tabs({ tabs, activeTab, onChange }: TabsProps) {
+export function Tabs({ tabs, activeTab, onChange }: TabsProps) {
   return (
     <div className="tabs">
       {tabs.map(tab => (
@@ -44,7 +44,7 @@ function Tabs({ tabs, activeTab, onChange }: TabsProps) {
   );
 }
 
-function TabsList({ children, className = "" }: TabsListProps) {
+export function TabsList({ children, className = "" }: TabsListProps) {
   return (
     <div className={`tabs-list ${className}`}>
       {children}
@@ -52,7 +52,7 @@ function TabsList({ children, className = "" }: TabsListProps) {
   );
 }
 
-function TabsTrigger({ value, children, isActive = false, onClick, className = "" }: TabsTriggerProps) {
+export function TabsTrigger({ value, children, isActive = false, onClick, className = "" }: TabsTriggerProps) {
   return (
     <button
       className={`tabs-trigger ${isActive ? 'active' : ''} ${className}`}
@@ -64,7 +64,7 @@ function TabsTrigger({ value, children, isActive = false, onClick, className = "
   );
 }
 
-function TabsContent({ value, children, isActive = false, className = "" }: TabsContentProps) {
+export function TabsContent({ value, children, isActive = false, className = "" }: TabsContentProps) {
   if (!isActive) return null;
   
   return (
@@ -75,4 +75,3 @@ function TabsContent({ value, children, isActive = false, className = "" }: Tabs
 }
 
 export default Tabs;
-export { TabsList, TabsTrigger, TabsContent };

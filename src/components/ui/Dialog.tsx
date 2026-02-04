@@ -118,7 +118,7 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
         <div
           className={overlayVariants()}
           data-state={isOpen ? 'open' : 'closed'}
-          onClick={() => !preventClose && handleOpenChange(false)}
+          onClick={(e: React.MouseEvent) => !preventClose && handleOpenChange(false)}
         />
         
         {/* Dialog */}
@@ -207,7 +207,7 @@ const DialogHeader = React.forwardRef<HTMLDivElement, DialogHeaderProps>(
           </div>
           {showCloseButton && !preventClose && (
             <button
-              onClick={() => onOpenChange?.(false)}
+              onClick={(e: React.MouseEvent) => onOpenChange?.(false)}
               className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
             >
               <svg

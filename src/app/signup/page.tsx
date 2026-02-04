@@ -18,6 +18,7 @@ export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -31,12 +32,31 @@ export default function SignupPage() {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      // Simulate API call
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // Simulate potential error (10% chance for demo)
+          if (Math.random() < 0.1) {
+            reject(new Error('فشل إنشاء الحساب. يرجى المحاولة مرة أخرى.'));
+            return;
+          }
+          resolve(undefined);
+        }, 2000);
+      });
+      
       setIsLoading(false);
       // Redirect to dashboard or login
       window.location.href = '/login';
-    }, 2000);
+    } catch (error) {
+      setIsLoading(false);
+      setError(error instanceof Error ? error.message : 'حدث خطأ غير متوقع');
+      
+      // Clear error after 5 seconds
+      setTimeout(() => {
+        setError('');
+      }, 5000);
+    }
   };
 
   return (

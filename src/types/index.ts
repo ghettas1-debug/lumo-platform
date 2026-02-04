@@ -1,4 +1,9 @@
-// Base Types
+// Export all types from separate files
+export * from './common';
+export * from './course';
+export * from './notification';
+
+// Legacy exports for backward compatibility
 export interface BaseEntity {
   id: string;
   createdAt: string;

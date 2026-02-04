@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { 
   Clock, 
@@ -47,7 +47,7 @@ interface CourseCardProps {
   compact?: boolean;
 }
 
-export default function CourseCard({ 
+const CourseCard = React.memo(function CourseCard({ 
   course, 
   interactive = true, 
   preview = true,
@@ -57,31 +57,31 @@ export default function CourseCard({
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
 
-  const levelColors = {
+  const levelColors = useMemo(() => ({
     'مبتدئ': 'bg-green-100 text-green-800',
     'متوسط': 'bg-blue-100 text-blue-800',
     'متقدم': 'bg-purple-100 text-purple-800',
     'خبير': 'bg-red-100 text-red-800'
-  };
+  }), []);
 
-  const handleWishlist = (e: React.MouseEvent) => {
+  const handleWishlist = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     setIsWishlisted(!isWishlisted);
-  };
+  }, [isWishlisted]);
 
-  const handleBookmark = (e: React.MouseEvent) => {
+  const handleBookmark = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     setIsBookmarked(!isBookmarked);
-  };
+  }, [isBookmarked]);
 
-  const handleShare = (e: React.MouseEvent) => {
+  const handleShare = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     navigator.share?.({
       title: course.title,
       text: `شاهد هذه الدورة الرائعة: ${course.title}`,
       url: window.location.href
     });
-  };
+  }, [course.title]);
 
   if (compact) {
     return (
@@ -343,4 +343,6 @@ export default function CourseCard({
       )}
     </Link>
   );
-}
+});
+
+export default CourseCard;

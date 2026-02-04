@@ -132,8 +132,13 @@ export default function EnhancedThemeProvider({
     // Apply typography tokens
     Object.entries(tokens.typography.fontSize).forEach(([key, value]) => {
       if (Array.isArray(value)) {
-        root.style.setProperty(`--font-size-${key}`, value[0]);
-        root.style.setProperty(`--line-height-${key}`, typeof value[1] === 'string' ? value[1] : (value[1] as any).lineHeight);
+        const fontSize = Array.isArray(value[0]) ? value[0][0] : value[0];
+        const lineHeightData = value[1];
+        const lineHeight = typeof lineHeightData === 'string' ? lineHeightData : 
+                          (typeof lineHeightData === 'object' && lineHeightData?.lineHeight) ? lineHeightData.lineHeight : '1.5';
+        
+        root.style.setProperty(`--font-size-${key}`, String(fontSize));
+        root.style.setProperty(`--line-height-${key}`, String(lineHeight));
       }
     });
   };

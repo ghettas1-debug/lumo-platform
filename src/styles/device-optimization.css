@@ -1,0 +1,798 @@
+/* Device-Specific Optimizations for Lumo Platform */
+
+/* Low-end device optimizations */
+.low-end {
+  /* Reduce visual effects */
+  --shadow-opacity: 0.1;
+  --animation-duration: 0.1s;
+  --transition-duration: 0.1s;
+  
+  /* Disable expensive effects */
+  --enable-gradients: 0;
+  --enable-filters: 0;
+  --enable-backdrop: 0;
+  --enable-transforms: 1;
+  --enable-shadows: 0;
+}
+
+.low-end * {
+  /* Force hardware acceleration for basic transforms only */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.low-end .no-shadows {
+  box-shadow: none !important;
+}
+
+.low-end .no-gradients {
+  background: #f3f4f6 !important;
+  background-image: none !important;
+}
+
+.low-end .no-filters {
+  filter: none !important;
+}
+
+.low-end .no-backdrop {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.low-end .no-transitions {
+  transition: none !important;
+}
+
+.low-end .reduce-motion {
+  animation-duration: 0.01s !important;
+  transition-duration: 0.01s !important;
+}
+
+/* High-end device optimizations */
+.high-end {
+  /* Enable all visual effects */
+  --shadow-opacity: 0.2;
+  --animation-duration: 0.3s;
+  --transition-duration: 0.25s;
+  
+  --enable-gradients: 1;
+  --enable-filters: 1;
+  --enable-backdrop: 1;
+  --enable-transforms: 1;
+  --enable-shadows: 1;
+}
+
+.high-end .enhanced-visuals {
+  /* Enhanced shadows */
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, var(--shadow-opacity)),
+    0 6px 10px rgba(0, 0, 0, calc(var(--shadow-opacity) * 0.5));
+  
+  /* Enhanced gradients */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  
+  /* Enhanced filters */
+  filter: brightness(1.1) contrast(1.05);
+  
+  /* Enhanced backdrop */
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* Mobile device optimizations */
+.mobile {
+  /* Touch-friendly sizing */
+  --min-touch-target: 44px;
+  --touch-padding: 12px;
+  
+  /* Mobile-specific spacing */
+  --mobile-padding: 1rem;
+  --mobile-margin: 0.5rem;
+  
+  /* Reduce animations for battery life */
+  --animation-duration: 0.2s;
+  --transition-duration: 0.15s;
+}
+
+.mobile .touch-target {
+  min-height: var(--min-touch-target);
+  min-width: var(--min-touch-target);
+  padding: var(--touch-padding);
+}
+
+.mobile .mobile-padding {
+  padding: var(--mobile-padding);
+}
+
+.mobile .mobile-margin {
+  margin: var(--mobile-margin);
+}
+
+.mobile .mobile-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.mobile .mobile-input {
+  font-size: 16px; /* Prevent zoom on iOS */
+}
+
+/* Tablet device optimizations */
+.tablet {
+  /* Tablet-specific sizing */
+  --tablet-padding: 1.5rem;
+  --tablet-margin: 1rem;
+  
+  /* Moderate animations */
+  --animation-duration: 0.25s;
+  --transition-duration: 0.2s;
+}
+
+.tablet .tablet-padding {
+  padding: var(--tablet-padding);
+}
+
+.tablet .tablet-margin {
+  margin: var(--tablet-margin);
+}
+
+.tablet .tablet-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+/* Desktop device optimizations */
+.desktop {
+  /* Desktop-specific sizing */
+  --desktop-padding: 2rem;
+  --desktop-margin: 1.5rem;
+  
+  /* Full animations */
+  --animation-duration: 0.3s;
+  --transition-duration: 0.25s;
+  
+  /* Hover effects */
+  --enable-hover: 1;
+}
+
+.desktop .desktop-padding {
+  padding: var(--desktop-padding);
+}
+
+.desktop .desktop-margin {
+  margin: var(--desktop-margin);
+}
+
+.desktop .desktop-grid {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.desktop .hover-effects:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Slow connection optimizations */
+.slow-connection {
+  /* Reduce image quality */
+  --image-quality: 50;
+  --enable-lazy-loading: 1;
+  
+  /* Disable non-essential animations */
+  --animation-duration: 0.1s;
+  --transition-duration: 0.1s;
+  
+  /* Disable prefetching */
+  --enable-prefetch: 0;
+}
+
+.slow-connection .lazy-load {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.slow-connection .lazy-load.loaded {
+  opacity: 1;
+}
+
+.slow-connection .data-saver {
+  /* Hide non-essential content */
+  .non-essential {
+    display: none;
+  }
+  
+  /* Reduce visual complexity */
+  background: #ffffff;
+  background-image: none;
+  box-shadow: none;
+}
+
+/* Fast connection optimizations */
+.fast-connection {
+  /* High quality images */
+  --image-quality: 90;
+  --enable-lazy-loading: 0;
+  
+  /* Full animations */
+  --animation-duration: 0.3s;
+  --transition-duration: 0.25s;
+  
+  /* Enable prefetching */
+  --enable-prefetch: 1;
+}
+
+.fast-connection .preload-images {
+  /* Preload critical images */
+  img[data-preload] {
+    loading: eager;
+  }
+}
+
+.fast-connection .enhanced-effects {
+  /* Enhanced visual effects */
+  filter: brightness(1.05) contrast(1.02);
+  backdrop-filter: blur(10px);
+}
+
+/* Low battery optimizations */
+.low-battery {
+  /* Reduce animations to save battery */
+  --animation-duration: 0.1s;
+  --transition-duration: 0.1s;
+  
+  /* Reduce image quality */
+  --image-quality: 60;
+  
+  /* Disable non-essential features */
+  --enable-gradients: 0;
+  --enable-filters: 0;
+  --enable-backdrop: 0;
+}
+
+.low-battery .battery-saver {
+  /* Minimal animations */
+  animation: none !important;
+  transition: none !important;
+  
+  /* Reduced shadows */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  
+  /* Simple backgrounds */
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+/* High battery optimizations */
+.high-battery {
+  /* Full features enabled */
+  --animation-duration: 0.3s;
+  --transition-duration: 0.25s;
+  --image-quality: 90;
+  --enable-gradients: 1;
+  --enable-filters: 1;
+  --enable-backdrop: 1;
+}
+
+/* Memory-constrained optimizations */
+.memory-constrained {
+  /* Reduce DOM complexity */
+  --max-elements: 100;
+  --enable-virtual-scroll: 1;
+  
+  /* Disable memory-intensive features */
+  --enable-caching: 0;
+  --enable-preload: 0;
+}
+
+.memory-constrained .virtual-scroll {
+  /* Implement virtual scrolling for large lists */
+  height: 400px;
+  overflow-y: auto;
+}
+
+.memory-constrained .lightweight {
+  /* Use lightweight alternatives */
+  background: #f3f4f6;
+  box-shadow: none;
+  border: 1px solid #e5e7eb;
+}
+
+/* High memory optimizations */
+.high-memory {
+  /* Enable memory-intensive features */
+  --enable-caching: 1;
+  --enable-preload: 1;
+  --enable-virtual-scroll: 0;
+}
+
+.high-memory .enhanced-cache {
+  /* Implement aggressive caching */
+  will-change: transform, opacity;
+}
+
+/* Touch device optimizations */
+.touch-device {
+  /* Touch-friendly interactions */
+  --touch-feedback: 1;
+  --enable-hover: 0;
+  
+  /* Larger touch targets */
+  --min-touch-target: 44px;
+}
+
+.touch-device .touch-feedback {
+  position: relative;
+  overflow: hidden;
+}
+
+.touch-device .touch-feedback::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.touch-device .touch-feedback.active::after {
+  width: 200px;
+  height: 200px;
+}
+
+.touch-device .no-hover {
+  /* Disable hover effects on touch devices */
+  pointer-events: none;
+}
+
+/* Non-touch device optimizations */
+.non-touch-device {
+  /* Mouse-friendly interactions */
+  --enable-hover: 1;
+  --touch-feedback: 0;
+}
+
+.non-touch-device .hover-effects {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.non-touch-device .hover-effects:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Reduced motion preferences */
+.reduce-motion {
+  /* Respect user's motion preferences */
+  --animation-duration: 0.01s;
+  --transition-duration: 0.01s;
+}
+
+.reduce-motion * {
+  animation-duration: 0.01s !important;
+  transition-duration: 0.01s !important;
+  animation-iteration-count: 1 !important;
+}
+
+.reduce-motion .no-animation {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* High contrast preferences */
+.high-contrast {
+  /* Increase contrast for accessibility */
+  --text-contrast: 1.2;
+  --border-contrast: 1.5;
+  --background-contrast: 0.9;
+}
+
+.high-contrast .enhanced-contrast {
+  color: #000000;
+  background: #ffffff;
+  border: 2px solid #000000;
+}
+
+.high-contrast .enhanced-contrast:focus {
+  outline: 3px solid #000000;
+  outline-offset: 2px;
+}
+
+/* Dark mode optimizations */
+.dark-mode {
+  /* Dark mode specific optimizations */
+  --bg-primary: #1f2937;
+  --bg-secondary: #374151;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --border-color: #4b5563;
+}
+
+.dark-mode .dark-theme {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.dark-mode .dark-theme-secondary {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Light mode optimizations */
+.light-mode {
+  /* Light mode specific optimizations */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+}
+
+.light-mode .light-theme {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.light-mode .light-theme-secondary {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Performance monitoring styles */
+.performance-monitor {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.performance-monitor .fps {
+  color: #10b981;
+}
+
+.performance-monitor .memory {
+  color: #f59e0b;
+}
+
+.performance-monitor .connection {
+  color: #3b82f6;
+}
+
+/* Device-specific media queries */
+
+/* Extra small devices (phones, 320px and up) */
+@media (max-width: 479px) {
+  .xs-device {
+    --mobile-padding: 0.75rem;
+    --mobile-margin: 0.25rem;
+    --animation-duration: 0.15s;
+  }
+  
+  .xs-device .mobile-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .xs-device .mobile-text {
+    font-size: 0.875rem;
+  }
+}
+
+/* Small devices (landscape phones, 480px and up) */
+@media (min-width: 480px) and (max-width: 767px) {
+  .sm-device {
+    --mobile-padding: 1rem;
+    --mobile-margin: 0.5rem;
+    --animation-duration: 0.2s;
+  }
+  
+  .sm-device .mobile-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .md-device {
+    --tablet-padding: 1.5rem;
+    --tablet-margin: 1rem;
+    --animation-duration: 0.25s;
+  }
+  
+  .md-device .tablet-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Large devices (desktops, 1024px and up) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .lg-device {
+    --desktop-padding: 2rem;
+    --desktop-margin: 1.5rem;
+    --animation-duration: 0.3s;
+  }
+  
+  .lg-device .desktop-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Extra large devices (large desktops, 1280px and up) */
+@media (min-width: 1280px) and (max-width: 1535px) {
+  .xl-device {
+    --desktop-padding: 2.5rem;
+    --desktop-margin: 2rem;
+    --animation-duration: 0.3s;
+  }
+  
+  .xl-device .desktop-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+/* 2X large devices (larger desktops, 1536px and up) */
+@media (min-width: 1536px) and (max-width: 1919px) {
+  .2xl-device {
+    --desktop-padding: 3rem;
+    --desktop-margin: 2.5rem;
+    --animation-duration: 0.3s;
+  }
+  
+  .2xl-device .desktop-grid {
+    grid-template-columns: repeat(8, 1fr);
+    gap: 3rem;
+  }
+}
+
+/* 3X large devices (ultra-wide, 1920px and up) */
+@media (min-width: 1920px) {
+  .3xl-device {
+    --desktop-padding: 4rem;
+    --desktop-margin: 3rem;
+    --animation-duration: 0.3s;
+  }
+  
+  .3xl-device .desktop-grid {
+    grid-template-columns: repeat(12, 1fr);
+    gap: 4rem;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .high-dpi {
+    /* Use higher quality images for retina displays */
+    --image-quality: 90;
+    --enable-high-res: 1;
+  }
+  
+  .high-dpi .retina-image {
+    /* Load 2x images */
+    content: attr(data-src-2x);
+  }
+}
+
+/* Low DPI displays */
+@media (-webkit-max-device-pixel-ratio: 1), (max-resolution: 119dpi) {
+  .low-dpi {
+    /* Use lower quality images for standard displays */
+    --image-quality: 70;
+    --enable-high-res: 0;
+  }
+}
+
+/* Print optimizations */
+@media print {
+  .print-optimized {
+    /* Optimize for printing */
+    --animation-duration: 0s;
+    --transition-duration: 0s;
+    --enable-shadows: 0;
+    --enable-gradients: 0;
+  }
+  
+  .print-optimized * {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    color: black !important;
+  }
+  
+  .print-optimized .no-print {
+    display: none !important;
+  }
+  
+  .print-optimized .print-only {
+    display: block !important;
+  }
+}
+
+/* Accessibility optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .accessibility-optimized {
+    --animation-duration: 0.01s;
+    --transition-duration: 0.01s;
+  }
+  
+  .accessibility-optimized * {
+    animation-duration: 0.01s !important;
+    transition-duration: 0.01s !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .accessibility-optimized {
+    --text-contrast: 1.2;
+    --border-contrast: 1.5;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .accessibility-optimized {
+    --bg-primary: #1f2937;
+    --text-primary: #f9fafb;
+  }
+}
+
+/* Network condition optimizations */
+@media (prefers-reduced-data) {
+  .data-optimized {
+    --image-quality: 50;
+    --enable-lazy-loading: 1;
+    --enable-prefetch: 0;
+    --enable-preload: 0;
+  }
+  
+  .data-optimized .non-essential {
+    display: none;
+  }
+}
+
+/* Battery optimizations */
+@media (prefers-reduced-battery) {
+  .battery-optimized {
+    --animation-duration: 0.1s;
+    --transition-duration: 0.1s;
+    --image-quality: 60;
+    --enable-gradients: 0;
+    --enable-filters: 0;
+  }
+}
+
+/* Utility classes */
+.device-optimized {
+  /* Base optimizations for all devices */
+  will-change: auto;
+  contain: layout style paint;
+}
+
+.performance-critical {
+  /* Critical performance optimizations */
+  contain: strict;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.memory-efficient {
+  /* Memory-efficient optimizations */
+  contain: layout style;
+  will-change: auto;
+}
+
+.network-efficient {
+  /* Network-efficient optimizations */
+  contain: layout;
+  will-change: auto;
+}
+
+.battery-efficient {
+  /* Battery-efficient optimizations */
+  animation-duration: 0.1s;
+  transition-duration: 0.1s;
+}
+
+.accessibility-friendly {
+  /* Accessibility-friendly optimizations */
+  animation-duration: 0.01s;
+  transition-duration: 0.01s;
+  color-contrast: 1.2;
+}
+
+/* Debug styles for development */
+.debug-mode .debug-info {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 10px;
+  z-index: 9999;
+}
+
+.debug-mode .debug-info .device-type {
+  color: #10b981;
+}
+
+.debug-mode .debug-info .performance {
+  color: #f59e0b;
+}
+
+.debug-mode .debug-info .network {
+  color: #3b82f6;
+}
+
+.debug-mode .debug-info .battery {
+  color: #ef4444;
+}
+
+/* Component-specific optimizations */
+.optimized-card {
+  contain: layout style paint;
+  will-change: auto;
+  transform: translateZ(0);
+}
+
+.optimized-image {
+  contain: layout;
+  will-change: auto;
+  loading: lazy;
+}
+
+.optimized-animation {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+.optimized-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  contain: layout;
+}
+
+.optimized-text {
+  contain: layout style;
+  text-rendering: optimizeLegibility;
+}
+
+.optimized-button {
+  contain: layout style;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.optimized-input {
+  contain: layout style;
+  will-change: auto;
+}
+
+.optimized-list {
+  contain: layout;
+  will-change: auto;
+}
+
+.optimized-modal {
+  contain: layout style;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}

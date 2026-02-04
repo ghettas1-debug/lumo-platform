@@ -23,7 +23,17 @@ interface CourseFiltersProps {
   rating?: number[];
   price?: string[];
   language?: string[];
-  onFiltersChange?: (filters: any) => void;
+  onFiltersChange?: (filters: {
+    categories: string[];
+    search: string;
+    level: string;
+    duration: string;
+    rating: number;
+    price: string;
+    language: string;
+    hasCertificate: boolean;
+    sortBy: string;
+  }) => void;
   className?: string;
 }
 
@@ -75,7 +85,7 @@ export default function CourseFilters({
     onFiltersChange?.(newFilters);
   };
 
-  const handleFilterChange = (key: keyof typeof filters, value: any) => {
+  const handleFilterChange = (key: keyof typeof filters, value: string | number | boolean | string[]) => {
     const newFilters = { ...filters, [key]: value };
     setFilters(newFilters);
     onFiltersChange?.(newFilters);

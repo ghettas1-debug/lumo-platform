@@ -103,7 +103,7 @@ interface TranscriptSegment {
 }
 
 // Video Player Component
-export function AdvancedVideoPlayer({
+export const AdvancedVideoPlayer = React.memo(function AdvancedVideoPlayer({
   videoId,
   title,
   sources,
@@ -659,7 +659,7 @@ export function AdvancedVideoPlayer({
 }
 
 // Video Analytics Component
-export function VideoAnalytics({
+export const VideoAnalytics = React.memo(function VideoAnalytics({
   videoId,
   watchTime,
   pauseCount,
@@ -674,6 +674,18 @@ export function VideoAnalytics({
   qualityChanges: number;
   completionRate: number;
 }) {
+  // Helper function for time formatting
+  const formatTime = (seconds: number): string => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+    
+    if (hours > 0) {
+      return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+    return `${minutes}:${secs.toString().padStart(2, '0')}`;
+  };
+
   return (
     <Card className="p-6">
       <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -700,16 +712,4 @@ export function VideoAnalytics({
       </div>
     </Card>
   );
-}
-
-// Helper function for time formatting
-function formatTime(seconds: number): string {
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  const secs = Math.floor(seconds % 60);
-  
-  if (hours > 0) {
-    return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  }
-  return `${minutes}:${secs.toString().padStart(2, '0')}`;
-}
+});

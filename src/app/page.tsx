@@ -3,8 +3,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { logger } from '@/lib/logger';
-import { NotificationProvider, useNotifications, ConnectionStatus } from '@/components/ui/NotificationSystem';
+import { NotificationProvider, NotificationCenter, useNotifications, ConnectionStatus } from '@/components/ui/NotificationSystem';
 import ErrorBoundary from '@/components/design-system/ErrorBoundary';
+import { PageErrorBoundary } from '@/components/error/PageErrorBoundary';
 
 // Optimized dynamic imports with better loading states
 const HeroSection = dynamic(() => import('@/components/features/HeroSection'), {
@@ -485,6 +486,9 @@ function HomePageContent() {
         {/* Connection Status */}
         <ConnectionStatus />
 
+        {/* Notification Bell */}
+        <NotificationCenter />
+
         {/* Optimized Floating Action Button */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -502,8 +506,10 @@ function HomePageContent() {
 
 export default function HomePage() {
   return (
-    <NotificationProvider>
-      <HomePageContent />
-    </NotificationProvider>
+    <PageErrorBoundary pageName="الصفحة الرئيسية" pagePath="/">
+      <NotificationProvider>
+        <HomePageContent />
+      </NotificationProvider>
+    </PageErrorBoundary>
   );
 }

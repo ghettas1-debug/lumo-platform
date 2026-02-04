@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import ClientProviders from "../components/providers/ClientProviders";
 import SEOHead from "../components/seo/SEOHead";
+import ErrorBoundary from "../components/error/ErrorBoundary";
+import Analytics from "../components/analytics/Analytics";
+import SkipLink from "../components/accessibility/SkipLink";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -96,9 +99,13 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased`}
       >
-        <ClientProviders>
-          {children}
-        </ClientProviders>
+        <SkipLink />
+        <ErrorBoundary>
+          <ClientProviders>
+            {children}
+          </ClientProviders>
+        </ErrorBoundary>
+        <Analytics />
       </body>
     </html>
   );

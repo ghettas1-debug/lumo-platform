@@ -16,8 +16,8 @@ const coursesData = [
 ];
 
 export function SearchComponent() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState(coursesData);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [results, setResults] = useState<typeof coursesData>(coursesData);
 
   // إعداد Fuse للبحث الغامض
   const fuse = new Fuse(coursesData, {
@@ -83,8 +83,8 @@ export function SearchComponent() {
 }
 
 export function FilterComponent() {
-  const [category, setCategory] = useState('الكل');
-  const [level, setLevel] = useState('الكل');
+  const [category, setCategory] = useState<string>('الكل');
+  const [level, setLevel] = useState<string>('الكل');
 
   const categories = ['الكل', 'البرمجة', 'التصميم', 'البيانات', 'التسويق'];
   const levels = ['الكل', 'مبتدئ', 'متوسط', 'متقدم'];

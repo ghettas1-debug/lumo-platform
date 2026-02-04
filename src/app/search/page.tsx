@@ -9,13 +9,14 @@ export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState<Array<{id: number, title: string, description: string, instructor: string, rating: number, students: number, price: number, image: string, category: string, level: string, duration: number, certificate: boolean, language: string, lastUpdated: string, tags: string[], views: number, chapters: number, difficulty: string, prerequisites: string[], learningOutcomes: string[], isBookmarked: boolean, isEnrolled: boolean, progress: number}>>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [savedSearches, setSavedSearches] = useState<string[]>([]);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState<any>(null);
+  const [selectedCourse, setSelectedCourse] = useState<{id: number, title: string, description: string, instructor: string, rating: number, students: number, price: number, image: string, category: string, level: string, duration: number, certificate: boolean, language: string, lastUpdated: string, tags: string[], views: number, chapters: number, difficulty: string, prerequisites: string[], learningOutcomes: string[], isBookmarked: boolean, isEnrolled: boolean, progress: number} | null>(null);
   const [showCourseModal, setShowCourseModal] = useState(false);
   
   // Filters state
@@ -175,49 +176,70 @@ export default function SearchPage() {
   // Search function
   const performSearch = useCallback(async () => {
     setLoading(true);
+    setError('');
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 800));
-    
-    // Filter results based on search query and filters
-    let filteredResults = mockResults.filter(course => {
-      const matchesSearch = !searchQuery || 
-        course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        course.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        course.instructor.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        course.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    try {
+      // Simulate API call with potential error
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // Simulate network error (5% chance)
+          if (Math.random() < 0.05) {
+            reject(new Error('فشل البحث. يرجى المحاولة مرة أخرى.'));
+            return;
+          }
+          resolve(undefined);
+        }, 800);
+      });
       
-      const matchesCategory = filters.category === 'all' || course.category === filters.category;
-      const matchesLevel = filters.level === 'all' || course.level === filters.level;
-      const matchesPrice = filters.price === 'all' || 
-        (filters.price === 'free' && course.price === 0) ||
-        (filters.price === 'paid' && course.price > 0);
-      const matchesRating = filters.rating === 'all' || course.rating >= parseFloat(filters.rating);
-      const matchesCertificate = filters.certificate === 'all' || 
-        (filters.certificate === 'yes' && course.certificate) ||
-        (filters.certificate === 'no' && !course.certificate);
+      // Filter results based on search query and filters
+      let filteredResults = mockResults.filter(course => {
+        const matchesSearch = !searchQuery || 
+          course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          course.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          course.instructor.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          course.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+        
+        const matchesCategory = filters.category === 'all' || course.category === filters.category;
+        const matchesLevel = filters.level === 'all' || course.level === filters.level;
+        const matchesPrice = filters.price === 'all' || 
+          (filters.price === 'free' && course.price === 0) ||
+          (filters.price === 'paid' && course.price > 0);
+        const matchesRating = filters.rating === 'all' || course.rating >= parseFloat(filters.rating);
+        const matchesCertificate = filters.certificate === 'all' || 
+          (filters.certificate === 'yes' && course.certificate) ||
+          (filters.certificate === 'no' && !course.certificate);
+        
+        return matchesSearch && matchesCategory && matchesLevel && matchesPrice && matchesRating && matchesCertificate;
+      });
       
-      return matchesSearch && matchesCategory && matchesLevel && matchesPrice && matchesRating && matchesCertificate;
-    });
-    
-    // Sort results
-    filteredResults.sort((a, b) => {
-      switch (filters.sortBy) {
-        case 'popular':
-          return b.students - a.students;
-        case 'rating':
-          return b.rating - a.rating;
-        case 'price-low':
-          return a.price - b.price;
-        case 'price-high':
-          return b.price - a.price;
-        default:
-          return 0;
-      }
-    });
-    
-    setResults(filteredResults);
-    setLoading(false);
+      // Sort results
+      filteredResults.sort((a, b) => {
+        switch (filters.sortBy) {
+          case 'rating':
+            return b.rating - a.rating;
+          case 'students':
+            return b.students - a.students;
+          case 'price_low':
+            return a.price - b.price;
+          case 'price_high':
+            return b.price - a.price;
+          case 'newest':
+          default:
+            return new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime();
+        }
+      });
+      
+      setResults(filteredResults);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error instanceof Error ? error.message : 'حدث خطأ غير متوقع أثناء البحث');
+      
+      // Clear error after 5 seconds
+      setTimeout(() => {
+        setError('');
+      }, 5000);
+    }
   }, [searchQuery, filters]);
 
   useEffect(() => {
@@ -280,7 +302,7 @@ export default function SearchPage() {
     ));
   };
 
-  const openCourseModal = (course: any) => {
+  const openCourseModal = (course: {id: number, title: string, description: string, instructor: string, rating: number, students: number, price: number, image: string, category: string, level: string, duration: number, certificate: boolean, language: string, lastUpdated: string, tags: string[], views: number, chapters: number, difficulty: string, prerequisites: string[], learningOutcomes: string[], isBookmarked: boolean, isEnrolled: boolean, progress: number}) => {
     setSelectedCourse(course);
     setShowCourseModal(true);
   };
@@ -594,6 +616,17 @@ export default function SearchPage() {
                 </p>
                 <Button onClick={() => setSearchQuery('')}>
                   مسح البحث
+                </Button>
+              </Card>
+            ) : error ? (
+              <Card className="text-center py-16">
+                <div className="text-red-400 mb-4 text-6xl">⚠️</div>
+                <h3 className="text-2xl font-bold text-gray-700 mb-2">حدث خطأ في البحث</h3>
+                <p className="text-red-600 mb-6">
+                  {error}
+                </p>
+                <Button onClick={performSearch}>
+                  إعادة المحاولة
                 </Button>
               </Card>
             ) : (

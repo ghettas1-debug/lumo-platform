@@ -8,8 +8,9 @@ import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import EnhancedCourseCard from '@/components/ui/molecules/EnhancedCourseCard';
 import { useInView } from 'react-intersection-observer';
+import { PageErrorBoundary } from '@/components/error/PageErrorBoundary';
 
-export default function CoursesPage() {
+export function CoursesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('الكل');
   const [selectedLevel, setSelectedLevel] = useState('الكل');
@@ -338,5 +339,13 @@ export default function CoursesPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function CoursesPageWrapper() {
+  return (
+    <PageErrorBoundary pageName="صفحة الدورات" pagePath="/courses">
+      <CoursesPage />
+    </PageErrorBoundary>
   );
 }

@@ -256,11 +256,11 @@ export const useThrottle = <T,>(value: T, delay: number): T => {
 };
 
 // Virtual Scroll Hook (for large lists)
-export const useVirtualScroll = (
-  items: any[],
+export function useVirtualScroll<T>(
+  items: T[],
   itemHeight: number,
   containerHeight: number
-) => {
+) {
   const [scrollTop, setScrollTop] = React.useState(0);
 
   const visibleStart = Math.floor(scrollTop / itemHeight);
@@ -283,7 +283,7 @@ export const useVirtualScroll = (
     offsetY,
     handleScroll
   };
-};
+}
 
 export default {
   CourseCardSkeleton,
@@ -298,5 +298,5 @@ export default {
   useDebounce,
   useThrottle,
   useVirtualScroll,
-  createLazyComponent
+  createLazyComponent,
 };

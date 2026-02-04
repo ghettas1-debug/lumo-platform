@@ -58,7 +58,7 @@ console.log(message);
 `;
 
 export function SimpleMarkdown() {
-  const [content, setContent] = useState(markdownContent);
+  const [content, setContent] = useState<string>(markdownContent);
 
   return (
     <Card className="p-6">
@@ -93,6 +93,7 @@ export function SimpleMarkdown() {
 }
 
 export function SimpleCodeExamples() {
+  const [activeTab, setActiveTab] = useState<string>('python');
   const pythonCode = `def calculate_average(numbers):
     """حساب المتوسط لمجموعة أرقام"""
     if not numbers:
