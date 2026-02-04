@@ -171,11 +171,11 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     return (
       <SlideInAnimation direction="down" duration={0.15}>
         <div 
-          className={`absolute top-full left-0 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-neutral-200 dark:border-neutral-700 z-50 overflow-hidden ${dropdownWidth} ${maxHeight}`}
+          className={`absolute top-full left-0 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-neutral-200 dark:border-neutral-700 z-[1100] overflow-visible ${dropdownWidth} ${maxHeight}`}
           data-dropdown-container="true"
           style={{ 
             pointerEvents: 'auto',
-            zIndex: 100
+            zIndex: 1100
             // No marginTop - no gap between button and dropdown
           }}
         >
@@ -209,13 +209,19 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     <header 
       ref={headerRef}
       className={cn(
-        "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-[1000] transition-all duration-300",
         isScrolled 
-          ? "bg-gradient-to-r from-blue-600/95 via-purple-600/95 to-pink-600/95 backdrop-blur-md shadow-lg border-b border-white/20 dark:border-neutral-700/30"
-          : "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 shadow-lg border-b border-white/20 dark:border-neutral-700/30"
+          ? "bg-gradient-to-r from-blue-600/95 via-indigo-600/95 to-purple-600/95 backdrop-blur-md shadow-xl border-b border-white/20"
+          : "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 shadow-xl border-b border-white/20"
       )}
     >
-      <div className="max-w-screen-2xl mx-auto">
+      {/* Background Pattern - Same as Newsletter */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-0 left-0 w-64 h-64 bg-white rounded-full -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/2 translate-y-1/2" />
+        <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-white rounded-full -translate-x-1/2 -translate-y-1/2" />
+      </div>
+      <div className="max-w-screen-2xl mx-auto relative z-10">
         <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <div className="flex items-center gap-8">
@@ -241,7 +247,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                   >
                     <HoverEffect scale={1.02}>
                       <button
-                        className={`flex items-center gap-2 px-4 py-2 text-sm font-medium text-white hover:text-white/90 transition-colors duration-200 rounded-lg hover:bg-white/10 backdrop-blur-sm`}
+                        className={`flex items-center gap-2 px-4 py-2 text-sm font-medium text-white hover:text-white/90 transition-colors duration-200 rounded-lg hover:bg-white/10 backdrop-blur-sm border border-white/30`}
                       >
                         <item.icon className="w-4 h-4" />
                         <span>{item.label}</span>
@@ -290,7 +296,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
               onMouseLeave={handleDropdownLeave}
             >
               <HoverEffect scale={1.05}>
-                <button className="flex items-center gap-1 p-2 text-sm text-white hover:text-white/90 rounded-lg hover:bg-white/10 backdrop-blur-sm transition-colors">
+                <button className="flex items-center gap-1 p-2 text-sm text-white hover:text-white/90 rounded-lg hover:bg-white/10 backdrop-blur-sm transition-colors border border-white/30">
                   <Globe className="w-4 h-4" />
                   <span className="hidden sm:inline">🇺🇸</span>
                   <ChevronDown className="w-3 h-3" />
@@ -301,7 +307,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
               {activeDropdown === 'language' && (
                 <SlideInAnimation direction="down" duration={0.15}>
                   <div 
-                    className="absolute top-full left-0 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-neutral-200 dark:border-neutral-700 z-50"
+                    className="absolute top-full left-0 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-neutral-200 dark:border-neutral-700 z-[60]"
                     data-dropdown-container="true"
                     style={{ 
                       pointerEvents: 'auto',
@@ -342,7 +348,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                       setTheme('light');
                     }
                   }}
-                  className="flex items-center gap-1 p-2 text-sm text-white hover:text-white/90 rounded-lg hover:bg-white/10 backdrop-blur-sm transition-colors"
+                  className="flex items-center gap-1 p-2 text-sm text-white hover:text-white/90 rounded-lg hover:bg-white/10 backdrop-blur-sm transition-colors border border-white/30"
                   title="تبديل الوضع"
                 >
                   {theme === 'light' && <Sun className="w-4 h-4" />}
@@ -355,7 +361,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
               {activeDropdown === 'theme' && (
                 <SlideInAnimation direction="down" duration={0.15}>
                   <div 
-                    className="absolute top-full left-0 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-neutral-200 dark:border-neutral-700 z-50"
+                    className="absolute top-full left-0 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-neutral-200 dark:border-neutral-700 z-[60]"
                     data-dropdown-container="true"
                     style={{ 
                       pointerEvents: 'auto',
@@ -416,7 +422,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
             {isMobile && (
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 text-white hover:text-white/90 rounded-lg hover:bg-white/10 backdrop-blur-sm transition-colors"
+                className="p-2 text-white hover:text-white/90 rounded-lg hover:bg-white/10 backdrop-blur-sm transition-colors border border-white/30"
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>

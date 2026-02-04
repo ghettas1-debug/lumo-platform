@@ -172,111 +172,98 @@ function NotificationCenter() {
 
   return (
     <>
-      {/* Notification Bell */}
-      <div className="fixed top-4 right-4 z-50">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="relative p-2 bg-white rounded-full shadow-lg hover:shadow-xl transition-shadow"
-        >
-          <Bell className="w-6 h-6 text-gray-600" />
-          {notifications.filter(n => !n.read).length > 0 && (
-            <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-              {notifications.filter(n => !n.read).length}
-            </span>
-          )}
-        </button>
-      </div>
-
-      {/* Notification Panel */}
-      {isOpen && (
-        <div className="fixed top-16 right-4 w-96 max-h-96 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
-          <div className="p-4 border-b border-gray-200">
-            <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-gray-900">الإشعارات</h3>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={clearAll}
-                  className="text-sm text-gray-500 hover:text-gray-700"
-                >
-                  مسح الكل
-                </button>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="text-gray-400 hover:text-gray-600"
-                >
-                  <X className="w-4 h-4" />
-                </button>
+      {/* Notification Panel - Only show when there are notifications */}
+      {notifications.length > 0 && (
+        <div className="fixed top-20 right-4 z-50">
+          <div className="w-80 max-h-96 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden">
+            <div className="p-4 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold text-gray-900">الإشعارات</h3>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={clearAll}
+                    className="text-sm text-gray-500 hover:text-gray-700"
+                  >
+                    مسح الكل
+                  </button>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="text-gray-400 hover:text-gray-600"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="overflow-y-auto max-h-80">
-            {notifications.length === 0 ? (
-              <div className="p-8 text-center text-gray-500">
-                <Bell className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                <p>لا توجد إشعارات</p>
-              </div>
-            ) : (
-              <div className="divide-y divide-gray-100">
-                {notifications.map((notification) => (
-                  <div
-                    key={notification.id}
-                    className={`p-4 ${getNotificationColor(notification.type)} ${
-                      !notification.read ? 'font-semibold' : ''
-                    }`}
-                    onClick={() => markAsRead(notification.id)}
-                  >
-                    <div className="flex items-start gap-3">
-                      {getNotificationIcon(notification.type)}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between">
-                          <h4 className="text-sm font-medium truncate">
-                            {notification.title}
-                          </h4>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              removeNotification(notification.id);
-                            }}
-                            className="text-gray-400 hover:text-gray-600"
-                          >
-                            <X className="w-4 h-4" />
-                          </button>
-                        </div>
-                        {notification.message && (
-                          <p className="text-sm mt-1 text-gray-600">
-                            {notification.message}
-                          </p>
-                        )}
-                        {notification.actions && (
-                          <div className="flex gap-2 mt-2">
-                            {notification.actions.map((action, index) => (
-                              <button
-                                key={index}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  action.action();
-                                }}
-                                className={`text-xs px-2 py-1 rounded ${
-                                  action.variant === 'primary'
-                                    ? 'bg-blue-600 text-white'
-                                    : 'bg-gray-200 text-gray-700'
-                                }`}
-                              >
-                                {action.label}
-                              </button>
-                            ))}
+            <div className="overflow-y-auto max-h-80">
+              {notifications.length === 0 ? (
+                <div className="p-8 text-center text-gray-500">
+                  <Bell className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                  <p>لا توجد إشعارات</p>
+                </div>
+              ) : (
+                <div className="divide-y divide-gray-100">
+                  {notifications.map((notification) => (
+                    <div
+                      key={notification.id}
+                      className={`p-4 ${getNotificationColor(notification.type)} ${
+                        !notification.read ? 'font-semibold' : ''
+                      }`}
+                      onClick={() => markAsRead(notification.id)}
+                    >
+                      <div className="flex items-start gap-3">
+                        {getNotificationIcon(notification)}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between">
+                            <h4 className="text-sm font-medium truncate">
+                              {notification.title}
+                            </h4>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                removeNotification(notification.id);
+                              }}
+                              className="text-gray-400 hover:text-gray-600"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
                           </div>
-                        )}
-                        <div className="text-xs text-gray-500 mt-1">
-                          {new Date(notification.timestamp).toLocaleString('ar-SA')}
+                          {notification.message && (
+                            <p className="text-sm mt-1 text-gray-600">
+                              {notification.message}
+                            </p>
+                          )}
+                          {notification.actions && (
+                            <div className="flex gap-2 mt-2">
+                              {notification.actions.map((action, index) => (
+                                <button
+                                  key={index}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    action.action();
+                                  }}
+                                  className={`text-xs px-2 py-1 rounded ${
+                                    action.variant === 'primary'
+                                      ? 'bg-blue-600 text-white'
+                                      : 'bg-gray-200 text-gray-700'
+                                  }`}
+                                >
+                                  {action.label}
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                          <div className="text-xs text-gray-500 mt-1">
+                            {new Date(notification.timestamp).toLocaleString('ar-SA')}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}

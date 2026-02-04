@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, X, Clock, TrendingUp, Users, BookOpen, Filter, ChevronDown, Star } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, X, Clock, TrendingUp, Users, BookOpen, Filter, ChevronDown, Star, Mic, Camera, TrendingUp as TrendingIcon, Sparkles, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/atoms/Badge';
+import { tokens } from '@/tokens/design-tokens';
 
 interface SearchSuggestion {
   id: string;

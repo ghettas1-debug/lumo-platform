@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Mail, Send, CheckCircle, Sparkles, Bell, Gift } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
-export default function Newsletter() {
+export default function ProfessionalNewsletter() {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

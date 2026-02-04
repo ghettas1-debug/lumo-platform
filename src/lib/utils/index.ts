@@ -1,7 +1,7 @@
 // Utility functions
 
 // Simple class merger
-export function cn(...inputs: string[]) {
+export function cn(...inputs: (string | undefined | null | false)[]): string {
   return inputs.filter(Boolean).join(' ');
 }
 

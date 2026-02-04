@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import EnhancedThemeProvider from "../components/design-system/EnhancedThemeProvider";
-import ErrorBoundary from "../components/design-system/ErrorBoundary";
-import { KeyboardNavigationProvider } from "../components/design-system/Accessibility";
+import ClientProviders from "../components/providers/ClientProviders";
 import SEOHead from "../components/seo/SEOHead";
 
 const inter = Inter({
@@ -89,16 +87,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <meta name="theme-color" content="#3b82f6" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      </head>
       <body
         className={`${inter.variable} antialiased`}
       >
-        <ErrorBoundary>
-          <KeyboardNavigationProvider>
-            <EnhancedThemeProvider>
-              {children}
-            </EnhancedThemeProvider>
-          </KeyboardNavigationProvider>
-        </ErrorBoundary>
+        <ClientProviders>
+          {children}
+        </ClientProviders>
       </body>
     </html>
   );
