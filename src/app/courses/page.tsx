@@ -1,351 +1,291 @@
-"use client";
+'use client';
 
-import { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, Clock, Star, Users, BookOpen, Play, Award, TrendingUp, Calendar, DollarSign, BarChart3, Grid3X3, List, SlidersHorizontal, ChevronDown } from 'lucide-react';
-import { Card } from '@/components/ui/Card';
+import { BookOpen as CourseIcon, Play, Star, Users, Clock, Award, ArrowRight, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
 import Link from 'next/link';
-import EnhancedCourseCard from '@/components/ui/molecules/EnhancedCourseCard';
-import { useInView } from 'react-intersection-observer';
 import { PageErrorBoundary } from '@/components/error/PageErrorBoundary';
 
-export function CoursesPage() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('الكل');
-  const [selectedLevel, setSelectedLevel] = useState('الكل');
-  const [selectedPrice, setSelectedPrice] = useState('الكل');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [sortBy, setSortBy] = useState<'newest' | 'rating' | 'popular' | 'price-low' | 'price-high'>('newest');
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  });
+interface Course {
+  id: number;
+  title: string;
+  description: string;
+  instructor: string;
+  rating: number;
+  students: number;
+  duration: string;
+  level: string;
+  price: number;
+  originalPrice: number;
+  image: string;
+  tags: string[];
+  isNew?: boolean;
+  isBestseller?: boolean;
+}
 
-  const categories = ['الكل', 'البرمجة', 'التصميم', 'البيانات', 'الريادة', 'التسويق', 'إدارة الأعمال'];
-  const levels = ['الكل', 'مبتدئ', 'متوسط', 'متقدم'];
-  const prices = ['الكل', 'مجاني', 'مدفوع'];
-
-  const courses = [
+export default function PagePage() {
+  const courses: Course[] = [
     {
       id: 1,
-      title: 'احتراف Python 2026',
-      instructor: 'أحمد محمود',
-      instructorAvatar: '/images/instructors/ahmed.jpg',
-      category: 'البرمجة',
-      level: 'متوسط',
-      price: 0,
-      originalPrice: 99.99,
+      title: 'Page للمبتدئين',
+      description: 'تعلم Page من الصفر إلى الاحتراف',
+      instructor: 'أحمد محمد',
       rating: 4.9,
-      students: 12500,
+      students: 45670,
       duration: '40 ساعة',
-      image: '/images/courses/python.jpg',
-      description: 'تعلم Python من الصفر إلى الاحتراف مع مشاريع عملية',
-      tags: ['Python', 'برمجة', 'AI', 'Data Science'],
-      progress: 0,
+      level: 'مبتدئ',
+      price: 0,
+      originalPrice: 149.99,
+      image: '/images/courses/page.jpg',
+      tags: ['Page', 'Beginner', 'Course', 'Learning'],
       isNew: true,
       isBestseller: true
     },
     {
       id: 2,
-      title: 'Next.js المتقدم',
-      instructor: 'سارة علي',
-      category: 'البرمجة',
-      level: 'متقدم',
-      price: 'مجاني',
+      title: 'Page المتقدم',
+      description: 'تعلم Page على مستوى متقدم',
+      instructor: 'فاطمة علي',
       rating: 4.8,
-      students: 8900,
-      duration: '35 ساعة',
-      image: 'bg-gradient-to-br from-purple-500 to-purple-600',
-      description: 'تطوير تطبيقات ويب حديثة باستخدام Next.js',
-      tags: ['Next.js', 'React', 'SSR', 'Static'],
-      progress: 0
+      students: 34560,
+      duration: '50 ساعة',
+      level: 'متقدم',
+      price: 0,
+      originalPrice: 199.99,
+      image: '/images/courses/page-advanced.jpg',
+      tags: ['Page', 'Advanced', 'Expert', 'Professional']
     },
     {
       id: 3,
-      title: 'تصميم UI/UX احترافي',
+      title: 'Page العملي',
+      description: 'مشاريع عملية في Page',
       instructor: 'محمد سالم',
-      category: 'التصميم',
-      level: 'متوسط',
-      price: 'مجاني',
       rating: 4.7,
-      students: 7600,
-      duration: '30 ساعة',
-      image: 'bg-gradient-to-br from-pink-500 to-pink-600',
-      description: 'تصميم واجهات مستخدم احترافية مع Figma',
-      tags: ['UI/UX', 'Figma', 'Design', 'Prototype'],
-      progress: 0
+      students: 23450,
+      duration: '45 ساعة',
+      level: 'متوسط',
+      price: 0,
+      originalPrice: 179.99,
+      image: '/images/courses/page-practical.jpg',
+      tags: ['Page', 'Practical', 'Projects', 'Hands-on']
     },
     {
       id: 4,
-      title: 'React من الصفر',
-      instructor: 'ليلى أحمد',
-      category: 'البرمجة',
-      level: 'مبتدئ',
-      price: 'مجاني',
-      rating: 4.9,
-      students: 14200,
-      duration: '45 ساعة',
-      image: 'bg-gradient-to-br from-green-500 to-green-600',
-      description: 'تعلم React وتطوير تطبيقات تفاعلية',
-      tags: ['React', 'JavaScript', 'Frontend', 'Web'],
-      progress: 0
-    },
-    {
-      id: 5,
-      title: 'تحليل البيانات',
-      instructor: 'خالد عبدالله',
-      category: 'البيانات',
-      level: 'متوسط',
-      price: 'مدفوع',
+      title: 'Page الاحترافي',
+      description: 'احترف Page مع أفضل المدربين',
+      instructor: 'سارة خالد',
       rating: 4.6,
-      students: 5400,
-      duration: '50 ساعة',
-      image: 'bg-gradient-to-br from-orange-500 to-orange-600',
-      description: 'تحليل البيانات باستخدام Python و SQL',
-      tags: ['Data Analysis', 'Python', 'SQL', 'Statistics'],
-      progress: 0
-    },
-    {
-      id: 6,
-      title: 'التسويق الرقمي',
-      instructor: 'نورا سعيد',
-      category: 'التسويق',
-      level: 'مبتدئ',
-      price: 'مجاني',
-      rating: 4.5,
-      students: 9800,
-      duration: '25 ساعة',
-      image: 'bg-gradient-to-br from-teal-500 to-teal-600',
-      description: 'استراتيجيات التسويق الرقمي الحديثة',
-      tags: ['Marketing', 'SEO', 'Social Media', 'Ads'],
-      progress: 0
+      students: 12340,
+      duration: '60 ساعة',
+      level: 'متقدم',
+      price: 0,
+      originalPrice: 249.99,
+      image: '/images/courses/page-professional.jpg',
+      tags: ['Page', 'Professional', 'Expert', 'Career'],
+      isBestseller: true
     }
   ];
 
-  const filteredCourses = courses.filter(course => {
-    const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.instructor.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = selectedCategory === 'الكل' || course.category === selectedCategory;
-    const matchesLevel = selectedLevel === 'الكل' || course.level === selectedLevel;
-    const matchesPrice = selectedPrice === 'الكل' || course.price === selectedPrice;
-    
-    return matchesSearch && matchesCategory && matchesLevel && matchesPrice;
-  });
+  const features = ["📚 تعلم شامل","🎯 مشاريع عملية","🏆 شهادة معتمدة","👥 مجتمع نشط","💬 دعم فني متخصص","🔄 تحديثات دورية"];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-6 py-8">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">جميع الدورات</h1>
-              <p className="text-gray-600">اكتشف أكثر من 100 دورة في مختلف المجالات</p>
-            </div>
-            
-            <div className="flex items-center gap-4">
-              <div className="relative">
-                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                <input
-                  type="text"
-                  placeholder="ابحث عن دورة..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-64"
-                />
-              </div>
-              <Button variant="outline" className="flex items-center gap-2">
-                <Filter size={20} />
-                <span>فلترة</span>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Filters */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex flex-wrap gap-4">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-700">الفئة:</span>
-              <div className="flex gap-2">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      selectedCategory === category
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-700">المستوى:</span>
-              <div className="flex gap-2">
-                {levels.map((level) => (
-                  <button
-                    key={level}
-                    onClick={() => setSelectedLevel(level)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      selectedLevel === level
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    {level}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-700">السعر:</span>
-              <div className="flex gap-2">
-                {prices.map((price) => (
-                  <button
-                    key={price}
-                    onClick={() => setSelectedPrice(price)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      selectedPrice === price
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    {price}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Courses Grid */}
-      <div className="container mx-auto px-6 py-8">
-        <div className="mb-6 flex justify-between items-center">
-          <p className="text-gray-600">
-            تم العثور على <span className="font-bold text-blue-600">{filteredCourses.length}</span> دورة
-          </p>
-          <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option>ترتيب حسب الأحدث</option>
-            <option>ترتيب حسب الأعلى تقييماً</option>
-            <option>ترتيب حسب الأكثر شهرة</option>
-            <option>ترتيب حسب الأقل سعراً</option>
-          </select>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredCourses.map((course) => (
-            <Link key={course.id} href={`/courses/${course.id}`}>
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group">
-                {/* Course Image */}
-                <div className={`h-48 ${course.image} relative overflow-hidden`}>
-                  <div className="absolute inset-0 bg-black bg-opacity-20" />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-white bg-opacity-90 rounded-full text-xs font-medium">
-                      {course.level}
-                    </span>
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      course.price === 'مجاني' 
-                        ? 'bg-green-500 text-white' 
-                        : 'bg-blue-500 text-white'
-                    }`}>
-                      {course.price}
-                    </span>
-                  </div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-white font-bold text-lg line-clamp-2">{course.title}</h3>
-                  </div>
-                </div>
-
-                {/* Course Content */}
-                <div className="p-4">
-                  <p className="text-gray-600 text-sm mb-3 line-clamp-2">{course.description}</p>
-                  
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    {course.tags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Course Meta */}
-                  <div className="flex items-center justify-between text-sm text-gray-600 mb-3">
-                    <div className="flex items-center gap-1">
-                      <Star className="text-yellow-500 fill-current" size={16} />
-                      <span className="font-medium">{course.rating}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Users size={16} />
-                      <span>{course.students.toLocaleString()}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Clock size={16} />
-                      <span>{course.duration}</span>
-                    </div>
-                  </div>
-
-                  {/* Instructor */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                        <span className="text-xs font-bold text-gray-600">
-                          {course.instructor.charAt(0)}
-                        </span>
-                      </div>
-                      <span className="text-sm text-gray-700">{course.instructor}</span>
-                    </div>
-                    <Button size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Play size={16} />
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            </Link>
-          ))}
-        </div>
-
-        {filteredCourses.length === 0 && (
-          <div className="text-center py-12">
-            <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-              <Search className="text-gray-400" size={32} />
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">لم يتم العثور على دورات</h3>
-            <p className="text-gray-600 mb-4">جرب تغيير معايير البحث أو الفلترة</p>
-            <Button 
-              onClick={() => {
-                setSearchTerm('');
-                setSelectedCategory('الكل');
-                setSelectedLevel('الكل');
-                setSelectedPrice('الكل');
-              }}
+    <PageErrorBoundary pageName="Page" pagePath="/courses">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+        {/* Hero Section */}
+        <section className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+          <div className="container mx-auto px-6 py-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="max-w-4xl mx-auto text-center"
             >
-              إعادة تعيين الفلاتر
-            </Button>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                Page
+              </h1>
+              <p className="text-xl md:text-2xl mb-8 text-gray-100">
+                أتقن Page وابنِ مستقبلك المهني
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+                  ابدأ التعلم الآن
+                  <ArrowRight className="w-5 h-5 mr-2" />
+                </Button>
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
+                  <Play className="w-5 h-5 mr-2" />
+                  شاهد الدرس التجريبي
+                </Button>
+              </div>
+            </motion.div>
           </div>
-        )}
-      </div>
-    </div>
-  );
-}
+        </section>
 
-export default function CoursesPageWrapper() {
-  return (
-    <PageErrorBoundary pageName="صفحة الدورات" pagePath="/courses">
-      <CoursesPage />
+        {/* Features Section */}
+        <section className="py-16">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              {features.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                    <CheckCircle className="w-12 h-12 text-blue-500 mx-auto mb-4" />
+                    <p className="text-gray-700">{feature}</p>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Courses Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                دورات Page المميزة
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                اختر من بين مجموعة واسعة من الدورات التي تغطي جميع جوانب Page
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {courses.map((course, index) => (
+                <motion.div
+                  key={course.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Link href={`/courses/${course.id}`}>
+                    <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group">
+                      {/* Course Image */}
+                      <div className="h-48 bg-gradient-to-br from-blue-400 to-indigo-500 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
+                          <CourseIcon className="w-16 h-16 text-white" />
+                        </div>
+                        {course.isNew && (
+                          <span className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm">
+                            جديد
+                          </span>
+                        )}
+                        {course.isBestseller && (
+                          <span className="absolute top-4 left-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm">
+                            الأكثر مبيعاً
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Course Content */}
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                          {course.title}
+                        </h3>
+                        <p className="text-gray-600 mb-4 line-clamp-2">
+                          {course.description}
+                        </p>
+
+                        {/* Instructor */}
+                        <div className="flex items-center mb-4">
+                          <div className="w-8 h-8 bg-gray-300 rounded-full mr-2"></div>
+                          <span className="text-sm text-gray-700">{course.instructor}</span>
+                        </div>
+
+                        {/* Stats */}
+                        <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
+                          <div className="flex items-center">
+                            <Star className="w-4 h-4 text-yellow-500 mr-1" />
+                            <span>{course.rating}</span>
+                          </div>
+                          <div className="flex items-center">
+                            <Users className="w-4 h-4 mr-1" />
+                            <span>{course.students.toLocaleString()}</span>
+                          </div>
+                          <div className="flex items-center">
+                            <Clock className="w-4 h-4 mr-1" />
+                            <span>{course.duration}</span>
+                          </div>
+                        </div>
+
+                        {/* Tags */}
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {course.tags.map((tag, tagIndex) => (
+                            <span
+                              key={tagIndex}
+                              className="px-2 py-1 bg-blue-100 text-blue-600 rounded text-xs"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* Price and Level */}
+                        <div className="flex items-center justify-between">
+                          <div>
+                            {course.price === 0 ? (
+                              <span className="text-green-600 font-bold">مجاني</span>
+                            ) : (
+                              <div>
+                                <span className="text-gray-400 line-through text-sm">
+                                  ${course.originalPrice}
+                                </span>
+                                <span className="text-blue-600 font-bold ml-2">
+                                  ${course.price}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                          <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded text-sm">
+                            {course.level}
+                          </span>
+                        </div>
+                      </div>
+                    </Card>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+          <div className="container mx-auto px-6 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-4xl font-bold mb-6">
+                مستعد لتعلم Page؟
+              </h2>
+              <p className="text-xl mb-8 text-gray-100 max-w-2xl mx-auto">
+                انضم إلى آلاف الطلاب الذين أصبحوا محترفين في Page
+              </p>
+              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+                استكشف جميع الدورات
+                <ArrowRight className="w-5 h-5 mr-2" />
+              </Button>
+            </motion.div>
+          </div>
+        </section>
+      </div>
     </PageErrorBoundary>
   );
 }

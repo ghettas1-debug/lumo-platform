@@ -1,35 +1,37 @@
 'use client';
 
-import React, { useState, useMemo, useCallback, memo } from 'react';
+import React, {
+  useState,
+  useMemo,
+  useCallback,
+  memo
+} from 'react';
+
 import Link from 'next/link';
+import Image from 'next/image';
+
 import { motion } from 'framer-motion';
-import { 
-  Play, 
-  Clock, 
-  Users, 
-  Star, 
-  BookOpen, 
-  Award, 
-  Heart, 
-  Share2, 
-  Download,
+
+import {
+  Play,
+  Clock,
+  Users,
+  Star,
+  Award,
+  Heart,
+  Share2,
   Eye,
-  ChevronRight,
-  TrendingUp,
-  Calendar,
-  DollarSign,
-  BarChart3,
-  X,
-  Filter,
   Grid3X3,
   List,
-  Search,
-  SlidersHorizontal
+  Sparkles
 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/atoms/Badge';
-import EnhancedCourseCard from '@/components/ui/molecules/EnhancedCourseCard';
-import { useInView } from 'react-intersection-observer';
+
+import { Button } from '../Button';
+import { Badge } from '../ui/Badge';
+
+/* ----------------------------------
+   Types
+----------------------------------- */
 
 interface Course {
   id: string;
@@ -38,6 +40,7 @@ interface Course {
   instructor: string;
   instructorAvatar: string;
   rating: number;
+  reviews?: number;
   students: number;
   duration: string;
   level: string;
@@ -46,6 +49,8 @@ interface Course {
   image: string;
   category: string;
   tags: string[];
+  isNew?: boolean;
+  isBestseller?: boolean;
   isEnrolled?: boolean;
   progress?: number;
   lastAccessed?: string;
@@ -57,472 +62,586 @@ interface InteractiveCourseCardsProps {
   variant?: 'default' | 'featured' | 'compact';
 }
 
-// Memoized course card component
-const CourseCard = memo(({ 
-  course, 
-  isSaved, 
-  onSave, 
-  onShare, 
-  onPreview, 
-  getLevelColor, 
-  variant 
-}: {
+interface CourseCardProps {
   course: Course;
-  isSaved: boolean;
-  onSave: (courseId: string) => void;
-  onShare: (course: Course) => void;
-  onPreview: (courseId: string) => void;
-  getLevelColor: (level: string) => string;
-  variant: 'default' | 'featured' | 'compact';
-}) => {
-  const handleSaveClick = useCallback(() => {
-    onSave(course.id);
-  }, [course.id, onSave]);
+  variant?: 'default' | 'featured' | 'compact';
+}
 
-  const handleShareClick = useCallback(() => {
-    onShare(course);
-  }, [course, onShare]);
+/* ----------------------------------
+   Animation Presets
+----------------------------------- */
 
-  const handlePreviewClick = useCallback(() => {
-    onPreview(course.id);
-  }, [course.id, onPreview]);
+const containerVariants = {
+  hidden: {
+    opacity: 0
+  },
 
-  // Default variant
-  return (
-    <div className="group relative bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-blue-300 hover:border-blue-400 hover:-translate-y-1">
-      {/* Course Image */}
-      <div className="relative h-48 overflow-hidden">
-        <img
-          src={course.image}
-          alt={course.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          loading="lazy"
-        />
-        
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
-        {/* Play Button */}
-        <button
-          onClick={handlePreviewClick}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
-          aria-label={`Preview ${course.title}`}
-        >
-          <Play className="w-5 h-5 text-gray-800 ml-1" />
-        </button>
-        
-        {/* Level Badge */}
-        <div className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-medium ${getLevelColor(course.level)}`}>
-          {course.level}
-        </div>
-        
-        {/* Save Button */}
-        <button
-          onClick={handleSaveClick}
-          className="absolute top-2 left-2 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
-          aria-label={`Save ${course.title}`}
-        >
-          <Heart className={`w-4 h-4 ${isSaved ? 'text-red-500 fill-current' : 'text-gray-600'}`} />
-        </button>
-      </div>
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
 
-      {/* Course Content */}
-      <div className="p-4">
-        {/* Category */}
-        <div className="flex items-center gap-2 mb-2">
-          <Badge variant="secondary" className="text-xs">
-            {course.category}
-          </Badge>
-          {course.isNew && (
-            <Badge variant="destructive" className="text-xs">
-              جديد
-            </Badge>
-          )}
-          {course.isBestseller && (
-            <Badge variant="default" className="text-xs bg-yellow-100 text-yellow-800 border-yellow-300">
-              الأكثر مبيعاً
-            </Badge>
-          )}
-        </div>
+const itemVariants = {
+  hidden: {
+    opacity: 0,
+    y: 20
+  },
 
-        {/* Title */}
-        <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
-          {course.title}
-        </h3>
+  visible: {
+    opacity: 1,
+    y: 0
+  }
+};
 
-        {/* Description */}
-        <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-          {course.description}
-        </p>
+/* ----------------------------------
+   Course Card
+----------------------------------- */
 
-        {/* Instructor */}
-        <div className="flex items-center gap-2 mb-3">
-          <img
-            src={course.instructorAvatar}
-            alt={course.instructor}
-            className="w-6 h-6 rounded-full"
-            loading="lazy"
-          />
-          <span className="text-sm text-gray-700">{course.instructor}</span>
-        </div>
+const CourseCard = memo(
+  ({ course, variant = 'default' }: CourseCardProps) => {
+    const [isHovered, setIsHovered] = useState(false);
+    const [isBookmarked, setIsBookmarked] = useState(false);
 
-        {/* Stats */}
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-1">
-            <Star className="w-4 h-4 text-yellow-400 fill-current" />
-            <span className="text-sm font-medium">{course.rating}</span>
-            <span className="text-sm text-gray-500">({course.reviews})</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Users className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-600">{course.students.toLocaleString()}</span>
-          </div>
-        </div>
+    /* Bookmark */
 
-        {/* Duration & Level */}
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-1">
-            <Clock className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-600">{course.duration}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <BarChart3 className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-600">{course.level}</span>
-          </div>
-        </div>
+    const handleBookmark = useCallback(() => {
+      setIsBookmarked(prev => !prev);
+    }, []);
 
-        {/* Price */}
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-blue-600">
-              ${course.price}
-            </span>
-            {course.originalPrice && course.originalPrice > course.price && (
-              <span className="text-sm text-gray-500 line-through">
-                ${course.originalPrice}
-              </span>
-            )}
-          </div>
-          {course.originalPrice && course.originalPrice > course.price && (
-            <Badge variant="destructive" className="text-xs">
-              {Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100)}% خصم
-            </Badge>
-          )}
-        </div>
+    /* Share */
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1 mb-3">
-          {course.tags.slice(0, 3).map((tag, index) => (
-            <span
-              key={index}
-              className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded"
-            >
-              {tag}
-            </span>
-          ))}
-          {course.tags.length > 3 && (
-            <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
-              +{course.tags.length - 3}
-            </span>
-          )}
-        </div>
-
-        {/* Actions */}
-        <div className="flex items-center gap-2">
-          <Button
-            onClick={handleShareClick}
-            variant="outline"
-            size="sm"
-            className="flex-1"
-          >
-            <Share2 className="w-4 h-4 mr-1" />
-            مشاركة
-          </Button>
-          <Link href={`/courses/${course.id}`}>
-            <Button size="sm" className="flex-1">
-              <ChevronRight className="w-4 h-4 mr-1" />
-              عرض التفاصيل
-            </Button>
-          </Link>
-        </div>
-
-        {/* Progress Bar (for enrolled courses) */}
-        {course.isEnrolled && course.progress !== undefined && (
-          <div className="mt-3">
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-xs text-gray-600">التقدم</span>
-              <span className="text-xs font-medium">{course.progress}%</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div
-                className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                style={{ width: `${course.progress}%` }}
-              />
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-});
-
-CourseCard.displayName = 'CourseCard';
-
-export default function InteractiveCourseCards({ 
-  courses, 
-  variant = 'default' 
-}: InteractiveCourseCardsProps) {
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [sortBy, setSortBy] = useState<'popular' | 'newest' | 'price-low' | 'price-high'>('popular');
-  const [filterCategory, setFilterCategory] = useState<string>('all');
-  const [savedCourses, setSavedCourses] = useState<Set<string>>(new Set());
-  const [showPreview, setShowPreview] = useState<string | null>(null);
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  });
-
-  // Memoized handlers
-  const handleSave = useCallback((courseId: string) => {
-    setSavedCourses(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(courseId)) {
-        newSet.delete(courseId);
-      } else {
-        newSet.add(courseId);
+    const handleShare = useCallback(() => {
+      if (!navigator.share) {
+        alert('المشاركة غير مدعومة في هذا المتصفح');
+        return;
       }
-      return newSet;
-    });
-  }, []);
 
-  const handleShare = useCallback((course: Course) => {
-    if (navigator.share) {
       navigator.share({
         title: course.title,
         text: course.description,
-        url: window.location.origin + `/courses/${course.id}`
+        url: `${window.location.origin}/courses/${course.id}`
       });
-    } else {
-      // Fallback: copy to clipboard
-      navigator.clipboard.writeText(window.location.origin + `/courses/${course.id}`);
-    }
-  }, []);
+    }, [course]);
 
-  const handlePreview = useCallback((courseId: string) => {
-    setShowPreview(courseId);
-  }, []);
+    /* Compact Variant */
 
-  // Memoized getLevelColor function
-  const getLevelColor = useCallback((level: string) => {
-    const colors = {
-      'مبتدئ': 'bg-green-100 text-green-800 border-2 border-green-300',
-      'متوسط': 'bg-blue-100 text-blue-800 border-2 border-blue-300',
-      'متقدم': 'bg-purple-100 text-purple-800 border-2 border-purple-300'
-    };
-    return colors[level as keyof typeof colors] || 'bg-gray-100 text-gray-800 border-2 border-gray-300';
-  }, []);
+    if (variant === 'compact') {
+      return (
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          className="bg-white rounded-lg shadow-sm hover:shadow-md p-4 transition cursor-pointer"
+        >
+          <div className="flex gap-3 items-center">
 
-  // Memoized enhanced courses
-  const enhancedCourses = useMemo(() => {
-    return courses.map(course => ({
-      ...course,
-      reviews: Math.floor(Math.random() * 1000) + 100,
-      instructorTitle: 'مدرب معتمد',
-      isNew: Math.random() > 0.7,
-      isBestseller: Math.random() > 0.8,
-      isWishlisted: false
-    }));
-  }, [courses]);
+            <div className="relative w-16 h-16">
+              <Image
+                src={course.image}
+                alt={course.title}
+                fill
+                className="object-cover rounded-lg"
+              />
+            </div>
 
-  // Memoized sorted courses
-  const sortedCourses = useMemo(() => {
-    return [...enhancedCourses].sort((a, b) => {
-      switch (sortBy) {
-        case 'popular':
-          return b.students - a.students;
-        case 'newest':
-          return b.id.localeCompare(a.id);
-        case 'price-low':
-          return a.price - b.price;
-        case 'price-high':
-          return b.price - a.price;
-        default:
-          return 0;
-      }
-    });
-  }, [enhancedCourses, sortBy]);
+            <div className="flex-1 min-w-0">
 
-  // Memoized filtered courses
-  const filteredCourses = useMemo(() => {
-    return filterCategory === 'all' 
-      ? sortedCourses 
-      : sortedCourses.filter(course => course.category === filterCategory);
-  }, [sortedCourses, filterCategory]);
+              <h3 className="font-semibold truncate">
+                {course.title}
+              </h3>
 
-  // Memoized container variants
-  const containerVariants = useMemo(() => ({
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  }), []);
+              <p className="text-sm text-gray-600">
+                {course.instructor}
+              </p>
 
-  // Memoized item variants
-  const itemVariants = useMemo(() => ({
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  }), []);
+              <div className="flex items-center gap-1 mt-1">
 
-  // Memoized categories
-  const categories = useMemo(() => {
-    const cats = new Set(courses.map(course => course.category));
-    return Array.from(cats);
-  }, [courses]);
+                <Star className="w-4 h-4 text-yellow-400 fill-current" />
 
-  return (
-    <div ref={ref} className="w-full">
-      {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-gray-900">
-            الدورات المتاحة
-          </h2>
-          <div className="flex items-center gap-2">
-            <Button
-              variant={viewMode === 'grid' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setViewMode('grid')}
-            >
-              <Grid3X3 className="w-4 h-4 mr-1" />
-              شبكة
+                <span className="text-sm font-medium">
+                  {course.rating}
+                </span>
+
+                <span className="text-sm text-gray-500">
+                  ({course.reviews || 0})
+                </span>
+
+              </div>
+
+            </div>
+
+            <Button size="sm" variant="outline">
+              <Play className="w-4 h-4 mr-1" />
+              عرض
             </Button>
-            <Button
-              variant={viewMode === 'list' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setViewMode('list')}
-            >
-              <List className="w-4 h-4 mr-1" />
-              قائمة
-            </Button>
+
           </div>
+        </motion.div>
+      );
+    }
+
+    /* Default Card */
+
+    return (
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        onHoverStart={() => setIsHovered(true)}
+        onHoverEnd={() => setIsHovered(false)}
+        className="bg-white rounded-xl shadow-lg hover:shadow-xl overflow-hidden group transition"
+      >
+        {/* Image */}
+
+        <div className="relative h-48 overflow-hidden">
+
+          <Image
+            src={course.image}
+            alt={course.title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+
+          {/* Overlay */}
+
+          <div
+            className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity ${
+              isHovered ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <div className="absolute top-4 right-4 flex gap-2">
+
+              <Button
+                size="sm"
+                variant="secondary"
+                className="bg-white/20 text-white"
+                onClick={handleBookmark}
+              >
+                <Heart
+                  className={`w-4 h-4 ${
+                    isBookmarked ? 'fill-current' : ''
+                  }`}
+                />
+              </Button>
+
+              <Button
+                size="sm"
+                variant="secondary"
+                className="bg-white/20 text-white"
+                onClick={handleShare}
+              >
+                <Share2 className="w-4 h-4" />
+              </Button>
+
+            </div>
+          </div>
+
+          {/* Badges */}
+
+          <div className="absolute top-4 left-4 flex gap-2">
+
+            <Badge variant="secondary" className="text-xs">
+              {course.category}
+            </Badge>
+
+            {course.isNew && (
+              <Badge variant="destructive" className="text-xs">
+                جديد
+              </Badge>
+            )}
+
+            {course.isBestseller && (
+              <Badge className="bg-yellow-100 text-yellow-800 text-xs">
+                الأكثر مبيعاً
+              </Badge>
+            )}
+
+          </div>
+
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap items-center gap-4">
-          {/* Sort */}
-          <div className="flex items-center gap-2">
-            <label className="text-sm font-medium text-gray-700">ترتيب حسب:</label>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
-              className="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="popular">الأكثر شعبية</option>
-              <option value="newest">الأحدث</option>
-              <option value="price-low">السعر الأقل</option>
-              <option value="price-high">السعر الأعلى</option>
-            </select>
+        {/* Content */}
+
+        <div className="p-6">
+
+          <h3 className="font-bold mb-2 line-clamp-2 group-hover:text-blue-600 transition">
+            {course.title}
+          </h3>
+
+          {/* Instructor */}
+
+          <div className="flex items-center gap-2 mb-3">
+
+            <div className="relative w-6 h-6">
+
+              <Image
+                src={course.instructorAvatar}
+                alt={course.instructor}
+                fill
+                className="rounded-full object-cover"
+              />
+
+            </div>
+
+            <span className="text-sm text-gray-700">
+              {course.instructor}
+            </span>
+
           </div>
 
-          {/* Category Filter */}
-          <div className="flex items-center gap-2">
-            <label className="text-sm font-medium text-gray-700">الفئة:</label>
+          {/* Stats */}
+
+          <div className="flex justify-between mb-3 text-sm">
+
+            <div className="flex items-center gap-1">
+
+              <Star className="w-4 h-4 text-yellow-400 fill-current" />
+
+              <span>{course.rating}</span>
+
+              <span className="text-gray-500">
+                ({course.reviews || 0})
+              </span>
+
+            </div>
+
+            <div className="flex items-center gap-1 text-gray-500">
+
+              <Users className="w-4 h-4" />
+
+              {course.students.toLocaleString()}
+
+            </div>
+
+          </div>
+
+          {/* Meta */}
+
+          <div className="flex gap-4 mb-4 text-sm text-gray-600">
+
+            <div className="flex items-center gap-1">
+              <Clock className="w-4 h-4" />
+              {course.duration}
+            </div>
+
+            <div className="flex items-center gap-1">
+              <Award className="w-4 h-4" />
+              {course.level}
+            </div>
+
+          </div>
+
+          {/* Tags */}
+
+          <div className="flex flex-wrap gap-1 mb-4">
+
+            {course.tags.slice(0, 3).map((tag, i) => (
+              <span
+                key={i}
+                className="px-2 py-1 bg-gray-100 text-xs rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
+
+          </div>
+
+          {/* Footer */}
+
+          <div className="flex justify-between items-center">
+
+            <div>
+
+              {course.originalPrice && (
+                <span className="text-sm text-gray-500 line-through mr-2">
+                  ${course.originalPrice}
+                </span>
+              )}
+
+              <span className="text-xl font-bold">
+                ${course.price}
+              </span>
+
+            </div>
+
+            <div className="flex gap-2">
+
+              <Button variant="outline" size="sm">
+                <Eye className="w-4 h-4 mr-1" />
+                تفاصيل
+              </Button>
+
+              <Button size="sm">
+                <Play className="w-4 h-4 mr-1" />
+                ابدأ
+              </Button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </motion.div>
+    );
+  }
+);
+
+CourseCard.displayName = 'CourseCard';
+
+/* ----------------------------------
+   Main Component
+----------------------------------- */
+
+const InteractiveCourseCards = memo(
+  ({ courses, variant = 'default' }: InteractiveCourseCardsProps) => {
+
+    const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
+    const [selectedCategory, setSelectedCategory] =
+      useState('all');
+
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const [sortBy, setSortBy] = useState<
+      'popular' | 'rating' | 'price-low' | 'price-high'
+    >('popular');
+
+    /* Filter & Sort */
+
+    const filteredCourses = useMemo(() => {
+
+      let filtered = [...courses];
+
+      if (selectedCategory !== 'all') {
+        filtered = filtered.filter(
+          c => c.category === selectedCategory
+        );
+      }
+
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+
+        filtered = filtered.filter(
+          c =>
+            c.title.toLowerCase().includes(q) ||
+            c.description.toLowerCase().includes(q) ||
+            c.tags.some(t => t.toLowerCase().includes(q))
+        );
+      }
+
+      filtered.sort((a, b) => {
+        switch (sortBy) {
+          case 'popular':
+            return b.students - a.students;
+
+          case 'rating':
+            return b.rating - a.rating;
+
+          case 'price-low':
+            return a.price - b.price;
+
+          case 'price-high':
+            return b.price - a.price;
+
+          default:
+            return 0;
+        }
+      });
+
+      return filtered;
+
+    }, [
+      courses,
+      selectedCategory,
+      searchQuery,
+      sortBy
+    ]);
+
+    /* Categories */
+
+    const categories = useMemo(() => {
+      return Array.from(
+        new Set(courses.map(c => c.category))
+      );
+    }, [courses]);
+
+    return (
+      <div className="w-full">
+
+        {/* Header */}
+
+        <div className="mb-6">
+
+          <div className="flex justify-between mb-4">
+
+            <h2 className="text-2xl font-bold">
+              الدورات المتاحة
+            </h2>
+
+            <div className="flex gap-2">
+
+              <Button
+                size="sm"
+                variant={
+                  viewMode === 'grid'
+                    ? 'primary'
+                    : 'outline'
+                }
+                onClick={() => setViewMode('grid')}
+              >
+                <Grid3X3 className="w-4 h-4 mr-1" />
+                شبكة
+              </Button>
+
+              <Button
+                size="sm"
+                variant={
+                  viewMode === 'list'
+                    ? 'primary'
+                    : 'outline'
+                }
+                onClick={() => setViewMode('list')}
+              >
+                <List className="w-4 h-4 mr-1" />
+                قائمة
+              </Button>
+
+            </div>
+
+          </div>
+
+          {/* Filters */}
+
+          <div className="flex flex-wrap gap-4 items-center">
+
             <select
-              value={filterCategory}
-              onChange={(e) => setFilterCategory(e.target.value)}
-              className="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={selectedCategory}
+              onChange={e =>
+                setSelectedCategory(e.target.value)
+              }
+              className="px-4 py-2 border rounded-lg"
             >
-              <option value="all">الكل الفئات</option>
-              {categories.map(category => (
-                <option key={category} value={category}>
-                  {category}
+              <option value="all">
+                جميع الفئات
+              </option>
+
+              {categories.map(cat => (
+                <option key={cat} value={cat}>
+                  {cat}
                 </option>
               ))}
             </select>
-          </div>
 
-          {/* Search */}
-          <div className="flex items-center gap-2">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <div className="relative flex-1 max-w-md">
+
               <input
-                type="text"
-                placeholder="البحث عن دورات..."
-                className="pl-10 pr-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={searchQuery}
+                onChange={e =>
+                  setSearchQuery(e.target.value)
+                }
+                placeholder="ابحث عن دورة..."
+                className="w-full pl-10 pr-4 py-2 border rounded-lg"
               />
+
+              <Sparkles className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+
             </div>
+
+            <select
+              value={sortBy}
+              onChange={e =>
+                setSortBy(e.target.value as any)
+              }
+              className="px-4 py-2 border rounded-lg"
+            >
+              <option value="popular">
+                الأكثر شعبية
+              </option>
+
+              <option value="rating">
+                الأعلى تقييماً
+              </option>
+
+              <option value="price-low">
+                السعر ↑
+              </option>
+
+              <option value="price-high">
+                السعر ↓
+              </option>
+
+            </select>
+
           </div>
+
         </div>
+
+        {/* Count */}
+
+        <p className="mb-4 text-sm text-gray-600">
+          تم العثور على {filteredCourses.length} دورة
+        </p>
+
+        {/* Grid */}
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className={
+            viewMode === 'grid'
+              ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'
+              : 'space-y-4'
+          }
+        >
+
+          {filteredCourses.map(course => (
+
+            <motion.div
+              key={course.id}
+              variants={itemVariants}
+            >
+              <CourseCard
+                course={course}
+                variant={variant}
+              />
+            </motion.div>
+
+          ))}
+
+        </motion.div>
+
+        {/* Empty */}
+
+        {filteredCourses.length === 0 && (
+
+          <div className="text-center py-12">
+
+            <p className="mb-4 text-gray-500">
+              لا توجد نتائج
+            </p>
+
+            <Button
+              variant="outline"
+              onClick={() => {
+                setSelectedCategory('all');
+                setSearchQuery('');
+                setSortBy('popular');
+              }}
+            >
+              مسح الفلاتر
+            </Button>
+
+          </div>
+
+        )}
+
       </div>
+    );
+  }
+);
 
-      {/* Courses Grid */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-        className={`grid gap-6 ${
-          viewMode === 'grid' 
-            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-            : 'grid-cols-1'
-        }`}
-      >
-        {filteredCourses.map((course, index) => (
-          <motion.div
-            key={course.id}
-            variants={itemVariants}
-            transition={{ delay: index * 0.1 }}
-          >
-            <CourseCard
-              course={course}
-              isSaved={savedCourses.has(course.id)}
-              onSave={handleSave}
-              onShare={handleShare}
-              onPreview={handlePreview}
-              getLevelColor={getLevelColor}
-              variant={variant}
-            />
-          </motion.div>
-        ))}
-      </motion.div>
+InteractiveCourseCards.displayName =
+  'InteractiveCourseCards';
 
-      {/* Preview Modal */}
-      {showPreview && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold">معاينة الدورة</h3>
-              <button
-                onClick={() => setShowPreview(null)}
-                className="p-2 hover:bg-gray-100 rounded-full"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="aspect-video bg-gray-200 rounded-lg mb-4">
-              {/* Video preview would go here */}
-              <div className="flex items-center justify-center h-full">
-                <Play className="w-12 h-12 text-gray-400" />
-              </div>
-            </div>
-            <div className="flex justify-end gap-2">
-              <Button
-                variant="outline"
-                onClick={() => setShowPreview(null)}
-              >
-                إغلاق
-              </Button>
-              <Link href={`/courses/${showPreview}`}>
-                <Button>
-                  عرض الدورة
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+export default InteractiveCourseCards;

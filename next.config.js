@@ -41,15 +41,10 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ['lucide-react', '@headlessui/react'],
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
   },
+  
+  // Turbopack config
+  turbopack: {},
   
   // Output configuration
   output: 'standalone',

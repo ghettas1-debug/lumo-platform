@@ -1,42 +1,50 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
+import React, { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { 
-  BookOpen,
+  Code, 
+  Briefcase, 
+  Palette, 
+  TrendingUp, 
+  Heart, 
   GraduationCap,
-  Award,
-  Users,
-  Briefcase,
-  Code,
-  Palette,
-  Camera,
   Music,
-  Heart,
-  TrendingUp,
-  ChevronRight,
-  Star,
-  Building,
-  HelpCircle,
-  Settings,
-  ShoppingCart,
-  Shield,
-  Headphones,
-  MessageSquare,
-  ArrowRight,
+  Pen,
+  Rocket,
+  BookOpen,
   Sparkles,
-  Zap,
   Target,
-  Rocket
+  Users,
+  Award,
+  Star,
+  ArrowRight,
+  ChevronRight
 } from 'lucide-react';
-import { tokens } from '@/tokens/design-tokens';
 
-interface QuickLinksProps {
-  className?: string;
+// Dynamic import for Zap to avoid HMR issues
+const Zap = lazy(() => import('lucide-react').then(mod => ({ default: mod.Zap })));
+
+interface CategoryLink {
+  title: string;
+  href: string;
+  count: number;
+  trending?: boolean;
 }
 
-const QuickLinks: React.FC<QuickLinksProps> = ({ className }) => {
+interface Category {
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ComponentType<any>;
+  color: string;
+  gradient: string;
+  links: CategoryLink[];
+  totalCourses: number;
+}
+
+const QuickLinksUpdated: React.FC<{ className?: string }> = ({ className = '' }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -54,12 +62,11 @@ const QuickLinks: React.FC<QuickLinksProps> = ({ className }) => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: [0.4, 0, 0.2, 1],
       },
     },
   };
 
-  const categories = [
+  const categories: Category[] = [
     {
       id: 'development',
       title: 'تطوير البرمجيات',
@@ -124,7 +131,7 @@ const QuickLinks: React.FC<QuickLinksProps> = ({ className }) => {
         { title: 'تحليل البيانات', href: '/courses/data-science', count: 267, trending: true },
         { title: 'إنترنت الأشياء', href: '/courses/iot', count: 56 },
         { title: 'البلوك تشين', href: '/courses/blockchain', count: 34 },
-        { title: 'الواقع الافتراضي', href: '/courses/virtual-reality', count: 29 }
+        { title: 'الحوسبة السحابية', href: '/courses/cloud-computing', count: 29 }
       ],
       totalCourses: 727
     },
@@ -137,11 +144,11 @@ const QuickLinks: React.FC<QuickLinksProps> = ({ className }) => {
       gradient: 'from-red-500 to-pink-500',
       links: [
         { title: 'تطوير الذات', href: '/courses/personal-development', count: 189 },
-        { title: 'المهارات اللغوية', href: '/courses/language-skills', count: 234, trending: true },
-        { title: 'الصحة واللياقة', href: '/courses/health-fitness', count: 67 },
-        { title: 'التأمل واليقظة', href: '/courses/mindfulness', count: 45 },
-        { title: 'إدارة الوقت', href: '/courses/time-management', count: 123 },
-        { title: 'المهارات الاجتماعية', href: '/courses/social-skills', count: 98 }
+        { title: 'اللغات', href: '/courses/languages', count: 234, trending: true },
+        { title: 'اللياقة البدنية', href: '/courses/fitness', count: 67 },
+        { title: 'اليقظة الذهنية', href: '/courses/mindfulness', count: 45 },
+        { title: 'التغذية الصحية', href: '/courses/nutrition', count: 98 },
+        { title: 'الصحة النفسية', href: '/courses/mental-health', count: 123 }
       ],
       totalCourses: 756
     },
@@ -153,14 +160,50 @@ const QuickLinks: React.FC<QuickLinksProps> = ({ className }) => {
       color: 'indigo',
       gradient: 'from-indigo-500 to-purple-500',
       links: [
-        { title: 'الرياضيات', href: '/courses/mathematics', count: 145 },
-        { title: 'الفيزياء', href: '/courses/physics', count: 89 },
-        { title: 'الكيمياء', href: '/courses/chemistry', count: 67 },
-        { title: 'الأحياء', href: '/courses/biology', count: 78 },
-        { title: 'التاريخ', href: '/courses/history', count: 123 },
-        { title: 'الأدب والكتابة', href: '/courses/literature', count: 156 }
+        { title: 'الرياضيات', href: '/courses/academic/mathematics', count: 145 },
+        { title: 'الفيزياء', href: '/courses/academic/physics', count: 89 },
+        { title: 'الكيمياء', href: '/courses/academic/chemistry', count: 67 },
+        { title: 'الأحياء', href: '/courses/academic/biology', count: 78 },
+        { title: 'علم الحاسوب', href: '/courses/academic/computer-science', count: 156 },
+        { title: 'الهندسة', href: '/courses/academic/engineering', count: 123 },
+        { title: 'الطب', href: '/courses/academic/medicine', count: 98 },
+        { title: 'التاريخ', href: '/courses/history', count: 90 },
+        { title: 'الأدب', href: '/courses/literature', count: 80 }
       ],
-      totalCourses: 658
+      totalCourses: 826
+    },
+    {
+      id: 'music',
+      title: 'الموسيقى',
+      description: 'جيتار، بيانو، طبول، غناء، إنتاج موسيقي',
+      icon: Music,
+      color: 'purple',
+      gradient: 'from-purple-500 to-pink-500',
+      links: [
+        { title: 'الجيتار', href: '/courses/music/guitar', count: 156 },
+        { title: 'البيانو', href: '/courses/music/piano', count: 134 },
+        { title: 'الطبول', href: '/courses/music/drums', count: 89 },
+        { title: 'الغناء', href: '/courses/music/vocals', count: 123 },
+        { title: 'نظرية الموسيقى', href: '/courses/music/music-theory', count: 67 },
+        { title: 'الإنتاج الموسيقي', href: '/courses/music/music-production', count: 98 }
+      ],
+      totalCourses: 667
+    },
+    {
+      id: 'writing',
+      title: 'الكتابة',
+      description: 'كتابة إبداعية، محتوى، تقنية، إعلانية، صحافة',
+      icon: Pen,
+      color: 'blue',
+      gradient: 'from-blue-500 to-cyan-500',
+      links: [
+        { title: 'الكتابة الإبداعية', href: '/courses/writing/creative-writing', count: 145 },
+        { title: 'كتابة المحتوى', href: '/courses/writing/content-writing', count: 167 },
+        { title: 'الكتابة التقنية', href: '/courses/writing/technical-writing', count: 89 },
+        { title: 'الكتابة الإعلانية', href: '/courses/writing/copywriting', count: 123 },
+        { title: 'الصحافة', href: '/courses/writing/journalism', count: 78 }
+      ],
+      totalCourses: 602
     }
   ];
 
@@ -200,7 +243,7 @@ const QuickLinks: React.FC<QuickLinksProps> = ({ className }) => {
           </h2>
           
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            اختر من بين أكثر من 6000+ دورة في 6 فئات رئيسية وابدأ رحلتك التعليمية اليوم مع أفضل المدربين المعتمدين
+            اختر من بين أكثر من 6000+ دورة في 8 فئات رئيسية وابدأ رحلتك التعليمية اليوم مع أفضل المدربين المعتمدين
           </p>
           
           {/* Stats */}
@@ -230,6 +273,7 @@ const QuickLinks: React.FC<QuickLinksProps> = ({ className }) => {
         >
           {categories.map((category) => {
             const Icon = category.icon;
+            const colorClasses = getColorClasses(category.color);
             
             return (
               <motion.div
@@ -274,36 +318,31 @@ const QuickLinks: React.FC<QuickLinksProps> = ({ className }) => {
 
                   {/* Enhanced Category Links */}
                   <div className="p-6">
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       {category.links.slice(0, 4).map((link, index) => (
                         <Link
                           key={index}
                           href={link.href}
-                          className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition-all duration-200 group/link"
+                          className={`flex items-center justify-between p-3 rounded-xl ${colorClasses.bg} ${colorClasses.hover} transition-all duration-200 group`}
                         >
                           <div className="flex items-center gap-3">
-                            <div className={`w-8 h-8 bg-gradient-to-br ${category.gradient} rounded-lg flex items-center justify-center opacity-0 group-hover/link:opacity-100 transition-opacity`}>
-                              <ChevronRight className="w-4 h-4 text-white" />
-                            </div>
-                            <div className="text-right">
-                              <span className="text-sm font-medium text-gray-700 group-hover/link:text-gray-900 block">
+                            <div className={`w-2 h-2 rounded-full ${colorClasses.text}`} />
+                            <div>
+                              <div className="font-medium text-gray-900 group-hover:text-gray-700">
                                 {link.title}
-                              </span>
-                              {link.trending && (
-                                <div className="flex items-center gap-1 mt-1">
-                                  <Zap className="w-3 h-3 text-orange-500" />
-                                  <span className="text-xs text-orange-600">رائج</span>
-                                </div>
-                              )}
+                              </div>
+                              <div className="text-xs text-gray-500">
+                                {link.count} دورة
+                              </div>
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-xs text-gray-500 font-medium">
-                              {link.count}
-                            </span>
                             {link.trending && (
-                              <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
+                              <span className="px-2 py-1 bg-red-500 text-white text-xs rounded-full">
+                                رائج
+                              </span>
                             )}
+                            <ChevronRight className={`w-4 h-4 ${colorClasses.text} group-hover:translate-x-1 transition-transform`} />
                           </div>
                         </Link>
                       ))}
@@ -311,7 +350,7 @@ const QuickLinks: React.FC<QuickLinksProps> = ({ className }) => {
 
                     {/* Enhanced View All Link */}
                     <Link
-                      href={`/courses?category=${category.id}`}
+                      href={category.id === 'music' ? '/courses/music' : category.id === 'writing' ? '/courses/writing' : `/courses?category=${category.id}`}
                       className={`flex items-center justify-center gap-2 mt-6 p-4 rounded-xl bg-gradient-to-r ${category.gradient} text-white font-medium hover:shadow-lg transition-all duration-300 hover:scale-105`}
                     >
                       <Rocket className="w-4 h-4" />
@@ -320,52 +359,34 @@ const QuickLinks: React.FC<QuickLinksProps> = ({ className }) => {
                     </Link>
                   </div>
                 </div>
-                
-                {/* Floating Badge */}
-                {category.id === 'technology' && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.5 }}
-                    className="absolute -top-2 -right-2 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg"
-                  >
-                    جديد
-                  </motion.div>
-                )}
               </motion.div>
             );
           })}
         </motion.div>
 
-        {/* Enhanced Bottom CTA */}
+        {/* Enhanced CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
           className="text-center mt-16"
         >
-          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-1">
-            <div className="bg-white rounded-3xl p-8">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="text-right">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    لم تجد ما تبحث عنه؟
-                  </h3>
-                  <p className="text-gray-600">
-                    استكشف جميع الدورات المتاحة وابحث عن المجال المثالي لك
-                  </p>
-                </div>
-                <Link
-                  href="/courses"
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                >
-                  <BookOpen className="w-5 h-5" />
-                  <span>استكشف جميع الدورات</span>
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-              </div>
-            </div>
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 md:p-12 shadow-2xl">
+            <h3 className="text-3xl font-bold text-white mb-4">
+              لم تجد ما تبحث عنه؟
+            </h3>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+              استكشف جميع الدورات المتاحة وابدأ رحلتك التعليمية اليوم
+            </p>
+            <Link
+              href="/courses"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-white text-blue-600 font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            >
+              <BookOpen className="w-5 h-5" />
+              <span>استكشف جميع الدورات</span>
+              <ArrowRight className="w-5 h-5" />
+            </Link>
           </div>
         </motion.div>
       </div>
@@ -373,4 +394,4 @@ const QuickLinks: React.FC<QuickLinksProps> = ({ className }) => {
   );
 };
 
-export default QuickLinks;
+export default QuickLinksUpdated;

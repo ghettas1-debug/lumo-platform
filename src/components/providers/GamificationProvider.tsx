@@ -48,6 +48,10 @@ interface GamificationContextType {
   completeCourse: (courseId: string) => void;
   checkLevelUp: () => boolean;
   getProgressToNextLevel: () => { current: number; needed: number; percentage: number };
+  level: number;
+  points: number;
+  badges: Badge[];
+  achievements: Achievement[];
 }
 
 const GamificationContext = createContext<GamificationContextType | undefined>(undefined);
@@ -375,6 +379,10 @@ export function GamificationProvider({ children }: { children: React.ReactNode }
     completeCourse,
     checkLevelUp,
     getProgressToNextLevel,
+    level: userStats.level,
+    points: userStats.totalPoints,
+    badges: userStats.badges,
+    achievements: userStats.achievements,
   };
 
   return (

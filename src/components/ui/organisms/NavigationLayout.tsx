@@ -35,6 +35,11 @@ export interface NavigationConfig {
   sidebarType?: 'student' | 'instructor' | 'admin';
   sidebarCollapsed?: boolean;
   onSidebarToggle?: () => void;
+  sidebarContent?: React.ReactNode;
+  showSearch?: boolean;
+  showNotifications?: boolean;
+  showUserMenu?: boolean;
+  stickyNavigation?: boolean;
 }
 
 export interface NavigationLayoutProps {
@@ -48,6 +53,35 @@ const NavigationLayout = React.forwardRef<HTMLDivElement, NavigationLayoutProps>
     const pathname = usePathname();
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [userRole, setUserRole] = useState<'student' | 'instructor' | 'admin' | 'guest'>('guest');
+    const [scrolled, setScrolled] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detect mobile viewport
+    useEffect(() => {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+      
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      
+      return () => {
+        window.removeEventListener('resize', checkMobile);
+      };
+    }, []);
+
+    // Handle scroll for sticky navigation
+    useEffect(() => {
+      const handleScroll = () => {
+        setScrolled(window.scrollY > 50);
+      };
+
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
 
     // Auto-detect user role based on pathname
     useEffect(() => {
@@ -95,32 +129,67 @@ const NavigationLayout = React.forwardRef<HTMLDivElement, NavigationLayoutProps>
       };
     };
 
+    const handleSidebarToggle = () => {
+      setIsSidebarCollapsed(!isSidebarCollapsed);
+      config?.onSidebarToggle?.();
+    };
+
     const navigationConfig = config || generateNavigationConfig();
 
     const renderSidebar = () => {
       if (!navigationConfig.showSidebar) return null;
 
+      const sidebarClasses = cn(
+        'transition-all duration-300',
+        isMobile && 'mobile-sidebar',
+        navigationConfig.sidebarCollapsed && 'w-16'
+      );
+
       switch (navigationConfig.sidebarType) {
         case 'student':
           return (
-            <StudentSidebar
-              isCollapsed={navigationConfig.sidebarCollapsed}
-              onToggle={navigationConfig.onSidebarToggle}
-            />
+            <aside 
+              className={sidebarClasses}
+              data-testid="student-sidebar"
+              data-collapsed={navigationConfig.sidebarCollapsed}
+            >
+              {config?.sidebarContent || (
+                <StudentSidebar
+                  isCollapsed={navigationConfig.sidebarCollapsed}
+                  onToggle={navigationConfig.onSidebarToggle}
+                />
+              )}
+            </aside>
           );
         case 'instructor':
           return (
-            <InstructorSidebar
-              isCollapsed={navigationConfig.sidebarCollapsed}
-              onToggle={navigationConfig.onSidebarToggle}
-            />
+            <aside 
+              className={sidebarClasses}
+              data-testid="instructor-sidebar"
+              data-collapsed={navigationConfig.sidebarCollapsed}
+            >
+              {config?.sidebarContent || (
+                <InstructorSidebar
+                  isCollapsed={navigationConfig.sidebarCollapsed}
+                  onToggle={navigationConfig.onSidebarToggle}
+                />
+              )}
+            </aside>
           );
         case 'admin':
           return (
-            <AdminSidebar
-              isCollapsed={navigationConfig.sidebarCollapsed}
-              onToggle={navigationConfig.onSidebarToggle}
-            />
+            <aside 
+              className={sidebarClasses}
+              data-testid="admin-sidebar"
+              data-collapsed={navigationConfig.sidebarCollapsed}
+            >
+              {config?.sidebarContent || (
+                <AdminSidebar
+                  isCollapsed={navigationConfig.sidebarCollapsed}
+                  onToggle={navigationConfig.onSidebarToggle}
+                />
+              )}
+            </aside>
           );
         default:
           return null;
@@ -128,11 +197,89 @@ const NavigationLayout = React.forwardRef<HTMLDivElement, NavigationLayoutProps>
     };
 
     return (
-      <div
-        ref={ref}
-        className={cn('min-h-screen bg-gray-50', className || '')}
+      <div 
+        ref={ref} 
+        className={cn(
+          'min-h-screen bg-gray-50 flex',
+          className
+        )} 
+        data-testid="navigation-layout"
         {...props}
       >
+        {/* Main Navigation Header */}
+        <header 
+          className={cn(
+            'sticky top-0 z-40 bg-white border-b border-gray-200 transition-all duration-200',
+            scrolled && 'shadow-md',
+            config?.stickyNavigation && 'sticky'
+          )}
+        >
+          <div className="px-4 py-3 flex items-center justify-between">
+            {/* Left Section */}
+            <div className="flex items-center space-x-4">
+              {config?.showSidebar && (
+                <button
+                  onClick={handleSidebarToggle}
+                  className="p-2 rounded-md hover:bg-gray-100 transition-colors"
+                  aria-label="Toggle sidebar"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+              )}
+              
+              {/* Search Input */}
+              {config?.showSearch && (
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    aria-label="Search"
+                    className="w-64 px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <svg 
+                    className="absolute right-3 top-2.5 w-5 h-5 text-gray-400" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+              )}
+            </div>
+
+            {/* Right Section */}
+            <div className="flex items-center space-x-3">
+              {/* Notifications Button */}
+              {config?.showNotifications && (
+                <button
+                  className="p-2 rounded-md hover:bg-gray-100 transition-colors relative"
+                  aria-label="Notifications"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                  </svg>
+                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                </button>
+              )}
+
+              {/* User Menu */}
+              {config?.showUserMenu && (
+                <button
+                  className="p-2 rounded-md hover:bg-gray-100 transition-colors"
+                  aria-label="User menu"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </button>
+              )}
+            </div>
+          </div>
+        </header>
+
         <div className="flex">
           {/* Sidebar */}
           {navigationConfig.showSidebar && (
@@ -143,33 +290,115 @@ const NavigationLayout = React.forwardRef<HTMLDivElement, NavigationLayoutProps>
 
           {/* Main Content */}
           <div className={cn(
-            'flex-1 min-h-screen',
-            navigationConfig.showSidebar ? (
-              navigationConfig.sidebarCollapsed ? 'lg:mr-16' : 'lg:mr-72'
-            ) : ''
+            'flex-1 flex flex-col',
+            navigationConfig.showSidebar && !navigationConfig.sidebarCollapsed && 'lg:ml-64'
           )}>
             {/* Breadcrumbs */}
-            {navigationConfig.breadcrumbs && navigationConfig.breadcrumbs.length > 1 && (
-              <div className="bg-white border-b border-gray-200 px-6 py-3">
-                <Breadcrumbs items={navigationConfig.breadcrumbs} />
-              </div>
+            {navigationConfig.breadcrumbs && navigationConfig.breadcrumbs.length > 0 && (
+              <nav 
+                aria-label="Breadcrumbs" 
+                data-testid="breadcrumbs"
+                className="px-4 py-3 bg-white border-b border-gray-200"
+              >
+                <ol className="flex items-center space-x-2 text-sm">
+                  {navigationConfig.breadcrumbs.map((crumb, index) => (
+                    <li key={index} className="flex items-center">
+                      {index > 0 && (
+                        <svg className="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                        </svg>
+                      )}
+                      {crumb.href ? (
+                        <a
+                          href={crumb.href}
+                          className={cn(
+                            'hover:text-blue-600 transition-colors',
+                            crumb.isActive && 'text-blue-600 font-medium'
+                          )}
+                        >
+                          {crumb.label}
+                        </a>
+                      ) : (
+                        <span className={cn(
+                          crumb.isActive && 'text-blue-600 font-medium'
+                        )}>
+                          {crumb.label}
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+
+            {/* Page Navigation */}
+            {(navigationConfig.previous || navigationConfig.next || navigationConfig.related) && (
+              <nav 
+                aria-label="Main navigation" 
+                data-testid="page-navigation"
+                className={cn(
+                  'px-4 py-3 bg-white border-b border-gray-200 transition-all duration-200',
+                  scrolled && 'sticky scrolled'
+                )}
+              >
+                <div className="flex items-center justify-between">
+                  {/* Previous Button */}
+                  {navigationConfig.previous && (
+                    <button
+                      onClick={() => window.location.href = navigationConfig.previous!.href}
+                      className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                      aria-label={navigationConfig.previous.label}
+                      title={navigationConfig.previous.description}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                      <span>{navigationConfig.previous.label}</span>
+                    </button>
+                  )}
+
+                  {/* Related Links */}
+                  {navigationConfig.related && navigationConfig.related.length > 0 && (
+                    <div className="flex items-center space-x-2">
+                      {navigationConfig.related.map((item, index) => (
+                        <button
+                          key={index}
+                          onClick={() => window.location.href = item.href}
+                          className="flex items-center space-x-1 px-3 py-1 text-sm text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors"
+                          data-testid={`related-${index}`}
+                        >
+                          {item.icon && <span className="w-4 h-4">{item.icon}</span>}
+                          <span>{item.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Next Button */}
+                  {navigationConfig.next && (
+                    <button
+                      onClick={() => window.location.href = navigationConfig.next!.href}
+                      className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                      aria-label={navigationConfig.next.label}
+                      title={navigationConfig.next.description}
+                    >
+                      <span>{navigationConfig.next.label}</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </nav>
             )}
 
             {/* Page Content */}
-            <main className="flex-1">
+            <main 
+              role="main" 
+              aria-label="Main content"
+              className="flex-1 p-6"
+            >
               {children}
-
-              {/* Page Navigation */}
-              {(navigationConfig.previous || navigationConfig.next || navigationConfig.related) && (
-                <div className="bg-white">
-                  <PageNavigation
-                    previous={navigationConfig.previous}
-                    next={navigationConfig.next}
-                    related={navigationConfig.related}
-                    layout={navigationConfig.related ? 'grid' : 'horizontal'}
-                  />
-                </div>
-              )}
             </main>
           </div>
         </div>

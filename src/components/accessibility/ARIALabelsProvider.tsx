@@ -381,7 +381,7 @@ export const withARIALabels = <P extends object>(
       tabIndex: options.tabIndex,
     };
 
-    return <Component {...props} {...ariaProps} ref={ref} />;
+    return <Component {...(props as any)} {...ariaProps} ref={ref} />;
   });
 };
 
