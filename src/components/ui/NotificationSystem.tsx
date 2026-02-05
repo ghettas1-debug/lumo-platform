@@ -117,11 +117,12 @@ export function NotificationCenter() {
   const router = useRouter();
 
   return (
-    <div className="fixed top-20 right-4 z-[9999]">
+    <div className="fixed top-20 right-4 z-[9999]" data-testid="notification-center">
       <button
         onClick={() => router.push('/notifications')}
         className="relative p-3 bg-white rounded-full shadow-lg border border-gray-200 hover:bg-gray-50 transition-all duration-200 hover:shadow-xl"
         title="الإشعارات"
+        aria-label={`الإشعارات - لديك ${unreadCount} إشعار غير مقروء`}
       >
         <Bell className="w-6 h-6 text-gray-600" />
         {unreadCount > 0 && (
@@ -139,7 +140,7 @@ export function ConnectionStatus() {
   const { isConnected } = useNotifications();
 
   return (
-    <div className="fixed bottom-4 left-4 z-50">
+    <div className="fixed bottom-4 left-4 z-50" data-testid="connection-status">
       <div className={`flex items-center gap-2 px-3 py-2 rounded-full shadow-lg ${
         isConnected 
           ? 'bg-green-100 text-green-800' 
@@ -149,7 +150,7 @@ export function ConnectionStatus() {
           isConnected ? 'bg-green-600' : 'bg-red-600'
         }`} />
         <span className="text-xs font-medium">
-          {isConnected ? 'متصل' : 'غير متصل'}
+          {isConnected ? 'Connected' : 'Disconnected'}
         </span>
       </div>
     </div>

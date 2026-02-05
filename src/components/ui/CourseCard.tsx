@@ -50,7 +50,7 @@ interface CourseCardProps {
 const CourseCard = React.memo(function CourseCard({ 
   course, 
   interactive = true, 
-  preview = true,
+  preview = false,
   compact = false
 }: CourseCardProps) {
   const [isWishlisted, setIsWishlisted] = useState(course.wishlisted || false);
@@ -132,7 +132,7 @@ const CourseCard = React.memo(function CourseCard({
 
   return (
     <Link href={`/courses/${course.id}`} className="block">
-      <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl border-2 border-blue-300 hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:-translate-y-2 hover:border-blue-400 hover:from-blue-100 hover:to-indigo-200">
+      <div data-testid="course-card" className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl border-2 border-blue-300 hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:-translate-y-2 hover:border-blue-400 hover:from-blue-100 hover:to-indigo-200">
         {/* Thumbnail Section */}
         <div className="relative">
           <div className="aspect-video relative overflow-hidden">

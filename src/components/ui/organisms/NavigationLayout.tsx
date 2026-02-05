@@ -150,7 +150,7 @@ const NavigationLayout = React.forwardRef<HTMLDivElement, NavigationLayoutProps>
           return (
             <aside 
               className={sidebarClasses}
-              data-testid="student-sidebar"
+              data-testid="mock-student-sidebar"
               data-collapsed={navigationConfig.sidebarCollapsed}
             >
               {config?.sidebarContent || (
@@ -165,7 +165,7 @@ const NavigationLayout = React.forwardRef<HTMLDivElement, NavigationLayoutProps>
           return (
             <aside 
               className={sidebarClasses}
-              data-testid="instructor-sidebar"
+              data-testid="mock-instructor-sidebar"
               data-collapsed={navigationConfig.sidebarCollapsed}
             >
               {config?.sidebarContent || (
@@ -180,7 +180,7 @@ const NavigationLayout = React.forwardRef<HTMLDivElement, NavigationLayoutProps>
           return (
             <aside 
               className={sidebarClasses}
-              data-testid="admin-sidebar"
+              data-testid="mock-admin-sidebar"
               data-collapsed={navigationConfig.sidebarCollapsed}
             >
               {config?.sidebarContent || (
@@ -267,14 +267,21 @@ const NavigationLayout = React.forwardRef<HTMLDivElement, NavigationLayoutProps>
 
               {/* User Menu */}
               {config?.showUserMenu && (
-                <button
-                  className="p-2 rounded-md hover:bg-gray-100 transition-colors"
-                  aria-label="User menu"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </button>
+                <div className="relative">
+                  <button
+                    className="p-2 rounded-md hover:bg-gray-100 transition-colors"
+                    aria-label="User menu"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                  </button>
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                    <a href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                    <a href="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                    <a href="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                  </div>
+                </div>
               )}
             </div>
           </div>
@@ -345,6 +352,7 @@ const NavigationLayout = React.forwardRef<HTMLDivElement, NavigationLayoutProps>
                   {/* Previous Button */}
                   {navigationConfig.previous && (
                     <button
+                      data-testid="previous-button"
                       onClick={() => window.location.href = navigationConfig.previous!.href}
                       className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
                       aria-label={navigationConfig.previous.label}
@@ -377,6 +385,7 @@ const NavigationLayout = React.forwardRef<HTMLDivElement, NavigationLayoutProps>
                   {/* Next Button */}
                   {navigationConfig.next && (
                     <button
+                      data-testid="next-button"
                       onClick={() => window.location.href = navigationConfig.next!.href}
                       className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
                       aria-label={navigationConfig.next.label}

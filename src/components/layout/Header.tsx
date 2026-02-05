@@ -276,11 +276,14 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                     onFocus={() => setIsSearchFocused(true)}
                     onBlur={() => setIsSearchFocused(false)}
                     className="w-full pl-10 pr-10 py-2 text-sm rounded-lg border bg-white/20 backdrop-blur-sm border-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent placeholder:text-white/70 text-white"
+                    aria-label="Search"
+                    autoFocus
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery('')}
                       className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white"
+                      aria-label="مسح البحث"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -423,6 +426,8 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="p-2 text-white hover:text-white/90 rounded-lg hover:bg-white/10 backdrop-blur-sm transition-colors border border-white/30"
+                aria-label={isMobileMenuOpen ? "إغلاق القائمة" : "فتح القائمة"}
+                aria-expanded={isMobileMenuOpen}
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -444,11 +449,13 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full pl-10 pr-10 py-3 text-sm rounded-lg border bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    aria-label="بحث عن دورات في القائمة المحمولة"
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery('')}
                       className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400"
+                      aria-label="مسح البحث في القائمة المحمولة"
                     >
                       <X className="w-4 h-4" />
                     </button>

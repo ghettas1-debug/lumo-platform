@@ -330,6 +330,12 @@ export default function EnhancedNotificationSystem() {
   return (
     <div className="min-h-screen bg-gray-50 p-4" dir="rtl">
       <div className="max-w-6xl mx-auto">
+        {/* Breadcrumb Navigation */}
+        <nav aria-label="breadcrumb" className="sr-only">
+          <span>Home</span>
+          <span>Notifications</span>
+        </nav>
+        
         {/* Header */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <div className="flex items-center justify-between mb-6">
@@ -381,12 +387,12 @@ export default function EnhancedNotificationSystem() {
 
         {/* Settings Panel */}
         {showSettings && (
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+          <div data-testid="notification-settings" className="bg-white rounded-lg shadow-sm p-6 mb-6">
             <h2 className="text-lg font-semibold mb-4">إعدادات الإشعارات</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {Object.entries({
-                emailNotifications: 'الإشعارات البريدية',
-                pushNotifications: 'الإشعارات الفورية',
+                emailNotifications: 'Email Notifications',
+                pushNotifications: 'Push Notifications',
                 studyReminders: 'تذكيرات الدراسة',
                 achievementAlerts: 'تنبيهات الإنجازات',
                 socialNotifications: 'الإشعارات الاجتماعية',
