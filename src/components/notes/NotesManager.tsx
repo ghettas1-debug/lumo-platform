@@ -299,7 +299,7 @@ export default function NotesManager({
               setTags([]);
               setIsPublic(false);
             }}
-            variant="primary"
+            variant="default"
           >
             <Plus size={20} className="ml-2" />
             ملاحظة جديدة
@@ -530,7 +530,7 @@ export default function NotesManager({
                     </Button>
                     <Button
                       onClick={isEditing ? handleUpdateNote : handleCreateNote}
-                      variant="primary"
+                      variant="default"
                     >
                       {isEditing ? (
                         <>
@@ -772,7 +772,7 @@ export default function NotesManager({
                 setTags([]);
                 setIsPublic(false);
               }}
-              variant="primary"
+              variant="default"
             >
               <Plus size={20} className="ml-2" />
               أول ملاحظة

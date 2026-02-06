@@ -337,7 +337,7 @@ export default function InteractiveQuiz({
             </div>
 
             <div className="flex justify-center">
-              <Button onClick={handleStart} variant="primary" size="lg">
+              <Button onClick={handleStart} variant="default" size="lg">
                 <Play size={20} className="ml-2" />
                 بدء الاختبار
               </Button>
@@ -445,7 +445,7 @@ export default function InteractiveQuiz({
                 <RotateCcw size={20} className="ml-2" />
                 إعادة الاختبار
               </Button>
-              <Button onClick={() => window.history.back()} variant="primary" size="lg">
+              <Button onClick={() => window.history.back()} variant="default" size="lg">
                 <ArrowRight size={20} className="ml-2" />
                 العودة
               </Button>
@@ -626,12 +626,12 @@ export default function InteractiveQuiz({
             </div>
 
             {currentQuestionIndex === questions.length - 1 ? (
-              <Button onClick={handleSubmit} variant="primary">
+              <Button onClick={handleSubmit} variant="default">
                 <Target size={20} className="ml-2" />
                 إنهاء الاختبار
               </Button>
             ) : (
-              <Button onClick={handleNextQuestion} variant="primary">
+              <Button onClick={handleNextQuestion} variant="default">
                 التالي
                 <ArrowLeft size={20} className="mr-2" />
               </Button>

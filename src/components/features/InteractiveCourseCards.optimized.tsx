@@ -484,7 +484,7 @@ const InteractiveCourseCards = memo(
                 size="sm"
                 variant={
                   viewMode === 'grid'
-                    ? 'primary'
+                    ? 'default'
                     : 'outline'
                 }
                 onClick={() => setViewMode('grid')}
@@ -497,7 +497,7 @@ const InteractiveCourseCards = memo(
                 size="sm"
                 variant={
                   viewMode === 'list'
-                    ? 'primary'
+                    ? 'default'
                     : 'outline'
                 }
                 onClick={() => setViewMode('list')}

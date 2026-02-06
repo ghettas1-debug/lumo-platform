@@ -132,7 +132,7 @@ export default function ResetPasswordPage() {
               رابط استعادة كلمة المرور غير صالح أو منتهي الصلاحية
             </p>
             <Link href="/forgot-password">
-              <Button variant="primary" size="lg" className="w-full">
+              <Button variant="default" size="lg" className="w-full">
                 طلب رابط جديد
               </Button>
             </Link>
@@ -155,7 +155,7 @@ export default function ResetPasswordPage() {
               يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة
             </p>
             <Link href="/auth">
-              <Button variant="primary" size="lg" className="w-full">
+              <Button variant="default" size="lg" className="w-full">
                 تسجيل الدخول
               </Button>
             </Link>
@@ -296,7 +296,7 @@ export default function ResetPasswordPage() {
 
             <Button
               type="submit"
-              variant="primary"
+              variant="default"
               size="lg"
               className="w-full"
               disabled={isLoading}

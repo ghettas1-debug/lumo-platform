@@ -230,7 +230,7 @@ export default function CartPage() {
                 <p className="text-gray-500 mb-6">
                   أضف بعض الدورات لتبدأ رحلتك التعليمية
                 </p>
-                <Button variant="primary">
+                <Button variant="default">
                   استكشف الدورات
                 </Button>
               </Card>
@@ -349,7 +349,7 @@ export default function CartPage() {
 
               {/* Checkout Button */}
               <Button
-                variant="primary"
+                variant="default"
                 size="lg"
                 className="w-full mb-4"
                 disabled={cartItems.length === 0}

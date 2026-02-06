@@ -17,31 +17,31 @@ export default function DemoPage() {
           <div className="flex gap-2">
             <Button
               onClick={() => setActiveTab('ui')}
-              variant={activeTab === 'ui' ? 'primary' : 'outline'}
+              variant={activeTab === 'ui' ? 'default' : 'outline'}
             >
               مكونات UI
             </Button>
             <Button
               onClick={() => setActiveTab('animation')}
-              variant={activeTab === 'animation' ? 'primary' : 'outline'}
+              variant={activeTab === 'animation' ? 'default' : 'outline'}
             >
               رسوم متحركة
             </Button>
             <Button
               onClick={() => setActiveTab('charts')}
-              variant={activeTab === 'charts' ? 'primary' : 'outline'}
+              variant={activeTab === 'charts' ? 'default' : 'outline'}
             >
               رسوم بيانية
             </Button>
             <Button
               onClick={() => setActiveTab('search')}
-              variant={activeTab === 'search' ? 'primary' : 'outline'}
+              variant={activeTab === 'search' ? 'default' : 'outline'}
             >
               بحث وتصفية
             </Button>
             <Button
               onClick={() => setActiveTab('markdown')}
-              variant={activeTab === 'markdown' ? 'primary' : 'outline'}
+              variant={activeTab === 'markdown' ? 'default' : 'outline'}
             >
               Markdown
             </Button>

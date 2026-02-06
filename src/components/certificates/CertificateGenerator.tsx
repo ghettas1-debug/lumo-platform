@@ -473,7 +473,7 @@ export default function CertificateGenerator({
               
               <Button
                 onClick={() => handleDownload(selectedFormat)}
-                variant="primary"
+                variant="default"
                 size="sm"
                 disabled={isGenerating}
               >

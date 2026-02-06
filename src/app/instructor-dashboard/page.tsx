@@ -221,7 +221,7 @@ export default function InstructorDashboardPage() {
                 <Filter size={18} /> تصفية
               </Button>
               <Link href="/instructor-dashboard/create-course">
-                <Button variant="primary" className="gap-2">
+                <Button variant="default" className="gap-2">
                   <Plus size={18} /> دورة جديدة
                 </Button>
               </Link>
@@ -322,7 +322,7 @@ export default function InstructorDashboardPage() {
               <BarChart3 size={18} /> تقرير مفصل
             </Button>
             <Link href="/instructor-dashboard/create-course">
-              <Button variant="primary" size="md" className="gap-2 shadow-lg shadow-blue-600/20">
+              <Button variant="default" size="md" className="gap-2 shadow-lg shadow-blue-600/20">
                 <Plus size={18} /> إنشاء دورة جديدة
               </Button>
             </Link>

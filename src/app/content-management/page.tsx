@@ -13,7 +13,7 @@ export default function ContentManagementPage() {
             <h1 className="text-3xl font-black text-gray-900">إدارة المحتوى</h1>
             <p className="text-gray-600">لوحة تنظيم الدروس، الوحدات، والموارد.</p>
           </div>
-          <Button variant="primary" size="md" className="gap-2">
+          <Button variant="default" size="md" className="gap-2">
             <UploadCloud size={16} /> إضافة محتوى
           </Button>
         </div>

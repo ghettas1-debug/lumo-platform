@@ -153,7 +153,7 @@ export default function SubscriptionsPage() {
             </p>
             <div className="flex items-center justify-center gap-4">
               <Button
-                variant={billingCycle === 'monthly' ? 'primary' : 'outline'}
+                variant={billingCycle === 'monthly' ? 'default' : 'outline'}
                 size="lg"
                 onClick={() => setBillingCycle('monthly')}
                 className="bg-white text-blue-600 hover:bg-gray-100 border-white"
@@ -161,7 +161,7 @@ export default function SubscriptionsPage() {
                 شهري
               </Button>
               <Button
-                variant={billingCycle === 'yearly' ? 'primary' : 'outline'}
+                variant={billingCycle === 'yearly' ? 'default' : 'outline'}
                 size="lg"
                 onClick={() => setBillingCycle('yearly')}
                 className="bg-white text-blue-600 hover:bg-gray-100 border-white"

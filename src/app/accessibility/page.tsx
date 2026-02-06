@@ -268,7 +268,7 @@ export default function AccessibilityPage() {
                 <Download className="w-4 h-4 ml-2" />
                 تقرير الوصول
               </Button>
-              <Button variant="primary">
+              <Button variant="default">
                 <Plus className="w-4 h-4 ml-2" />
                 تحسين جديد
               </Button>
@@ -312,7 +312,7 @@ export default function AccessibilityPage() {
             <div className="space-y-3">
               <label className="font-medium text-gray-900">التباين العالي</label>
               <Button
-                variant={highContrast ? "primary" : "outline"}
+                variant={highContrast ? "default" : "outline"}
                 onClick={() => setHighContrast(!highContrast)}
                 className="w-full"
               >
@@ -324,7 +324,7 @@ export default function AccessibilityPage() {
             <div className="space-y-3">
               <label className="font-medium text-gray-900">الوضع الليلي</label>
               <Button
-                variant={darkMode ? "primary" : "outline"}
+                variant={darkMode ? "default" : "outline"}
                 onClick={() => setDarkMode(!darkMode)}
                 className="w-full"
               >
@@ -336,7 +336,7 @@ export default function AccessibilityPage() {
             <div className="space-y-3">
               <label className="font-medium text-gray-900">تقليل الحركة</label>
               <Button
-                variant={reducedMotion ? "primary" : "outline"}
+                variant={reducedMotion ? "default" : "outline"}
                 onClick={() => setReducedMotion(!reducedMotion)}
                 className="w-full"
               >
@@ -348,7 +348,7 @@ export default function AccessibilityPage() {
             <div className="space-y-3">
               <label className="font-medium text-gray-900">قارئ الشاشة</label>
               <Button
-                variant={screenReader ? "primary" : "outline"}
+                variant={screenReader ? "default" : "outline"}
                 onClick={() => setScreenReader(!screenReader)}
                 className="w-full"
               >

@@ -201,7 +201,7 @@ export default function PricingPage() {
 
                 {/* CTA Button */}
                 <Button 
-                  variant={plan.popular ? "primary" : "outline"} 
+                  variant={plan.popular ? "default" : "outline"} 
                   size="lg" 
                   className="w-full"
                 >
@@ -345,7 +345,7 @@ export default function PricingPage() {
             انضم إلى آلاف الطلاب الذين يحققون أهدافهم المهنية مع LUMO
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="primary" size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+            <Button variant="default" size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
               ابدأ مجاناً
             </Button>
             <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600">

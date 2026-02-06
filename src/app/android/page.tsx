@@ -172,7 +172,7 @@ export default function AndroidPage() {
               تجربة تعليمية استثنائية على أجهزة Android
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-green-700 hover:bg-gray-100">
+              <Button variant="default" size="lg" className="bg-white text-green-700 hover:bg-gray-100">
                 <Download className="w-4 h-4 ml-2" />
                 تنزيل من Google Play
               </Button>
@@ -193,7 +193,7 @@ export default function AndroidPage() {
             {versions.map((version) => (
               <Button
                 key={version.version}
-                variant={selectedVersion === version.version ? "primary" : "outline"}
+                variant={selectedVersion === version.version ? "default" : "outline"}
                 onClick={() => setSelectedVersion(version.version)}
               >
                 الإصدار {version.version}
@@ -249,7 +249,7 @@ export default function AndroidPage() {
               </div>
 
               <div className="flex gap-4">
-                <Button className="flex-1">
+                <Button variant="default" className="flex-1">
                   <Download className="w-4 h-4 ml-2" />
                   تنزيل الآن
                 </Button>
@@ -353,7 +353,7 @@ export default function AndroidPage() {
           <h2 className="text-3xl font-bold mb-4">جاهز للبدء؟</h2>
           <p className="text-lg mb-6">قم بتنزيل تطبيق Lumo من Google Play وابدأ رحلة التعلم</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-green-700 hover:bg-gray-100">
+            <Button variant="default" size="lg" className="bg-white text-green-700 hover:bg-gray-100">
               <Download className="w-4 h-4 ml-2" />
               تنزيل من Google Play
             </Button>

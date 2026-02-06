@@ -189,13 +189,13 @@ export default function NotesPage() {
               <div className="flex items-center gap-2">
                 <Button
                   onClick={() => setViewMode('grid')}
-                  variant={viewMode === 'grid' ? 'primary' : 'outline'}
+                  variant={viewMode === 'grid' ? 'default' : 'outline'}
                 >
                   <div className="w-4 h-4 grid grid-cols-2 gap-0.5"></div>
                 </Button>
                 <Button
                   onClick={() => setViewMode('list')}
-                  variant={viewMode === 'list' ? 'primary' : 'outline'}
+                  variant={viewMode === 'list' ? 'default' : 'outline'}
                 >
                   <div className="w-4 h-4 flex flex-col gap-0.5">
                     <div className="w-full h-0.5 bg-current"></div>
@@ -279,7 +279,7 @@ export default function NotesPage() {
             <Card className="p-6">
               <h3 className="text-lg font-bold text-gray-900 mb-4">إجراءات سريعة</h3>
               <div className="space-y-3">
-                <Button variant="primary" className="w-full">
+                <Button variant="default" className="w-full">
                   <Plus size={16} className="ml-2" />
                   ملاحظة جديدة
                 </Button>

@@ -362,7 +362,7 @@ export default function SchoolsPage() {
                       </div>
                     ))}
                   </div>
-                  <Button className="w-full" variant={plan.popular ? "primary" : "outline"}>
+                  <Button className="w-full" variant={plan.popular ? "default" : "outline"}>
                     {plan.price === 'مجاني' ? 'ابدأ مجاناً' : 'اشترك الآن'}
                   </Button>
                 </Card>

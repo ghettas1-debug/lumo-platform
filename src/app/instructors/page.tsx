@@ -144,7 +144,7 @@ export default function InstructorsPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <Button variant="primary" size="lg" className="rounded-xl">
+              <Button variant="default" size="lg" className="rounded-xl">
                 بحث
               </Button>
             </div>
@@ -275,7 +275,7 @@ export default function InstructorsPage() {
                     {/* Action Buttons */}
                     <div className="flex gap-3">
                       <Link href={`/courses?instructor=${instructor.id}`} className="flex-1">
-                        <Button variant="primary" className="w-full">
+                        <Button variant="default" className="w-full">
                           عرض الدورات
                         </Button>
                       </Link>

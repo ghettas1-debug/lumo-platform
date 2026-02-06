@@ -34,7 +34,7 @@ export default function CourseCommunityPage() {
             <h1 className="text-3xl font-black text-gray-900">مجتمع الدورة</h1>
             <p className="text-gray-600">ناقش المحتوى وتبادل الخبرات مع زملائك.</p>
           </div>
-          <Button variant="primary" size="md" className="gap-2" onClick={() => setShowModal(true)}>
+          <Button variant="default" size="md" className="gap-2" onClick={() => setShowModal(true)}>
             <MessageSquare size={16} /> موضوع جديد
           </Button>
         </div>
@@ -88,7 +88,7 @@ export default function CourseCommunityPage() {
             placeholder="اكتب تفاصيل الموضوع..."
             className="w-full border border-gray-200 rounded-lg px-3 py-2 h-24"
           />
-          <Button variant="primary" size="md" className="w-full">
+          <Button variant="default" size="md" className="w-full">
             نشر
           </Button>
         </div>

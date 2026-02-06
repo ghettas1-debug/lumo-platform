@@ -193,7 +193,7 @@ export default function CheckoutPage() {
               شكراً لاشتراكك في {plan.name}. ستصلك رسالة تأكيد على بريدك الإلكتروني قريباً.
             </p>
             <div className="space-y-4">
-              <Button variant="primary" size="lg" className="w-full">
+              <Button variant="default" size="lg" className="w-full">
                 الانتقال إلى لوحة التحكم
               </Button>
               <Button variant="outline" size="lg" className="w-full">
@@ -544,7 +544,7 @@ export default function CheckoutPage() {
               {/* Navigation Buttons */}
               <div className="flex justify-between mt-8">
                 <Button
-                  variant="outline"
+                  variant="default"
                   onClick={handlePrev}
                   disabled={currentStep === 1}
                 >
@@ -558,8 +558,9 @@ export default function CheckoutPage() {
                   </Button>
                 ) : (
                   <Button
-                    variant="primary"
-                    onClick={handleSubmit}
+                    variant="default"
+                    size="lg"
+                    className="w-full"
                     disabled={isProcessing}
                   >
                     {isProcessing ? (

@@ -309,7 +309,7 @@ export default function HelpPage() {
               <p className="text-gray-600 mb-6">
                 تواصل مع فريق الدعم مباشرة عبر الدردشة الحية
               </p>
-              <Button variant="primary">ابدأ الدردشة</Button>
+              <Button variant="default">ابدأ الدردشة</Button>
             </Card>
 
             <Card className="text-center p-8">
@@ -320,7 +320,7 @@ export default function HelpPage() {
               <p className="text-gray-600 mb-6">
                 أرسل لنا بريداً إلكترونياً وسنرد خلال 24 ساعة
               </p>
-              <Button variant="primary">أرسل رسالة</Button>
+              <Button variant="default">أرسل رسالة</Button>
             </Card>
 
             <Card className="text-center p-8">
@@ -331,7 +331,7 @@ export default function HelpPage() {
               <p className="text-gray-600 mb-6">
                 اتصل بنا مباشرة على رقم الهاتف
               </p>
-              <Button variant="primary">اتصل الآن</Button>
+              <Button variant="default">اتصل الآن</Button>
             </Card>
           </div>
         </div>

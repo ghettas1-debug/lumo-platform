@@ -413,7 +413,7 @@ export default function CertificatesPage() {
                   <div className="flex gap-2">
                     <Button
                       onClick={() => handleViewCertificate(certificate)}
-                      variant="primary"
+                      variant="default"
                       size="sm"
                       className="flex-1"
                     >
@@ -466,11 +466,10 @@ export default function CertificatesPage() {
                   <div className="flex gap-2">
                     <Button
                       onClick={() => handleViewCertificate(certificate)}
-                      variant="primary"
+                      variant="default"
                       size="sm"
                     >
-                      <Eye size={16} className="ml-2" />
-                      عرض
+                      عرض التفاصيل
                     </Button>
                     <Button
                       onClick={() => handleDownloadCertificate(certificate, 'pdf')}

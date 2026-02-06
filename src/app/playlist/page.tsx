@@ -607,7 +607,7 @@ export default function PlaylistPage() {
 
                     <Button
                       onClick={handlePlayPause}
-                      variant="primary"
+                      variant="default"
                       size="lg"
                       className="px-8 gap-2 bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
                     >
@@ -639,7 +639,7 @@ export default function PlaylistPage() {
                   <div className="flex items-center gap-4">
                     <Button
                       onClick={handleShuffle}
-                      variant={isShuffled ? "primary" : "outline"}
+                      variant={isShuffled ? "default" : "outline"}
                       size="sm"
                       className="gap-2"
                     >
@@ -819,7 +819,7 @@ export default function PlaylistPage() {
                   </div>
                   <Button
                     onClick={handleCreatePlaylist}
-                    variant="primary"
+                    variant="default"
                     size="sm"
                     className="gap-2 bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
                   >
@@ -950,7 +950,7 @@ export default function PlaylistPage() {
                   <div className="flex items-center gap-2">
                     <Button
                       onClick={() => setViewMode('grid')}
-                      variant={viewMode === 'grid' ? 'primary' : 'outline'}
+                      variant={viewMode === 'grid' ? 'default' : 'outline'}
                       size="sm"
                       className="gap-1"
                     >
@@ -958,7 +958,7 @@ export default function PlaylistPage() {
                     </Button>
                     <Button
                       onClick={() => setViewMode('list')}
-                      variant={viewMode === 'list' ? 'primary' : 'outline'}
+                      variant={viewMode === 'list' ? 'default' : 'outline'}
                       size="sm"
                       className="gap-1"
                     >

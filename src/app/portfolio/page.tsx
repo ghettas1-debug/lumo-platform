@@ -610,18 +610,18 @@ export default function PortfolioPage() {
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" asChild>
-                      <Link href={item.demoUrl} target="_blank">
+                    <Link href={item.demoUrl} target="_blank">
+                      <Button variant="outline" size="sm">
                         <ExternalLink className="w-4 h-4 ml-2" />
                         معاينة
-                      </Link>
-                    </Button>
-                    <Button variant="outline" size="sm" asChild>
-                      <Link href={item.githubUrl} target="_blank">
+                      </Button>
+                    </Link>
+                    <Link href={item.githubUrl} target="_blank">
+                      <Button variant="outline" size="sm">
                         <Github className="w-4 h-4 ml-2" />
                         GitHub
-                      </Link>
-                    </Button>
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </Card>
@@ -676,18 +676,18 @@ export default function PortfolioPage() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <Button variant="outline" size="sm" asChild>
-                        <Link href={item.demoUrl} target="_blank">
+                      <Link href={item.demoUrl} target="_blank">
+                        <Button variant="outline" size="sm">
                           <ExternalLink className="w-4 h-4 ml-2" />
                           معاينة
-                        </Link>
-                      </Button>
-                      <Button variant="outline" size="sm" asChild>
-                        <Link href={item.githubUrl} target="_blank">
+                        </Button>
+                      </Link>
+                      <Link href={item.githubUrl} target="_blank">
+                        <Button variant="outline" size="sm">
                           <Github className="w-4 h-4 ml-2" />
                           GitHub
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </div>

@@ -252,7 +252,7 @@ export default function ContactPage() {
 
                   <Button
                     type="submit"
-                    variant="primary"
+                    variant="default"
                     size="lg"
                     disabled={isSubmitting}
                     className="w-full"
@@ -393,7 +393,7 @@ export default function ContactPage() {
             انضم إلى آلاف الطلاب الذين يحققون أهدافهم مع LUMO
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="primary" size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+            <Button variant="default" size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
               ابدأ مجاناً
             </Button>
             <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600">

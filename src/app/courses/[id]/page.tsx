@@ -114,7 +114,7 @@ export default function CoursePage() {
                     )}
                   </div>
                   
-                  <Button variant="primary" size="lg" className="w-full mb-3">
+                  <Button variant="default" size="lg" className="w-full mb-3">
                     ابدأ التعلم الآن
                   </Button>
                   

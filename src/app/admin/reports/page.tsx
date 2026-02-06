@@ -310,7 +310,7 @@ export default function AdminReportsPage() {
                 <Settings className="w-4 h-4 ml-2" />
                 إعدادات التقارير
               </Button>
-              <Button>
+              <Button variant="default">
                 <Plus className="w-4 h-4 ml-2" />
                 تقرير جديد
               </Button>
@@ -518,7 +518,7 @@ export default function AdminReportsPage() {
                 </div>
                 <div className="flex items-center gap-3">
                   <Button
-                    variant={schedule.enabled ? "outline" : "primary"}
+                    variant={schedule.enabled ? "outline" : "default"}
                     size="sm"
                     onClick={() => handleToggleSchedule(schedule.id)}
                   >

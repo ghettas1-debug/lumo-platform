@@ -144,7 +144,7 @@ export default function InteractiveCourseCards({
             {categories.map((category) => (
               <Button
                 key={category}
-                variant={filterCategory === category ? "primary" : "outline"}
+                variant={filterCategory === category ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilterCategory(category)}
                 className={`${

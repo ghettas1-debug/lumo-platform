@@ -52,7 +52,7 @@ export { tokens, lightTheme, darkTheme } from '@/tokens/design-tokens';
 export type { Theme } from '@/tokens/design-tokens';
 
 // ===== RE-EXPORT EXISTING UI COMPONENTS =====
-export { Button, buttonVariants } from '@/components/ui/Button';
+export { Button } from '@/components/ui/Button';
 export { 
   Card, 
   CardHeader, 

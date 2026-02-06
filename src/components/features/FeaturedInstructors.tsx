@@ -198,7 +198,7 @@ export default function FeaturedInstructors() {
               إذا كنت خبيراً في مجالك وترغب في مشاركة معرفتك مع الآلاف من الطلاب، فنحن نرحب بك في منصتنا
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="primary" size="md" className="gap-2">
+              <Button variant="default" size="md" className="gap-2">
                 أصبح مدرباً
                 <ChevronRight className="w-4 h-4" />
               </Button>

@@ -213,7 +213,7 @@ export default function TwoFactorPage() {
               </div>
             </div>
             <Button
-              variant={isEnabled ? "outline" : "primary"}
+              variant={isEnabled ? "outline" : "default"}
               onClick={isEnabled ? handleDisable2FA : handleEnable2FA}
             >
               {isEnabled ? 'تعطيل' : 'تفعيل'}

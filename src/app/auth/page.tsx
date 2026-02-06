@@ -369,7 +369,7 @@ export default function AuthPage() {
 
             <Button
               type="submit"
-              variant="primary"
+              variant="default"
               size="lg"
               className="w-full"
               disabled={isLoading}

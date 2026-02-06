@@ -364,7 +364,7 @@ export default function UniversitiesPage() {
                       </div>
                     ))}
                   </div>
-                  <Button className="w-full" variant={plan.popular ? "primary" : "outline"}>
+                  <Button className="w-full" variant={plan.popular ? "default" : "outline"}>
                     {plan.price === 'مخصص' ? 'تواصل مع المبيعات' : 'اشترك الآن'}
                   </Button>
                 </Card>

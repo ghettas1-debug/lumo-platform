@@ -148,7 +148,7 @@ export default function StudentDashboardPage() {
               <div className="text-sm text-gray-600 flex items-center gap-1 mb-4">
                 <Star size={14} className="text-yellow-500" /> {rec.rating}
               </div>
-              <Button variant="primary" size="sm">تفاصيل</Button>
+              <Button variant="default" size="sm">تفاصيل</Button>
             </Card>
           ))}
         </div>

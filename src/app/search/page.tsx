@@ -353,7 +353,7 @@ export default function SearchPage() {
                   autoFocus
                 />
                 <Button 
-                  variant="primary" 
+                  variant="default" 
                   size="lg" 
                   className="rounded-xl m-1"
                   onClick={performSearch}
@@ -599,7 +599,7 @@ export default function SearchPage() {
                             <span className="text-lg font-bold text-gray-900">${course.price}</span>
                           )}
                         </div>
-                        <Button variant="primary" size="sm">
+                        <Button variant="default" size="sm">
                           عرض التفاصيل
                         </Button>
                       </div>
